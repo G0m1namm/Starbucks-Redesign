@@ -1,0 +1,8 @@
+@import "../../../styles/mixins";
+
+#viewContainer{
+    width: 100%;
+    height: 100%;
+    @include fluid-type(padding-left, 320px, 1366px, 16px, 100px);
+    @include fluid-type(padding-right, 320px, 1366px, 16px, 100px);
+}

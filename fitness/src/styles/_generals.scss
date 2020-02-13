@@ -1,4 +1,56 @@
+@include font-face(StolzlBold, '../assets/fonts/stolzl/StolzlBold', null, null, otf);
+@include font-face(StolzlBook, '../assets/fonts/stolzl/StolzlBook', null, null, otf);
+@include font-face(StolzlLight, '../assets/fonts/stolzl/StolzlLight', null, null, otf);
+@include font-face(StolzlMedium, '../assets/fonts/stolzl/StolzlMedium', null, null, otf);
+@include font-face(StolzlRegular, '../assets/fonts/stolzl/StolzlBook', null, null, otf);
+@include font-face(StolzlThin, '../assets/fonts/stolzl/StolzlBook', null, null, otf);
+
 *{
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+}
+
+.btn{
+    all: initial;
+    width: fit-content;
+    height: auto;
+    border: none;
+    padding: 12px 22px;
+    font-family: "StolzlMedium", sans-serif;
+    font-size: 0.875rem;
+    background-color: $white;
+    color: $gray;
+
+    cursor: pointer;
+    
+    &.btn{
+        &-primary{
+            background-color: $green;
+            color: $white;
+        }
+        &-secondary{
+            &-outlined {
+                border: 1px solid rgba($color: #c3c3c3, $alpha: 0.2);
+            }
+        }
+    }
+
+    &.icon-btn{
+        display: flex;
+        align-items: center;
+        padding: 0.6rem 0.8rem;
+        
+        & > svg, & > img{
+            margin-right: 5px;
+            color: $green;
+            height: 100%;
+            width: auto;
+        }
+        
+        & label{
+            width: 100%;
+            text-decoration: underline;
+        }
+    }
 }
