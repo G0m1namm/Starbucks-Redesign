@@ -18,11 +18,7 @@ header{
         display: flex;
         .logo-image{
             width: 40px;
-            margin-right: 0.5rem;
-        }
-
-        .open-map-button{
-            @include fluid-type(margin-left, 320px, 1366px, 10px, 40px);
+            margin-right: 30px;
         }
     }
 }
