@@ -1,9 +1,10 @@
 import React from "react";
 import "./ArticlePreview.scss";
+import { motion } from "framer-motion";
 
 export default function ArticlePreview({ image, title, subtitle, className = "", ...props }) {
     return (
-        <a className={`product-preview ${className}`} {...props}>
+        <motion.a whileHover={{ scale: 1.05 }} whileTap={{ scale: 1 }} className={`product-preview ${className}`} {...props}>
             <div className="product-preview-image">
                 <img src={image} alt={title} />
             </div>
@@ -11,6 +12,6 @@ export default function ArticlePreview({ image, title, subtitle, className = "",
                 <h3 className="product-preview-title">{title}</h3>
                 <p className="product-preview-subtitle">{subtitle}</p>
             </div>
-        </a>
+        </motion.a>
     );
 }

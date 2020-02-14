@@ -5,7 +5,9 @@ import { MenuICon } from "../../atoms/MenuIcon";
 import { Backdrop } from "@material-ui/core";
 import { motion, AnimatePresence } from "framer-motion";
 import { previewProducts } from "../../../data/products";
+import { NavigationLinks } from "../../../data/navigation";
 import ArticlePreview from "../../organisms/Menu/ArticlePreview/ArticlePreview";
+import NavWrapper, { NavLink } from "../../atoms/NavLink";
 
 const menuTransition = {
     collapsed: {
@@ -17,6 +19,38 @@ const menuTransition = {
         opacity: 1,
     }
 }
+
+export function Recomendations({products}) {
+
+    return (
+        <>
+            {products.map((product, index) => (
+                <li className="menu-product" key={`${product.id}${index}`}>
+                    <ArticlePreview
+                        image={product.image}
+                        title={product.title}
+                        subtitle={product.subtitle}
+                    />
+                </li>
+            ))}
+        </>
+    )
+}
+
+export function CategorizedNavigation(){
+    const navData = NavigationLinks;
+
+    return (
+        <div className="menu-nav-links">
+            {navData.map((navs, index) => (
+                <NavWrapper key={`${Date.now()}${index}`} title={navs.title}>
+                    {navs.links.map((link, index) => <NavLink key={`${Date.now()}${index}`}>{link}</NavLink>)}
+                </NavWrapper>
+            ))}
+        </div>
+    );
+}
+
 export default function Menu() {
     const products = previewProducts;
 
@@ -44,16 +78,9 @@ export default function Menu() {
                             </div>
                             <div className="menu-content">
                                 <ul className="menu-product-list">
-                                    {products.map((product, index) => (
-                                        <li className="menu-product" key={`${product.id}${index}`}>
-                                            <ArticlePreview 
-                                                image={product.image}
-                                                title={product.title} 
-                                                subtitle={product.subtitle}
-                                            />
-                                        </li>
-                                    ))}
+                                    <Recomendations products={products}/>
                                 </ul>
+                                <CategorizedNavigation/>
                             </div>
                         </div>
                     </motion.div>

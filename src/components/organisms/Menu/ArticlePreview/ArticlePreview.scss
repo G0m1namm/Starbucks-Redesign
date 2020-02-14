@@ -2,18 +2,21 @@
 
 .product-preview{
     max-height: 82px;
-    max-width: calc(82px * 3);
+    max-width: calc(82px * 3.5);
     text-decoration: none;
     display: grid;
     grid-template-columns: minmax(auto, 82px) 1fr;
+    grid-template-rows: 100%;
+    cursor: pointer;
 
     & > &-image{
         width: 100%;
         max-width: 82px;
+        box-shadow: 0 7px 24px -8px rgba(0, 0, 0, 0.5);
 
         & > img {
             width: 100%;
-            height: auto;
+            height: 100%;
             object-fit: cover;
         }
     }
@@ -24,14 +27,14 @@
 
         & > .product-preview-title{
             color: #000;
-            font-size: 16px;
+            font-size: 14px;
             display: block;
         }
         & > .product-preview-subtitle{
             color: $lightgray;
-            font-size: 14px;
+            font-size: 12px;
             display: block;
-            padding: 5px 0;
+            padding: 7px 0;
         }
     }
 }
