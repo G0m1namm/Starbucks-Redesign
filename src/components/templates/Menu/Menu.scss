@@ -68,12 +68,18 @@
         }
         & > .menu-content{
             display: grid;
-            grid-template-rows: min-content 1fr;
-            padding: 50px 30px;
+            grid-template-rows: min-content 1fr auto;
+            padding: 0 30px;
+            margin: 50px 0;
+            overflow-y: auto;
 
-            & > .menu-product-list{
+            & > .slider-container{
+                overflow: hidden;
+            }
+            & .menu-product-list{
                 display: flex;
                 margin-bottom: 10px;
+                min-width: 921px;
 
                 & > .menu-product{
                     list-style: none;
@@ -84,8 +90,15 @@
 
             & > .menu-nav-links{
                 display: grid;
-                grid-template-columns: repeat(auto-fill, minmax(296px, 1fr));
+                grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
                 grid-auto-rows: max-content;
+            }
+
+            & > .menu-content-actions{
+                display: flex;
+                align-items: flex-end;
+                justify-content: space-between;
+                height: fit-content;
             }
         }
     }

@@ -1,13 +1,14 @@
 import React from "react";
 import "./Menu.scss";
-import { MoreHorizontal } from "react-feather";
+import { MoreHorizontal, ArrowRight } from "react-feather";
 import { MenuICon } from "../../atoms/MenuIcon";
 import { Backdrop } from "@material-ui/core";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useMotionValue } from "framer-motion";
 import { previewProducts } from "../../../data/products";
 import { NavigationLinks } from "../../../data/navigation";
 import ArticlePreview from "../../organisms/Menu/ArticlePreview/ArticlePreview";
 import NavWrapper, { NavLink } from "../../atoms/NavLink";
+import { SocialIconsWrapper } from "../../molecules/Menu/SocialIconsWrapper";
 
 const menuTransition = {
     collapsed: {
@@ -20,24 +21,27 @@ const menuTransition = {
     }
 }
 
-export function Recomendations({products}) {
+export function Recomendations({ products }) {
+    const x = useMotionValue(0);
 
     return (
-        <>
-            {products.map((product, index) => (
-                <li className="menu-product" key={`${product.id}${index}`}>
-                    <ArticlePreview
-                        image={product.image}
-                        title={product.title}
-                        subtitle={product.subtitle}
-                    />
-                </li>
-            ))}
-        </>
+        <div className="slider-container">
+            <motion.ul className="menu-product-list" style={{ x }} drag="x" dragConstraints={{ left: -307, right: 0 }}>
+                {products.map((product, index) => (
+                    <li className="menu-product" key={`${product.id}${index}`}>
+                        <ArticlePreview
+                            image={product.image}
+                            title={product.title}
+                            subtitle={product.subtitle}
+                        />
+                    </li>
+                ))}
+            </motion.ul>
+        </div>
     )
 }
 
-export function CategorizedNavigation(){
+export function CategorizedNavigation() {
     const navData = NavigationLinks;
 
     return (
@@ -77,10 +81,15 @@ export default function Menu() {
                                 <MenuICon />
                             </div>
                             <div className="menu-content">
-                                <ul className="menu-product-list">
-                                    <Recomendations products={products}/>
-                                </ul>
-                                <CategorizedNavigation/>
+                                <Recomendations products={products} />
+                                <CategorizedNavigation />
+                                <div className="menu-content-actions">
+                                    <SocialIconsWrapper />
+                                    <button className="btn btn-primary">
+                                        Go to Starbucks Store &#8482; &nbsp;
+                                        <ArrowRight />
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </motion.div>
