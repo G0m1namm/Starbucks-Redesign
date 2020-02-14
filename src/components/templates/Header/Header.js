@@ -3,6 +3,7 @@ import LogoIcon from "../../../assets/icons/starbucks_logo.svg";
 import { IconButton } from "../../atoms/IconButton";
 import { MapPin } from "react-feather";
 import './Header.scss';
+import { MenuICon } from "../../atoms/MenuIcon";
 
 export function Header() {
     return (
@@ -16,6 +17,7 @@ export function Header() {
                     Prague, CZ
                 </IconButton>
             </div>
+            <MenuICon/>
             <AuthButtons />
         </header>
     );
