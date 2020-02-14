@@ -1,0 +1,37 @@
+@import '../../../../styles/colors';
+
+.product-preview{
+    max-height: 82px;
+    max-width: calc(82px * 3);
+    text-decoration: none;
+    display: grid;
+    grid-template-columns: minmax(auto, 82px) 1fr;
+
+    & > &-image{
+        width: 100%;
+        max-width: 82px;
+
+        & > img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+    }
+
+    & > &-content{
+        width: 100%;
+        padding: 12px 20px;
+
+        & > .product-preview-title{
+            color: #000;
+            font-size: 16px;
+            display: block;
+        }
+        & > .product-preview-subtitle{
+            color: $lightgray;
+            font-size: 14px;
+            display: block;
+            padding: 5px 0;
+        }
+    }
+}

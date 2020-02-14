@@ -1,8 +1,81 @@
+@import '../../../styles/utils';
+
+.aside-width{
+    width: calc(100% + 60px);
+    margin: -30px;
+}
+
 #asideMenu{
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: -1;
     width: 100px;
     height: 100vh;
     background-color: rgba($color: #000, $alpha: 0.4);
     padding: 50px 30px;
     display: grid;
     place-content: center;
+    background-color: $white;
+
+    & > .menu-header-mask{
+        height: 82px;
+    background-color: $white;
+    @extend .shadow;
+    @extend .aside-width;
+
+        & + .menu-icon-wrapper{
+            height: calc(100vh - 82px);
+            display: grid;
+            place-content: center;
+        }
+    }
+}
+
+#asideMenu + .menu-content-backdrop{
+    z-index: 0;
+    background: linear-gradient(90deg, transparent,rgba(0, 0, 0, 0.2));
+    justify-content: unset;
+    align-items: unset;
+
+    & > .menu-content--expanded{
+        height: 100vh;
+        background-color: $white;
+        min-width: 100px;
+        & > .menu-content-header-mask{
+            height: 82px;
+            background-color: $white;
+            display: block;
+            @extend .shadow;
+        }
+        & > .menu-content-wrapper{
+            height: calc(100vh - 82px);
+        }
+    }
+}
+
+.menu-content-backdrop{
+    & .menu-content-wrapper{
+        display: grid;
+        grid-template-columns: 100px auto;
+        & > .menu-content-icon{
+            padding: 50px 30px;
+            display: grid;
+            place-content: center;
+            height: 100%;
+        }
+        & > .menu-content{
+            display: grid;
+            padding: 50px 30px;
+
+            & > .menu-product-list{
+                display: flex;
+
+                & > .menu-product{
+                    list-style: none;
+                    padding: 10px;
+                }
+            }
+        }
+    }
 }
