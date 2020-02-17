@@ -1,5 +1,4 @@
 import React from "react";
-import { motion } from "framer-motion";
 import { makeStyles } from "@material-ui/core";
 import FacebookIcon from '@material-ui/icons/Facebook';
 import InstagramIcon from '@material-ui/icons/Instagram';
@@ -32,7 +31,7 @@ export const SocialIconsWrapper = () => {
     return (
         <ul className={classes.root}>
             {icons.map((SocialIcon, index) => (
-                <li>
+                <li key={`${Date.now()}${index}`}>
                     <Icon>
                         <SocialIcon/>
                     </Icon>

@@ -3,7 +3,6 @@ import LogoIcon from "../../../assets/icons/starbucks_logo.svg";
 import { IconButton } from "../../atoms/IconButton";
 import { MapPin } from "react-feather";
 import './Header.scss';
-import { MenuICon } from "../../atoms/MenuIcon";
 
 export function Header() {
     return (
@@ -17,7 +16,6 @@ export function Header() {
                     Prague, CZ
                 </IconButton>
             </div>
-            <MenuICon/>
             <AuthButtons />
         </header>
     );
@@ -25,7 +23,7 @@ export function Header() {
 
 export const AuthButtons = () => {
     return (
-        <div>
+        <div className="auth-actions-wrapper">
             <button className="btn btn-secondary">Sign In</button>
             <button className="btn btn-primary">Sign Up</button>
         </div>

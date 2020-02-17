@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Menu.scss";
-import { MoreHorizontal, ArrowRight } from "react-feather";
+import { ArrowRight } from "react-feather";
 import { MenuICon } from "../../atoms/MenuIcon";
-import { Backdrop } from "@material-ui/core";
+import { Modal } from "@material-ui/core";
 import { motion, AnimatePresence, useMotionValue } from "framer-motion";
 import { previewProducts } from "../../../data/products";
 import { NavigationLinks } from "../../../data/navigation";
@@ -10,31 +10,56 @@ import ArticlePreview from "../../organisms/Menu/ArticlePreview/ArticlePreview";
 import NavWrapper, { NavLink } from "../../atoms/NavLink";
 import { SocialIconsWrapper } from "../../molecules/Menu/SocialIconsWrapper";
 
-const menuTransition = {
-    collapsed: {
-        x: 0,
-        opacity: 0,
-    },
-    expanded: {
-        x: 0,
-        opacity: 1,
-    }
-}
-
 export function Recomendations({ products }) {
     const x = useMotionValue(0);
-
+    const productListVariants = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: {
+                delay: 0.6,
+                when: "beforeChildren",
+            }
+        }
+    }
+    const productVariants = {
+        productHidden: { x: -20,  opacity: 0, scale: 0},
+        productVisible: i => ({
+            x: 0,
+            opacity: 1,
+            scale: 1,
+            transition: {
+                delay: (i + 1.3) * 0.2,
+                when: "afterChildren",
+            }
+        })
+    }
     return (
         <div className="slider-container">
-            <motion.ul className="menu-product-list" style={{ x }} drag="x" dragConstraints={{ left: -307, right: 0 }}>
+            <motion.ul
+                className="menu-product-list"
+                style={{ x }}
+                drag="x"
+                dragConstraints={{ left: -307, right: 0 }}
+                variants={productListVariants}
+                initial="hidden"
+                animate="visible"
+            >
                 {products.map((product, index) => (
-                    <li className="menu-product" key={`${product.id}${index}`}>
+                    <motion.li 
+                        key={`${product.id}${index}`}
+                        className="menu-product"
+                        custom={index} 
+                        variants={productVariants}
+                        initial="productHidden"
+                        animate="productVisible"
+                    >
                         <ArticlePreview
                             image={product.image}
                             title={product.title}
                             subtitle={product.subtitle}
                         />
-                    </li>
+                    </motion.li>
                 ))}
             </motion.ul>
         </div>
@@ -57,27 +82,62 @@ export function CategorizedNavigation() {
 
 export default function Menu() {
     const products = previewProducts;
+    const [open, setOpen] = useState(false);
+    const menuVariants = {
+        collapsed: {
+            x: '-100vw',
+            opacity: 0,
+        },
+        expanded: {
+            x: 0,
+            opacity: 1,
+            transition: {
+                delay: 0.3,
+                when: "beforeChildren",
+                staggerChildren: 0.1
+            }
+        },
+        exit: {
+            x: '-100vw',
+            opacity: 0,
+            scale: 0.8,
+        }
+    }
+    const menuTransitions = {
+        type: "tween",
+        ease: "anticipate",
+        duration: 0.3
+    }
 
     return (
         <>
             <aside id="asideMenu">
-                <span className="menu-header-mask" />
-                <div className="menu-icon-wrapper">
+                <div className="menu-icon-wrapper" onClick={() => setOpen(!open)}>
                     <MenuICon />
                 </div>
             </aside >
-            <AnimatePresence>
-                <Backdrop open={true} className="menu-content-backdrop">
+            <Modal
+                open={open}
+                className="menu-content-backdrop"
+                onClose={(e) => { setOpen(!open) }}
+                aria-labelledby="menu-navigation"
+                aria-describedby="aside-menu-to-navigate"
+                BackdropProps={{
+                    className: "menu-modal-backdrop"
+                }}
+            >
+                <AnimatePresence>
                     <motion.div
                         initial="collapsed"
                         animate="expanded"
-                        exit="collapsed"
-                        variants={menuTransition}
+                        exit="expanded"
+                        variants={menuVariants}
+                        transition={menuTransitions}
                         className="menu-content--expanded"
                     >
                         <span className="menu-content-header-mask" />
                         <div className="menu-content-wrapper">
-                            <div className="menu-content-icon">
+                            <div className="menu-content-icon" onClick={() => setOpen(!open)}>
                                 <MenuICon />
                             </div>
                             <div className="menu-content">
@@ -93,8 +153,8 @@ export default function Menu() {
                             </div>
                         </div>
                     </motion.div>
-                </Backdrop>
-            </AnimatePresence>
+                </AnimatePresence>
+            </Modal>
         </>
     );
 }
