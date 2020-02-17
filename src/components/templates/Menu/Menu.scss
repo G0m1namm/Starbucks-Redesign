@@ -9,15 +9,13 @@
     position: fixed;
     left: 0;
     top: 0;
-    z-index: -1;
+    z-index: 9;
     width: 100px;
     height: 100vh;
-    background-color: rgba($color: #000, $alpha: 0.4);
     padding: 50px 30px;
     padding-top: calc(50px + 82px);
     display: grid;
     place-content: center;
-    background-color: $white;
 
     & > .menu-icon-wrapper{
         height: 100%;
