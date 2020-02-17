@@ -48,7 +48,8 @@
             height: 82px;
             background: linear-gradient(90deg, transparent, $white);
             display: block;
-            @extend .shadow;
+            
+            border-bottom: 1px solid rgba($color: #000, $alpha: 0.1);
         }
         & > .menu-content-wrapper{
             background-color: $white;
@@ -62,10 +63,31 @@
         display: grid;
         grid-template-columns: 100px auto;
         & > .menu-content-icon{
+            position: relative;
             padding: 50px 30px;
             display: grid;
             place-content: center;
             height: 100%;
+            cursor: pointer;
+
+            &::after{
+                content: '';
+                position: absolute;
+                right: 0;
+                top: 50%;
+                bottom: 0;
+                transform: translateY(-50%);
+                height: 100%;
+                max-height: calc(100vh - 82px - 100px);
+                width: 1px;
+                background-color: rgba($color: #000, $alpha: 0.1);
+            }
+
+            & > svg {
+                width: 40px;
+                height: auto;
+                color: $lightgray;
+            }
         }
         & > .menu-content{
             display: grid;

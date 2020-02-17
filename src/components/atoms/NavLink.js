@@ -1,5 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core";
+import { motion } from "framer-motion";
 
 const useStyle = makeStyles({
     navLink: {
@@ -16,17 +17,17 @@ const useStyle = makeStyles({
             fontWeight: 600
         }
     },
-    navWrapper:{
+    navWrapper: {
         display: "grid",
         padding: '16px 10px',
     },
-    navTitle:{
+    navTitle: {
         color: "#000",
         fontSize: 16,
         marginBottom: 5,
         fontFamily: "StolzlBold, sans-serif",
     },
-    navLinksContainer:{
+    navLinksContainer: {
         display: "grid",
     }
 })
@@ -40,15 +41,31 @@ export function NavLink({ className = "", children, href = "#", ...props }) {
     );
 }
 
-export default function NavWrapper({ title, children, ...props }) {
+export default function NavWrapper({ title, children, order, ...props }) {
     const classes = useStyle();
-
-    return(
-        <nav className={classes.navWrapper}>
+    const navVariants = {
+        navHidden: { x: -50, opacity: 0 },
+        navVisible: i => ({
+            x: 0,
+            opacity: 1,
+            transition: {
+                when: "afterChildren",
+                delay: (i + 2.6) * 0.2,
+            }
+        })
+    }
+    return (
+        <motion.nav
+            className={classes.navWrapper}
+            custom={order}
+            variants={navVariants}
+            initial="navHidden"
+            animate="navVisible"
+        >
             <h2 className={classes.navTitle}>{title}</h2>
             <ul className={classes.navLinksContainer}>
                 {children && children}
             </ul>
-        </nav>
+        </motion.nav>
     );
 }

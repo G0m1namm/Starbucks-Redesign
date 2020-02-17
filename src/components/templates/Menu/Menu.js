@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./Menu.scss";
-import { ArrowRight } from "react-feather";
+import { ArrowRight, X } from "react-feather";
 import { MenuICon } from "../../atoms/MenuIcon";
 import { Modal } from "@material-ui/core";
 import { motion, AnimatePresence, useMotionValue } from "framer-motion";
@@ -17,7 +17,7 @@ export function Recomendations({ products }) {
         visible: {
             opacity: 1,
             transition: {
-                delay: 0.6,
+                delay: 0.3,
                 when: "beforeChildren",
             }
         }
@@ -68,15 +68,29 @@ export function Recomendations({ products }) {
 
 export function CategorizedNavigation() {
     const navData = NavigationLinks;
-
+    const navListVariants = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: {
+                delay: 1,
+                when: "beforeChildren",
+            }
+        }
+    }
     return (
-        <div className="menu-nav-links">
+        <motion.div 
+            className="menu-nav-links"
+            variants={navListVariants}
+            initial="hidden"
+            animate="visible"
+        >
             {navData.map((navs, index) => (
-                <NavWrapper key={`${Date.now()}${index}`} title={navs.title}>
+                <NavWrapper key={`${Date.now()}${index}`} title={navs.title} order={index}>
                     {navs.links.map((link, index) => <NavLink key={`${Date.now()}${index}`}>{link}</NavLink>)}
                 </NavWrapper>
             ))}
-        </div>
+        </motion.div>
     );
 }
 
@@ -92,7 +106,6 @@ export default function Menu() {
             x: 0,
             opacity: 1,
             transition: {
-                delay: 0.3,
                 when: "beforeChildren",
                 staggerChildren: 0.1
             }
@@ -138,7 +151,7 @@ export default function Menu() {
                         <span className="menu-content-header-mask" />
                         <div className="menu-content-wrapper">
                             <div className="menu-content-icon" onClick={() => setOpen(!open)}>
-                                <MenuICon />
+                                <X />
                             </div>
                             <div className="menu-content">
                                 <Recomendations products={products} />
