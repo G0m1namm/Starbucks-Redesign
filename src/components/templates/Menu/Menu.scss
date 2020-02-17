@@ -1,0 +1,129 @@
+@import '../../../styles/utils';
+
+.aside-width{
+    width: calc(100% + 60px);
+    margin: -30px;
+}
+
+#asideMenu{
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: -1;
+    width: 100px;
+    height: 100vh;
+    background-color: rgba($color: #000, $alpha: 0.4);
+    padding: 50px 30px;
+    padding-top: calc(50px + 82px);
+    display: grid;
+    place-content: center;
+    background-color: $white;
+
+    & > .menu-icon-wrapper{
+        height: 100%;
+        display: grid;
+        place-content: center;
+    }
+}
+.menu-content-backdrop{
+    z-index: 0;
+    justify-content: unset;
+    align-items: unset;
+
+    & .menu-modal-backdrop{
+        background: linear-gradient(90deg, transparent 50%,rgba(0, 0, 0, 0.2)) !important;
+    }
+
+    & > .menu-content--expanded{
+        height: 100vh;
+        min-width: 100px;
+        max-width: 1081px;
+        z-index: 1000;
+
+        &:focus{
+            outline: none;
+        }
+
+        & > .menu-content-header-mask{
+            height: 82px;
+            background: linear-gradient(90deg, transparent, $white);
+            display: block;
+            
+            border-bottom: 1px solid rgba($color: #000, $alpha: 0.1);
+        }
+        & > .menu-content-wrapper{
+            background-color: $white;
+            height: calc(100vh - 82px);
+        }
+    }
+}
+
+.menu-content-backdrop{
+    & .menu-content-wrapper{
+        display: grid;
+        grid-template-columns: 100px auto;
+        & > .menu-content-icon{
+            position: relative;
+            padding: 50px 30px;
+            display: grid;
+            place-content: center;
+            height: 100%;
+            cursor: pointer;
+
+            &::after{
+                content: '';
+                position: absolute;
+                right: 0;
+                top: 50%;
+                bottom: 0;
+                transform: translateY(-50%);
+                height: 100%;
+                max-height: calc(100vh - 82px - 100px);
+                width: 1px;
+                background-color: rgba($color: #000, $alpha: 0.1);
+            }
+
+            & > svg {
+                width: 40px;
+                height: auto;
+                color: $lightgray;
+            }
+        }
+        & > .menu-content{
+            display: grid;
+            grid-template-rows: min-content 1fr auto;
+            padding: 0 30px;
+            margin: 50px 0;
+            overflow-y: auto;
+
+            & > .slider-container{
+                overflow: hidden;
+            }
+            & .menu-product-list{
+                display: flex;
+                margin-bottom: 10px;
+                min-width: 921px;
+
+                & > .menu-product{
+                    list-style: none;
+                    padding: 10px;
+                    height: fit-content;
+                }
+            }
+
+            & > .menu-nav-links{
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+                grid-auto-rows: max-content;
+            }
+
+            & > .menu-content-actions{
+                display: flex;
+                align-items: flex-end;
+                justify-content: space-between;
+                height: fit-content;
+                overflow: hidden;
+            }
+        }
+    }
+}
