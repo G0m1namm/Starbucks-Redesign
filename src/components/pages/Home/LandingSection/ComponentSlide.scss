@@ -1,6 +1,30 @@
+@import '../../../../styles/utils';
+
 #componentSlideOne{
     width: 100%;
     height: calc(100vh - 82px);
-    display: flex;
-    flex: 1 1 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    & .component-one-info{
+        height: fit-content;
+        @include fluid-type(padding-left, 320px, 1366px, 0px, 50px);
+        padding-top: 30px;
+
+        & > .component-category,
+        & > .component-title,
+        & .component-description{
+            margin: 10px 0;
+        }
+    }
+
+    & .component-one-image{
+        display: inherit;
+        align-items: flex-end;
+        
+        & img{
+            width: 100%;
+            filter: drop-shadow(32px -3px 24px #3f2d3050);
+        }
+    }
 }

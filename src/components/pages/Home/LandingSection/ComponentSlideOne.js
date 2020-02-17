@@ -2,6 +2,7 @@ import React from "react";
 import './ComponentSlide.scss'
 import { ComponentCategory, ComponentTitle, ComponentDescription } from "../../../organisms/Home/ComponenSlider/ComponentInfo";
 import CoffeImage from "../../../../assets/images/coffee-slide-1.png";
+import FrappuccinoImage from "../../../../assets/images/frappuccino-image-slide-bg.png";
 import { Breakpoint } from "react-socks";
 
 export const DescriptionSwitchView = () => {
@@ -22,11 +23,11 @@ export const ImageSwitchView = () => {
     return (
         <>
             <Breakpoint medium down>
-                <img src={CoffeImage} alt="Starbucks coffee" />
+                <img src={FrappuccinoImage} alt="Starbucks coffee" />
                 <button className="btn btn-primary">Find out more</button>
             </Breakpoint>
             <Breakpoint medium up>
-                <img src={CoffeImage} alt="Starbucks coffee" />
+                <img src={FrappuccinoImage} alt="Starbucks coffee" />
             </Breakpoint>
         </>
     );
@@ -34,12 +35,12 @@ export const ImageSwitchView = () => {
 export default function ComponentSlideOne() {
     return (
         <div id="componentSlideOne">
-            <div className="">
+            <div className="component-one-info">
                 <ComponentCategory>Summer drinks</ComponentCategory>
                 <ComponentTitle>Meet our new <span className="active">Summer</span> Coffeedrinks</ComponentTitle>
                 <DescriptionSwitchView/>
             </div>
-            <div>
+            <div className="component-one-image">
                 <ImageSwitchView/>
             </div>
         </div>
