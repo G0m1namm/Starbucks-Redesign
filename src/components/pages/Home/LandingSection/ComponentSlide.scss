@@ -1,30 +1,99 @@
 @import '../../../../styles/utils';
 
-#componentSlideOne{
+#componentSlider,
+#componentSlider > div{
     width: 100%;
-    height: calc(100vh - 82px);
+    height: 100%;
+    min-height: 600px;
+    max-height: calc(100vh - 82px);
+    position: relative;
+    z-index: 3;
+}
+
+#componentSlideOne,
+#componentSlideTwo,
+#componentSlideThree{
+    height: inherit;
+    min-height: inherit;
     display: grid;
     grid-template-columns: 1fr 1fr;
+    grid-template-rows: 100%;
 
-    & .component-one-info{
+    & .component-one-info,
+    & .component-two-info,
+    & .component-three-info{
         height: fit-content;
         @include fluid-type(padding-left, 320px, 1366px, 0px, 50px);
-        padding-top: 30px;
+        @include fluid-type(padding-top, 320px, 1366px, 20px, 50px);
 
-        & > .component-category,
         & > .component-title,
         & .component-description{
-            margin: 10px 0;
+            @include fluid-type(margin-top, 320px, 1366px, 10px, 20px);
+            @include fluid-type(margin-bottom, 320px, 1366px, 10px, 20px);
+        }
+
+        & .component-description{
+            @include fluid-type(margin-bottom, 320px, 1366px, 10px, 35px);
+        }
+
+        & > .component-category{
+            @include fluid-type(margin-bottom, 320px, 1366px, 20px, 30px);
         }
     }
 
-    & .component-one-image{
+    & .component-one-image,
+    & .component-two-image,
+    & .component-three-image{
         display: inherit;
         align-items: flex-end;
         
         & img{
             width: 100%;
+            max-width: 620px;
             filter: drop-shadow(32px -3px 24px #3f2d3050);
         }
+    }
+}
+
+#componentSlideTwo,
+#componentSlideThree{
+    &::after,
+    &::before{
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        margin-left: -100px;
+        height: 100%;
+    }
+
+    &::after{    
+        background-image: url('../../../../assets/images/cappuccino-slide-2-1.jpg');
+        background-size: cover;
+        background-position: center right;
+        z-index: -2;
+    }
+
+    &::before{
+        background-color: rgba($color: $black, $alpha: 0.2);
+        z-index: -1;
+    }
+    
+    & .component-two-info,
+    & .component-three-info{
+        & .component-title{
+            color: $white;
+        }
+    }
+    & .component-two-image,
+    & .component-three-image{
+        opacity: 0;
+    }
+}
+
+#componentSlideThree{
+    &::after{
+        background-image: url('../../../../assets/images/coffe-beans-slide-3.jpg');
     }
 }
