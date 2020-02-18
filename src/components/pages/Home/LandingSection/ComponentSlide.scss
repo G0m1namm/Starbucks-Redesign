@@ -99,16 +99,79 @@
 }
 
 #componentSliderControls{
+    min-width: 320px;
     position: absolute;
     bottom: 0;
     right: 0;
     z-index: 5;
+    display: grid;
+    grid-template-columns: max-content  1fr;
+    background-color: $green;
 
     & > .slider-control-actions{
         display: grid;
-        grid-template-rows: repeat(2, calc(100% - 24px));
+        grid-template-rows: repeat(2, 1fr);
+
+        & > button{
+            transform-origin: right center;
+            &:first-child, &:focus{
+                background-color: scale-color($color: $green, $red: null, $green: null, $blue: null, $saturation: 0%, $lightness: -10%, $alpha: 1.0);
+                
+                &:hover{
+                background-color: scale-color($color: $green, $red: null, $green: null, $blue: null, $saturation: 0%, $lightness: -5%, $alpha: 1.0);
+                }
+            }
+            &:last-child, &:focus{
+                background-color: scale-color($color: $green, $red: null, $green: null, $blue: null, $saturation: 0%, $lightness: -20%, $alpha: 1.0);
+                
+                &:hover{
+                    background-color: scale-color($color: $green, $red: null, $green: null, $blue: null, $saturation: 0%, $lightness: -30%, $alpha: 1.0);
+                }
+            }
+        }
     }
+
     & > .slider-control-info{
-        padding: 22px;
+        position: relative;
+        padding: 22px 30px;
+        
+        & > .slider-progress-bar{
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 3;
+            width: 100%;
+            background-color: scale-color($color: $green, $red: null, $green: null, $blue: null, $saturation: 0%, $lightness: -10%, $alpha: 1.0);
+            
+            & > .MuiLinearProgress-bar{
+                background-color: $white;
+            }
+        }
+
+        & > .slider-control-item-indicator{
+            width: 100%;
+            display: flex;
+            flex-wrap: nowrap;
+            justify-content: space-between;
+            color: rgba($color: $white, $alpha: 0.3);
+            font-size: 12px;
+            margin-bottom: 10px;
+
+            & > span:last-child{
+                font-size: 14px;
+            }
+        }
+
+        & > .slider-control-next-title{
+            color: $white;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        & > .slider-control-next-description{
+            color: rgba($color: $white, $alpha: 0.5);
+            margin-top: 15px;
+            font-size: 12px;
+        }
     }
 }

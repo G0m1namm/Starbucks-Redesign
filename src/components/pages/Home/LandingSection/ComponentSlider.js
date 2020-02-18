@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { wrap } from "@popmotion/popcorn";
 import ArrowBackIosRoundedIcon from '@material-ui/icons/ArrowBackIosRounded';
 import ArrowForwardIosRoundedIcon from '@material-ui/icons/ArrowForwardIosRounded';
+import { LinearProgress } from "@material-ui/core";
 
 const components = [
     <ComponentSlideOne />,
@@ -35,15 +36,21 @@ const variants = {
     }
 };
 
-export const SliderControls = ({handleNext, handlePrev}) => {
+export const SliderControls = ({ handleNext, handlePrev }) => {
     return (
         <div id="componentSliderControls">
             <div className="slider-control-actions">
-                <button className="btn btn-primary" onClick={handlePrev}><ArrowBackIosRoundedIcon/></button>
-                <button className="btn btn-primary" onClick={handleNext}><ArrowForwardIosRoundedIcon/></button>
+                <button className="btn btn-primary" onClick={handlePrev}><ArrowBackIosRoundedIcon /></button>
+                <button className="btn btn-primary" onClick={handleNext}><ArrowForwardIosRoundedIcon /></button>
             </div>
             <div className="slider-control-info">
-
+                <LinearProgress className="slider-progress-bar" />
+                <div className="slider-control-item-indicator">
+                    <span>Next slide</span>
+                    <span>03</span>
+                </div>
+                <h3 className="slider-control-next-title">Our best coffee beans</h3>
+                <p className="slider-control-next-description">See how we roast them</p>
             </div>
         </div>
     );
@@ -82,7 +89,7 @@ export default function ComponentSlider() {
             <div className="prev" onClick={() => paginate(-1)}>
                 {"Prev ‣"}
             </div> */}
-                <SliderControls handleNext={() => paginate(1)} handlePrev={() => paginate(-1)}/>
+                <SliderControls handleNext={() => paginate(1)} handlePrev={() => paginate(-1)} />
             </section>
         </>
     );
