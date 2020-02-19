@@ -1,0 +1,32 @@
+@import '../../../../styles/utils';
+
+.component-category{
+    display: block;
+    text-transform: uppercase;
+    color: rgba($color: $grayTextDescription, $alpha: 0.5);
+    font-family: 'StolzlMedium', sans-serif;
+    @include fluid-type(font-size, 320px, 1366px, 16px, 18px);
+    letter-spacing: 3px;
+    text-shadow: 0px 0px 2px currentColor;
+}
+
+.component-title{
+    display: block;
+    text-transform: initial;
+    font-family: 'StolzlBold', sans-serif;
+    color: $black;
+    @include fluid-type(font-size, 320px, 1366px, 20px, 49px);
+
+    & > .active {
+        color: $green;
+        font-family: inherit;
+    }
+}
+
+.component-description{
+    display: block;
+    color: $grayTextDescription;
+    max-inline-size: 400px;
+    line-height: 2;
+    @include fluid-type(font-size, 320px, 1366px, 14px, 16px);
+}

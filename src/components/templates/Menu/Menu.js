@@ -117,8 +117,9 @@ export default function Menu() {
         }
     }
     const menuTransitions = {
-        type: "tween",
-        ease: "anticipate",
+        type: "spring",
+        stiffness: 300,
+        damping: 200,
         duration: 0.3
     }
 
