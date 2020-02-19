@@ -29,6 +29,7 @@ export default function ComponentSlideOne() {
         initial: { y: 20, opacity: 0, transition: {
             staggerChildren: 0.2,
             staggerDirection: -1,
+            delay: 0.4
         }},
         animate: {
           y: 0,
@@ -41,7 +42,7 @@ export default function ComponentSlideOne() {
       };
 
     return (
-        <motion.div positionTransition initial={false} variants={stagger} exit="initial" id="componentSlideOne">
+        <motion.div positionTransition initial="initial" variants={stagger} exit="initial" id="componentSlideOne">
             <motion.div className="component-one-info" variants={variants} initial="initial" animate="animate" >
                 <motion.div variants={stagger} custom={1}>
                     <ComponentCategory>Summer drinks</ComponentCategory>
