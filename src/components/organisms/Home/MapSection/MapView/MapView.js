@@ -15,7 +15,7 @@ export default class MapView extends React.Component {
 
     render() {
         return (
-            <div style={{ height: '600px', width: '100%  ' }}>
+            <div style={{ height: '400px', width: '100%  ' }}>
                 <GoogleMapReact
                     bootstrapURLKeys={{ key: API_KEY }}
                     defaultCenter={this.props.center}

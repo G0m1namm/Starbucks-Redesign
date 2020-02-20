@@ -6,11 +6,22 @@
     grid-column: 2 / 3;
     grid-row: 1 / 3;
     display: grid;
+    position: relative;
+
+    &::after{
+        content: '';
+        position: absolute;
+        bottom: 0;
+        width: calc(100% - 7px);
+        height: 15px;
+        z-index: 2;
+        background: linear-gradient(0deg, $green, transparent);
+    }
 
     & > .aside-scroller-container{
         height: inherit;
         overflow: hidden;
-
+        
         &:hover{
             overflow-y: auto;
         }
@@ -29,7 +40,7 @@
         & .list-item-box{
             padding: 1.5rem 1rem;
             background-color: $green;
-            border-bottom: 2px solid rgba($color: $white, $alpha: 0.2);
+            border-bottom: 1px solid rgba($color: $white, $alpha: 0.2);
             min-height: 100px;
             color: $white;
         }

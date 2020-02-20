@@ -105,10 +105,6 @@ export default function Menu() {
         expanded: {
             x: 0,
             opacity: 1,
-            transition: {
-                when: "beforeChildren",
-                staggerChildren: 0.1
-            }
         },
         exit: {
             x: '-100vw',
@@ -118,8 +114,8 @@ export default function Menu() {
     }
     const menuTransitions = {
         type: "spring",
-        stiffness: 300,
-        damping: 200,
+        stiffness: 800,
+        damping: 100,
         duration: 0.3
     }
 
@@ -140,7 +136,7 @@ export default function Menu() {
                     className: "menu-modal-backdrop"
                 }}
             >
-                <AnimatePresence>
+                <AnimatePresence exitBeforeEnter>
                     <motion.div
                         initial="collapsed"
                         animate="expanded"
