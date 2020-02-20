@@ -1,0 +1,10 @@
+#mapSection{
+    padding: 0 0 30px 30px;
+    
+    & > .map-wrapper{
+        display: grid;
+        grid-template-areas: "view list" "search list";
+        grid-template-columns: 1fr 300px;
+        grid-template-rows: 600px 100px;
+    }
+}

@@ -2,8 +2,8 @@
 @include font-face(StolzlBook, '../assets/fonts/stolzl/StolzlBook', null, null, otf);
 @include font-face(StolzlLight, '../assets/fonts/stolzl/StolzlLight', null, null, otf);
 @include font-face(StolzlMedium, '../assets/fonts/stolzl/StolzlMedium', null, null, otf);
-@include font-face(StolzlRegular, '../assets/fonts/stolzl/StolzlBook', null, null, otf);
-@include font-face(StolzlThin, '../assets/fonts/stolzl/StolzlBook', null, null, otf);
+@include font-face(StolzlRegular, '../assets/fonts/stolzl/StolzlRegular', null, null, otf);
+@include font-face(StolzlThin, '../assets/fonts/stolzl/StolzlThin', null, null, otf);
 
 *{
     margin: 0;
@@ -13,6 +13,27 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
+
+/* width */
+::-webkit-scrollbar {
+width: 7px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+background: darken($color: $green, $amount: 20); 
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+background: $white; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+background: darken($color: $white, $amount: 10); 
+}
+
 body{
     background-color: $white2;
     overflow-x: hidden;

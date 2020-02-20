@@ -73,7 +73,7 @@ export default function CardsSection() {
     return (
         <section id="cardsSection">
             {cardsCopy.map((card, index) =>
-                <IntersectionObserver className={`card-wrapper-square-${card.idx}`} whileHover={{ scale: 1.02 }} whileTap={{ scale: 1 }}>
+                <IntersectionObserver key={`card-wrapper-${index}`} className={`card-wrapper-square-${card.idx}`} whileHover={{ scale: 1.02 }} whileTap={{ scale: 1 }}>
                     <Card index={card.idx} delayOrder={card.idx}>
                         <span className="card-indicator">{card.indicator}</span>
                         <motion.div variants={staggerFadeUp} initial="hidden" animate="visible" custom={index} className="card-info-wrapper">
