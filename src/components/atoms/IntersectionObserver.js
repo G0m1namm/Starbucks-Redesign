@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useIntersection } from "react-use";
+import { motion } from "framer-motion";
 
 export const IntersectionContext = React.createContext({ inView: true });
 
@@ -25,7 +26,7 @@ export const IntersectionObserver = ({
 
   return (
     <IntersectionContext.Provider value={{ inView }}>
-      <div ref={intersectionRef} {...props}>{children}</div>
+      <motion.div ref={intersectionRef} {...props}>{children}</motion.div>
     </IntersectionContext.Provider>
   );
 };

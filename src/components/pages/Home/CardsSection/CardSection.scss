@@ -7,7 +7,7 @@
     grid-template-areas: "card1 card1 card2 card2"
                           "card1 card1 card3 card4";
     gap: 2rem;
-    padding: 50px 0;
+    padding: 100px 0;
     padding-left: 30px;
     z-index: 2;
 
@@ -17,6 +17,13 @@
         padding-bottom: 50%;
         overflow: hidden;
         background-color: $white;
+        box-shadow: 0px 0px 51px -40px $lightgray;
+        cursor: pointer;
+        
+        &:hover{
+            transition: box-shadow 0.3s ease;
+            box-shadow: 0px 0px 51px -20px $lightgray;
+        }
 
         &::after{
             content: "";
@@ -74,6 +81,16 @@
         grid-area: card4;
         background-color: $green;
 
+        &::after{
+            height: 100%;
+            top: -7%;
+            left: unset;
+            right: -50%;
+            background-image: url('../../../../assets/icons/starbucks_logo.svg');
+            background-size: contain;
+            filter: grayscale(1) opacity(0.1);
+        }
+        
         & > .card-root-4{
             & > .card-indicator{
                 & > svg{

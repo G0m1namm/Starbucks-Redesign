@@ -3,6 +3,7 @@ import { IntersectionObserver } from "../../../atoms/IntersectionObserver";
 import { Card } from "../../../organisms/Home/CardSection/Card";
 import "./CardSection.scss";
 import { ArrowRight } from "react-feather";
+import { motion } from "framer-motion";
 
 export default function CardsSection() {
 
@@ -31,16 +32,54 @@ export default function CardsSection() {
         },
     ];
 
+    const staggerFadeUp = {
+        hidden: {
+            opacity: 0,
+            transition: {
+                // when: "afterChildren",
+                // staggerChildren: 0.07,
+                // delayChildren: 0.2,
+            }
+        },
+        visible: index => ({
+            opacity: 1,
+            transition: {
+                // when: "beforeChildren",
+                // staggerChildren: 0.3,
+                // staggerDirection: 1,
+                delay: index * 0.6,
+            }
+        })
+    };
+
+    const fadeUp = {
+        visible: ([i, idx]) => ({
+            y: 0,
+            opacity: 1,
+            transition: {
+                y: { stiffness: 1000, velocity: -100 },
+                delay: (i + (idx + 3)) * 0.2,
+            }
+        }),
+        hidden: {
+            y: 50,
+            opacity: 0,
+            transition: {
+                y: { stiffness: 1000 },
+            }
+        }
+    }
+
     return (
         <section id="cardsSection">
-            {cardsCopy.map(card =>
-                <IntersectionObserver className={`card-wrapper-square-${card.idx}`}>
+            {cardsCopy.map((card, index) =>
+                <IntersectionObserver className={`card-wrapper-square-${card.idx}`} whileHover={{ scale: 1.02 }} whileTap={{ scale: 1 }}>
                     <Card index={card.idx} delayOrder={card.idx}>
                         <span className="card-indicator">{card.indicator}</span>
-                        <div className="card-info-wrapper">
-                            <h2 className="card-info-title">{card.title}</h2>
-                            {card.description && <p className="card-info-description">{card.description}</p>}
-                        </div>
+                        <motion.div variants={staggerFadeUp} initial="hidden" animate="visible" custom={index} className="card-info-wrapper">
+                            <motion.h2 variants={fadeUp} className="card-info-title" custom={[0, index]}>{card.title}</motion.h2>
+                            {card.description && <motion.p variants={fadeUp} className="card-info-description" custom={[1, index]}>{card.description}</motion.p>}
+                        </motion.div>
                     </Card>
                 </IntersectionObserver>
             )}

@@ -15,7 +15,7 @@ export const Card = ({
         () => ({
             duration,
             delay: delayOrder / 7,
-            ease: easing
+            ease: easing,
         }),
         [duration, delayOrder, easing]
     );
