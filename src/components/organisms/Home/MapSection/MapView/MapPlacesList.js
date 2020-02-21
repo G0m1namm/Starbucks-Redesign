@@ -1,56 +1,26 @@
-import React, { useRef } from "react";
+import React, { useRef, useContext } from "react";
 import clx from "classnames";
 import "./MapPlacesList.scss";
+import { MapPlacesContext, HoveredPlaceDispatchContext } from "../../../../pages/Home/MapSection/MapSection";
 
 export default function MapPlacesList() {
     const asideRef = useRef(null);
-    const info = [
-        {
-            id: 1,
-            title: "Spálená 74/18",
-            subtitle: "Praha 2",
-            schedule: "10:00 - 23:00",
-        },
-        {
-            id: 2,
-            title: "Jugoslávská 2/5",
-            subtitle: "Praha 4",
-            schedule: "10:00 - 23:00",
-        },
-        {
-            id: 3,
-            title: "Staromestské nám. 478/26",
-            subtitle: "Praha 1",
-            schedule: "10:00 - 23:00",
-        },
-        {
-            id: 4,
-            title: "Prazsky Hrad, Kajetánka, Hradcanské nám.",
-            subtitle: "Praha 1",
-            schedule: "10:00 - 23:00",
-        },
-        {
-            id: 5,
-            title: "Spálená 74/18",
-            subtitle: "Praha 2",
-            schedule: "10:00 - 23:00",
-        },
-    ];
-
+    const places = useContext(MapPlacesContext);
+    
     return (
         <aside id="mapAsideList" ref={asideRef}>
             <div className="aside-scroller-container">
                 <div className="list-main-item">
                     <h3>Found 10 coffeeshops in your area</h3>
                 </div>
-                {info.map((item, index) =>
+                {places.map((place, index) =>
                     <ListItem
                         key={`list-place-${index}`}
                         className={`list-item-${index}`}
-                        listNum={item.id}
-                        title={item.title}
-                        subtitle={item.subtitle}
-                        schedule={item.schedule}
+                        listNum={place.id}
+                        title={place.title}
+                        subtitle={place.subtitle}
+                        schedule={place.schedule}
                     />
                 )}
             </div>
@@ -59,8 +29,11 @@ export default function MapPlacesList() {
 }
 
 export function ListItem({ className, title, subtitle, schedule, listNum }) {
+    
+    const changePlaceKeyHovered = useContext(HoveredPlaceDispatchContext);
+
     return (
-        <div className={clx("list-item-box", className)}>
+        <div className={clx("list-item-box", className)} onMouseEnter={() => changePlaceKeyHovered(listNum)} onMouseLeave={() => changePlaceKeyHovered(0)}>
             <h4>{listNum}. {title}</h4>
             <h5>{subtitle}</h5>
             <span>{schedule}</span>
