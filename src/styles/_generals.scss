@@ -21,17 +21,17 @@ width: 7px;
 
 /* Track */
 ::-webkit-scrollbar-track {
-background: darken($color: $green, $amount: 20); 
+background: $white; 
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-background: $white; 
+background: darken($color: $green, $amount: 10); 
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-background: darken($color: $white, $amount: 10); 
+background: darken($color: $green, $amount: 20); 
 }
 
 body{

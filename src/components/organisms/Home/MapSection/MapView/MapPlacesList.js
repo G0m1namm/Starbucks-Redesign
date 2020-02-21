@@ -21,6 +21,8 @@ export default function MapPlacesList() {
                         title={place.title}
                         subtitle={place.subtitle}
                         schedule={place.schedule}
+                        lat={place.lat}
+                        lng={place.lng}
                     />
                 )}
             </div>
@@ -28,12 +30,20 @@ export default function MapPlacesList() {
     );
 }
 
-export function ListItem({ className, title, subtitle, schedule, listNum }) {
-    
-    const changePlaceKeyHovered = useContext(HoveredPlaceDispatchContext);
+export function ListItem({ className, title, subtitle, schedule, listNum, lat, lng }) {
+    const [onCenterChange, setPlaceKeyHovered] = useContext(HoveredPlaceDispatchContext);
+
+    const handleMouseEnter = () => {
+        setPlaceKeyHovered(listNum);
+        onCenterChange([lat, lng]);
+    }
+
+    const handleMouseLeave = () => {
+        setPlaceKeyHovered(0);
+    }
 
     return (
-        <div className={clx("list-item-box", className)} onMouseEnter={() => changePlaceKeyHovered(listNum)} onMouseLeave={() => changePlaceKeyHovered(0)}>
+        <div className={clx("list-item-box", className)} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
             <h4>{listNum}. {title}</h4>
             <h5>{subtitle}</h5>
             <span>{schedule}</span>

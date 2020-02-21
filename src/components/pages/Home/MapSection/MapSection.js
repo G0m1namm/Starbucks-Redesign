@@ -11,15 +11,35 @@ export const HoveredPlaceValueContext = React.createContext();
 
 export default function MapSection() {
     const [hoverPlaceKey, setPlaceKeyHovered] = useState(0);
+    const [center, setCenter] = useState({lat: 50.0866954, lng: 14.4147005});
+    const [zoom, setZoom] = useState(14.5);
+
+    const onKeyHoverChange = (key) => {
+        setPlaceKeyHovered(key);
+    }
     
+    const onCenterChange = ([lat, lng]) => {
+        const center = {lat, lng};
+        setCenter(center);
+    }
+
+    const onZoomChange = (zoom) => {
+        const parsedZoom = parseInt(zoom);
+        setZoom(parsedZoom);
+    }
+
     return (
         <section id="mapSection">
             <h2 className="map-title">Find <span className="green">the nearest</span> Starbucks</h2>
-            <HoveredPlaceDispatchContext.Provider value={(e) => setPlaceKeyHovered(e)}>
+            <HoveredPlaceDispatchContext.Provider value={[onCenterChange, onKeyHoverChange]}>
                 <HoveredPlaceValueContext.Provider value={hoverPlaceKey}>
                     <MapPlacesContext.Provider value={places}>
                         <div className="map-wrapper">
-                            <MapView />
+                            <MapView
+                                center={center}
+                                zoom={zoom}
+                                onZoomChange={onZoomChange}
+                            />
                             <MapPlacesList />
                             <MapSearchBar />
                         </div>
