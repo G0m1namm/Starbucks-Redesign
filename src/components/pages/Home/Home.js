@@ -5,6 +5,7 @@ import ComponentSlider from "./LandingSection/ComponentSlider";
 import CardsSection from "./CardsSection/CardsSection";
 import MapSection from "./MapSection/MapSection";
 import ProductSection from "./ProductSection/ProductSection";
+import RewardsProcessSection from "./RewardsProcess/StarbucksRewardsProcess";
 
 export default function Home() {
     return(
@@ -13,6 +14,7 @@ export default function Home() {
             <CardsSection/>
             <MapSection/>
             <ProductSection/>
+            <RewardsProcessSection/>
         </ViewContainer>
     );
 }
