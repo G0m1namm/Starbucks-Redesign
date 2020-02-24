@@ -38,7 +38,8 @@
     & .component-three-info{
         height: fit-content;
         @include fluid-type(padding-left, 320px, 1366px, 0px, 50px);
-        @include fluid-type(padding-top, 320px, 1366px, 20px, 50px);
+        // @include fluid-type(padding-top, 320px, 1366px, 20px, 50px);
+        place-self: center;
 
         & .component-title,
         & .component-description{
