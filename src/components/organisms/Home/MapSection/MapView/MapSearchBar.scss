@@ -11,17 +11,6 @@
     gap: 30px;
     place-content: center flex-start;
     background-color: darken($color: $green, $amount: 5);
-    
-    // &::after{
-    //     content: "";
-    //     position: absolute;
-    //     top: 0;
-    //     left: 0;
-    //     width: 100vw;
-    //     height: 300px;
-    //     background-color: $grayDarker;
-    //     z-index: -1;
-    // }
 
     & > .search-bar-input{
         display: flex;

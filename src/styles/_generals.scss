@@ -41,6 +41,15 @@ body{
 .shadow{
     box-shadow: 0px 1px 2px rgba(0,0,0,0.2);
 }
+
+.card-shadow{
+    box-shadow: 0px 0px 51px -40px $lightgray;
+
+    &:hover{
+        transition: box-shadow 0.3s ease;
+        box-shadow: 0px 0px 51px -20px $lightgray;
+    }
+}
 .btn{
     all: initial;
     width: fit-content;

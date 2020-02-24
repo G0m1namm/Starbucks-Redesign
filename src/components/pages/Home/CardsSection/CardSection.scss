@@ -17,13 +17,9 @@
         padding-bottom: 50%;
         overflow: hidden;
         background-color: $white;
-        box-shadow: 0px 0px 51px -40px $lightgray;
         cursor: pointer;
+        @extend .card-shadow;
         
-        &:hover{
-            transition: box-shadow 0.3s ease;
-            box-shadow: 0px 0px 51px -20px $lightgray;
-        }
 
         &::after{
             content: "";

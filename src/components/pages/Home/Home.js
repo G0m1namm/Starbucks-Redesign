@@ -4,6 +4,7 @@ import './Home.scss';
 import ComponentSlider from "./LandingSection/ComponentSlider";
 import CardsSection from "./CardsSection/CardsSection";
 import MapSection from "./MapSection/MapSection";
+import ProductSection from "./ProductSection/ProductSection";
 
 export default function Home() {
     return(
@@ -11,6 +12,7 @@ export default function Home() {
             <ComponentSlider />
             <CardsSection/>
             <MapSection/>
+            <ProductSection/>
         </ViewContainer>
     );
 }
