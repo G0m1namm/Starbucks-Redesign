@@ -67,7 +67,7 @@ export function Recomendations({ products }) {
 }
 
 export function CategorizedNavigation() {
-    const navData = NavigationLinks;
+    const navData = [...NavigationLinks];
     const navListVariants = {
         hidden: { opacity: 0 },
         visible: {
@@ -95,7 +95,7 @@ export function CategorizedNavigation() {
 }
 
 export default function Menu() {
-    const products = previewProducts;
+    const products = [...previewProducts];
     const [open, setOpen] = useState(false);
     const menuVariants = {
         collapsed: {
