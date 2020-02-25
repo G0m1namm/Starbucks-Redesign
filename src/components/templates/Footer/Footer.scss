@@ -8,6 +8,8 @@
 footer{
     width: 100%;
     background-color: $green;
+    position: relative;
+    z-index: 9;
 
     & > .brand-container,
     & > .policy-conditions{
