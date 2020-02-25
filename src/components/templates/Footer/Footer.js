@@ -21,8 +21,8 @@ export default function Footer() {
             </div>
             <div className="footer-navigation-content">
                 <div className="footer-actions">
-                    <div>
-                        <IconButton icon={MapPin} className="btn btn-primary-white">
+                    <div className="change-location-action">
+                        <IconButton icon={<MapPin />} className="btn icon-btn btn-primary-white">
                             Prague, Cz
                         </IconButton>
                         <span>Change location</span>

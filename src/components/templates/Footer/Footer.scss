@@ -26,6 +26,7 @@ footer{
             font-family: 'StolzlLight', sans-serif;
             color: rgba($color: $white, $alpha: 0.4);
             letter-spacing: 0px;
+            font-size: 14px;
         }
     }
 
@@ -34,7 +35,6 @@ footer{
         place-items: center;
 
         & span{
-            font-size: 14px;
             padding: 10px 0;
 
             &:first-child{
@@ -55,17 +55,66 @@ footer .footer-navigation-content{
     display: flex;
 
     & > .footer-actions{
-        padding: 0px 20px;
+        padding: 16px 20px;
         width: 100%;
         max-width: 280px;
+
+        & > .change-location-action{
+            display: flex;
+            flex-wrap: nowrap;
+            & > span{
+                width: min-content;
+                font-size: 12px;
+                color: rgba($color: $white, $alpha: 0.6);
+                font-family: 'StolzlBook', sans-serif;
+                text-decoration: underline;
+                padding: 8px 10px;
+                margin: 0 auto;
+                cursor: pointer;
+                &:hover{
+                    text-decoration: unset;
+                }
+            }
+        }
+
+        & > ul{
+            margin-top: 15px;
+            margin-bottom: 15px;
+
+            & div[class*="root"]:hover{
+                & > svg{                    
+                    color: rgba(255, 255, 255, 0.9);
+                }
+            }
+        }
     }
 
     & > .footer-main-content{
         width: 100%;
         & > .footer-nav-links{
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
             grid-auto-rows: max-content;
+
+            & > nav[class*="navWrapper"]{
+                grid-auto-rows: min-content;
+                & > h2 {
+                    color: rgba(255, 255, 255, 0.9);
+
+                    & + ul {
+                        grid-auto-rows: min-content;
+                        & a[class*="link"]{
+                            color: rgba(255, 255, 255, 0.6);
+                            font-size: 12px;
+                            font-family: 'StolzlLight';
+                            font-weight: 600;
+                            &:hover{
+                                color: $white;
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }

@@ -83,8 +83,12 @@ body{
         }
         &-primary-white{
             background-color: rgba($color: $white, $alpha: 0.2);
-            color: $white;
-            font-family: "StolzlBook", sans-serif;
+            color: rgba($color: $white, $alpha: 0.9);
+            border: 1px solid rgba($color: $white, $alpha: 0.3);
+        
+            &.icon-btn > svg {
+                color: rgba($color: $white, $alpha: 0.9);
+            }
         }
     }
 
