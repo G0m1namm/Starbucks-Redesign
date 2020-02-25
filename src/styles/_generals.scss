@@ -77,6 +77,10 @@ body{
             color: $white;
         }
         &-secondary{
+            &:hover{
+                text-decoration: underline;
+            }
+            
             &-outlined {
                 border: 1px solid rgba($color: #c3c3c3, $alpha: 0.2);
             }
