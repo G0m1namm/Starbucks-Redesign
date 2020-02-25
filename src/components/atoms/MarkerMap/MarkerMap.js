@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import clx from "classnames";
 import { motion, AnimatePresence } from "framer-motion";
 import "./MarkerMap.scss";

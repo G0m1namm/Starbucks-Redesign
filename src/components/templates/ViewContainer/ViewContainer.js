@@ -6,5 +6,5 @@ export default function ViewContainer({children, ...props}){
         <main id="viewContainer" {...props}>
             {children}
         </main>
-    )
+    );
 }

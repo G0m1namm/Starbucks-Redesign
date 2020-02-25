@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import MapView from "../../../organisms/Home/MapSection/MapView/MapView";
 import MapPlacesList from "../../../organisms/Home/MapSection/MapView/MapPlacesList";
 import MapSearchBar from "../../../organisms/Home/MapSection/MapView/MapSearchBar";

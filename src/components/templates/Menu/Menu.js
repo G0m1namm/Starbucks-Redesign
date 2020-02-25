@@ -23,7 +23,7 @@ export function Recomendations({ products }) {
         }
     }
     const productVariants = {
-        productHidden: { x: -20,  opacity: 0, scale: 0},
+        productHidden: { x: -20, opacity: 0, scale: 0 },
         productVisible: i => ({
             x: 0,
             opacity: 1,
@@ -46,10 +46,10 @@ export function Recomendations({ products }) {
                 animate="visible"
             >
                 {products.map((product, index) => (
-                    <motion.li 
+                    <motion.li
                         key={`${product.id}${index}`}
                         className="menu-product"
-                        custom={index} 
+                        custom={index}
                         variants={productVariants}
                         initial="productHidden"
                         animate="productVisible"
@@ -79,7 +79,7 @@ export function CategorizedNavigation() {
         }
     }
     return (
-        <motion.div 
+        <motion.div
             className="menu-nav-links"
             variants={navListVariants}
             initial="hidden"
@@ -126,17 +126,17 @@ export default function Menu() {
                     <MenuICon />
                 </div>
             </aside >
-            <Modal
-                open={open}
-                className="menu-content-backdrop"
-                onClose={(e) => { setOpen(!open) }}
-                aria-labelledby="menu-navigation"
-                aria-describedby="aside-menu-to-navigate"
-                BackdropProps={{
-                    className: "menu-modal-backdrop"
-                }}
-            >
-                <AnimatePresence exitBeforeEnter>
+            <AnimatePresence exitBeforeEnter>
+                <Modal
+                    open={open}
+                    className="menu-content-backdrop"
+                    onClose={() => { setOpen(!open) }}
+                    aria-labelledby="menu-navigation"
+                    aria-describedby="aside-menu-to-navigate"
+                    BackdropProps={{
+                        className: "menu-modal-backdrop"
+                    }}
+                >
                     <motion.div
                         initial="collapsed"
                         animate="expanded"
@@ -163,8 +163,8 @@ export default function Menu() {
                             </div>
                         </div>
                     </motion.div>
-                </AnimatePresence>
-            </Modal>
+                </Modal>
+            </AnimatePresence>
         </>
     );
 }

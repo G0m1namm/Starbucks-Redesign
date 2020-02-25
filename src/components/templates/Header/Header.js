@@ -3,6 +3,7 @@ import LogoIcon from "../../../assets/icons/starbucks_logo.svg";
 import { IconButton } from "../../atoms/IconButton";
 import { MapPin } from "react-feather";
 import './Header.scss';
+import { useHistory } from "react-router-dom";
 
 export function Header() {
     return (
@@ -22,9 +23,11 @@ export function Header() {
 }
 
 export const AuthButtons = () => {
+    const history = useHistory();
+    
     return (
         <div className="auth-actions-wrapper">
-            <button className="btn btn-secondary">Sign In</button>
+            <button className="btn btn-secondary" onClick={() => history.push("/login")}>Sign In</button>
             <button className="btn btn-primary">Sign Up</button>
         </div>
     );
