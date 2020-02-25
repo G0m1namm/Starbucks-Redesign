@@ -8,12 +8,27 @@
 footer{
     width: 100%;
     background-color: $green;
+    background-image: url('../../../assets/images/footer-bg-mask.png');
     position: relative;
     z-index: 9;
 
+    &::after{
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -25%;
+        width: 100%;
+        height: 100%;
+        background-image: url('../../../assets/icons/starbucks_logo.svg');
+        background-size: contain;
+        background-repeat: no-repeat;
+        filter: grayscale(1) opacity(0.04);
+        pointer-events: none;
+    }
+
     & > .brand-container,
     & > .policy-conditions{
-        background-color: $greenDark;
+        background-color: rgba($color: $greenDark, $alpha: 0.8);
         height: 70px;
         display: flex;
         place-content: center space-between;
