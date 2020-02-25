@@ -1,6 +1,6 @@
 {
 	"auth": {
-		"fitnessa3314097": {
+		"fitness10b3f91d": {
 			"service": "Cognito",
 			"providerPlugin": "awscloudformation",
 			"dependsOn": [],

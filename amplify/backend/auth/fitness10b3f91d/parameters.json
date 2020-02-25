@@ -1,8 +1,8 @@
 {
-    "identityPoolName": "fitnessa3314097_identitypool_a3314097",
+    "identityPoolName": "fitness10b3f91d_identitypool_10b3f91d",
     "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "fitnesa3314097",
-    "userPoolName": "fitnessa3314097_userpool_a3314097",
+    "resourceNameTruncated": "fitnes10b3f91d",
+    "userPoolName": "fitness10b3f91d_userpool_10b3f91d",
     "autoVerifiedAttributes": [
         "email"
     ],
@@ -28,9 +28,9 @@
     "userpoolClientReadAttributes": [
         "email"
     ],
-    "userpoolClientLambdaRole": "fitnesa3314097_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "fitnes10b3f91d_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "resourceName": "fitnessa3314097",
+    "resourceName": "fitness10b3f91d",
     "authSelections": "identityPoolAndUserPool",
     "authRoleArn": {
         "Fn::GetAtt": [

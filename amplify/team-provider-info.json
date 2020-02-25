@@ -16,5 +16,23 @@
                 "fitnessa3314097": {}
             }
         }
+    },
+    "dev": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-fitness-dev-113739-authRole",
+            "UnauthRoleArn": "arn:aws:iam::280825150766:role/amplify-fitness-dev-113739-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::280825150766:role/amplify-fitness-dev-113739-authRole",
+            "Region": "us-east-2",
+            "DeploymentBucketName": "amplify-fitness-dev-113739-deployment",
+            "UnauthRoleName": "amplify-fitness-dev-113739-unauthRole",
+            "StackName": "amplify-fitness-dev-113739",
+            "StackId": "arn:aws:cloudformation:us-east-2:280825150766:stack/amplify-fitness-dev-113739/26aeb170-57ed-11ea-8ce2-0a3121d24df0",
+            "AmplifyAppId": "d1qkfz9q5wqmr6"
+        },
+        "categories": {
+            "auth": {
+                "fitness10b3f91d": {}
+            }
+        }
     }
 }
