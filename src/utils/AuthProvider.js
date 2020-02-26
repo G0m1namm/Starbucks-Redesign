@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Auth } from "aws-amplify";
 import PrivateRouter from "./PrivateRouter";
-import { Login } from "../components/pages/Login/Login";
+import { Login, Demo } from "../components/pages/Login/Login";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import MainRoutingWrapper from "../components/templates/MainRoutingWrapper/MainRoutinWrapper";
 
@@ -37,7 +37,8 @@ export default function AuthProvider() {
                 <Switch>
                     <FormDataContext.Provider value={handleFormSubmit}>
                         <PrivateRouter path="/login">
-                            <Login />
+                            {/* <Login /> */}
+                            <Demo />
                         </PrivateRouter>
                     </FormDataContext.Provider>
                     <Route path="*" component={MainRoutingWrapper} />

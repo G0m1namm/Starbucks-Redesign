@@ -13,3 +13,96 @@ code {
 }
 
 @import 'App.scss';
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "StolzlRegular", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  letter-spacing: 1px;
+}
+
+/* width */
+::-webkit-scrollbar {
+width: 7px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+background: $white; 
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+background: darken($color: $green, $amount: 10); 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+background: darken($color: $green, $amount: 20); 
+}
+
+::selection {
+    background: $green !important;
+}
+.btn{
+  all: initial;
+  width: max-content;
+  height: auto;
+  border: none;
+  padding: 12px 22px;
+  font-family: "StolzlMedium", sans-serif;
+  font-size: 0.875rem;
+  background-color: $white;
+  color: $gray;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+
+  cursor: pointer;
+  
+  &.btn{
+      &-primary{
+          background-color: $green;
+          color: $white;
+      }
+      &-secondary{
+          &:hover{
+              text-decoration: underline;
+          }
+          
+          &-outlined {
+              border: 1px solid rgba($color: #c3c3c3, $alpha: 0.2);
+          }
+      }
+      &-primary-white{
+          background-color: rgba($color: $white, $alpha: 0.2);
+          color: rgba($color: $white, $alpha: 0.9);
+          border: 1px solid rgba($color: $white, $alpha: 0.3);
+      
+          &.icon-btn > svg {
+              color: rgba($color: $white, $alpha: 0.9);
+          }
+      }
+  }
+
+  &.icon-btn{
+      display: flex;
+      align-items: center;
+      padding: 0.6rem 0.8rem;
+      
+      & > svg, & > img{
+          margin-right: 5px;
+          color: $green;
+          height: 100%;
+          width: auto;
+      }
+      
+      & label{
+          width: 100%;
+          text-decoration: underline;
+      }
+  }
+}
