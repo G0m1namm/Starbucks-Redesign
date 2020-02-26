@@ -1,25 +1,9 @@
-import React, { useContext } from 'react'
-import { FormDataContext } from "../../../utils/AuthProvider";
-import { useForm } from 'react-hook-form';
-import { Form, Icon, Input, Button, Checkbox, Row, Col } from 'antd';
-import { motion } from "framer-motion";
+import React from 'react'
+import { Form, Icon, Input, Button, Row, Col } from 'antd';
 import WomanImage from "../../../assets/images/lookin-device.webp";
 import Logo from "../../../assets/icons/starbucks_logo.svg";
 import "./Login.scss";
 import { Auth } from 'aws-amplify';
-
-export function Login() {
-    const { register, handleSubmit } = useForm();
-    const updateFormData = useContext(FormDataContext);
-
-    return (
-        <Form onSubmit={handleSubmit(updateFormData)} className="login-form">
-            <input type="email" placeholder="email" name="email" ref={register} />
-            <input type="password" placeholder="pass" name="email" ref={register} />
-            <button className="btn btn-primary">Submit</button>
-        </Form>
-    );
-}
 
 const CustomizedForm = Form.create({
     name: 'global_state',
@@ -100,7 +84,7 @@ const CustomizedForm = Form.create({
     );
 });
 
-export class Demo extends React.Component {
+export class Login extends React.Component {
     state = {
         fields: {
             email: {
