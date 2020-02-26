@@ -2,7 +2,11 @@ import React, { useContext } from 'react'
 import { FormDataContext } from "../../../utils/AuthProvider";
 import { useForm } from 'react-hook-form';
 import { Form, Icon, Input, Button, Checkbox, Row, Col } from 'antd';
+import { motion } from "framer-motion";
+import WomanImage from "../../../assets/images/lookin-device.webp";
+import Logo from "../../../assets/icons/starbucks_logo.svg";
 import "./Login.scss";
+import { Auth } from 'aws-amplify';
 
 export function Login() {
     const { register, handleSubmit } = useForm();
@@ -46,6 +50,11 @@ const CustomizedForm = Form.create({
     return (
         <section className="login-form-container">
             <Form className="login-form" onSubmit={(e) => props.onSubmit(e, validateFields)}>
+                <Form.Item>
+                    <span className="login-welcome-title">Welcome!</span>
+                    <br />
+                    <small>Login to your account</small>
+                </Form.Item>
                 <Form.Item label="Email" colon={false} hasFeedback>
                     {getFieldDecorator('email', {
                         rules: [{ type: 'email', message: 'The input is not valid E-mail!' }, { required: true, message: 'Please input your email!', }],
@@ -72,7 +81,7 @@ const CustomizedForm = Form.create({
                 <Form.Item>
                     <Row gutter={12} type="flex">
                         <Col span={12}>
-                            <Button block type="primary" htmlType="submit" className="login-form-button">
+                            <Button block type="primary" loading={props.isValidating} htmlType="submit" className="login-form-button">
                                 Log in
                             </Button>
                         </Col>
@@ -104,6 +113,7 @@ export class Demo extends React.Component {
             //     value: true,
             // },
         },
+        isValidating: false
     };
 
     handleFormChange = changedFields => {
@@ -116,18 +126,32 @@ export class Demo extends React.Component {
         e.preventDefault();
         onValidate((err, values) => {
             if (!err) {
-                console.table(values)
+                console.table(values);
+                this.handleSignIn(values);
             }
         })
     };
 
+    handleSignIn = ({ email, password }) => {
+        this.setState({isValidating: true});
+        Auth.signIn({username: email, password})
+        .then(user => {
+            console.log(user);
+        })
+        .then(() => this.setState({isValidating: false}))
+        .catch(err => console.table(err))
+    }
+
     render() {
-        const { fields } = this.state;
+        const { fields, isValidating } = this.state;
         return (
             <main id="loginView">
-                <CustomizedForm {...fields} onChange={this.handleFormChange} onSubmit={this.handleSubmit} />
+                <img src={Logo} alt="Starbucks logo" className="starbucks-logo" />
+                <CustomizedForm {...fields} onChange={this.handleFormChange} isValidating={isValidating} onSubmit={this.handleSubmit} />
                 <section className="login-decoration-side">
-
+                    <span>Sign In</span>
+                    {/* <span><small>Easy and fast</small></span> */}
+                    <img src={WomanImage} alt="Woman watching a device" />
                 </section>
                 {/* <pre className="language-bash">{JSON.stringify(fields, null, 2)}</pre> */}
             </main>
