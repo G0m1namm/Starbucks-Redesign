@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { FormDataContext } from "../../../utils/AuthProvider";
 import { useForm } from 'react-hook-form';
-import { Form, Icon, Input, Button, Checkbox } from 'antd';
+import { Form, Icon, Input, Button, Checkbox, Row, Col } from 'antd';
 import "./Login.scss";
 
 export function Login() {
@@ -32,57 +32,60 @@ const CustomizedForm = Form.create({
                 ...props.password,
                 value: props.password.value,
             }),
-            remember: Form.createFormField({
-                ...props.remember,
-                value: props.remember.value,
-            }),
+            // remember: Form.createFormField({
+            //     ...props.remember,
+            //     value: props.remember.value,
+            // }),
         };
     },
     onValuesChange(_, values) {
         // console.table(values);
     },
 })(props => {
-    const { getFieldDecorator } = props.form;
+    const { getFieldDecorator, validateFields } = props.form;
     return (
         <section className="login-form-container">
-            <Form className="login-form">
-                <Form.Item label="Email">
+            <Form className="login-form" onSubmit={(e) => props.onSubmit(e, validateFields)}>
+                <Form.Item label="Email" colon={false} hasFeedback>
                     {getFieldDecorator('email', {
-                        rules: [{type: 'email', message: 'The input is not valid E-mail!'},{ required: true, message: 'Please input your email!',  }],
+                        rules: [{ type: 'email', message: 'The input is not valid E-mail!' }, { required: true, message: 'Please input your email!', }],
                     })(
                         <Input
                             addonBefore={<Icon type="mail" />}
                             placeholder="example@email.com"
                             hasFeedback
-                            autoFocus 
+                            autoFocus
                         />,
                     )}
                 </Form.Item>
-                <Form.Item label="Password">
+                <Form.Item label="Password" colon={false} hasFeedback>
                     {getFieldDecorator('password', {
                         rules: [{ required: true, message: 'Please input your Password!' }],
                     })(
                         <Input
-                            addonBefore={<Icon type="lock"  />}
+                            addonBefore={<Icon type="lock" />}
                             type="password"
                             placeholder="Password"
-                            hasFeedback 
                         />,
                     )}
                 </Form.Item>
-                <Form.Item className="login-form-actions-container">
-                    {getFieldDecorator('remember', {
-                        valuePropName: 'checked',
-                        initialValue: true,
-                    })(<Checkbox>Remember me</Checkbox>)}
-                    <a className="login-form-forgot" href="">
-                        Forgot password
-                    </a>
-                    <Button type="primary" htmlType="submit" className="login-form-button">
-                        Log in
-          </Button>
-                    Or <a href="">register now!</a>
+                <Form.Item>
+                    <Row gutter={12} type="flex">
+                        <Col span={12}>
+                            <Button block type="primary" htmlType="submit" className="login-form-button">
+                                Log in
+                            </Button>
+                        </Col>
+                        <Col span={12}>
+                            <a className="login-form-forgot green" href="">
+                                Forgot password
+                            </a>
+                        </Col>
+                    </Row>
                 </Form.Item>
+                <div className="login-form-actions-container">
+                    <span>Already have an account? <a href="" className="green">Join Now!!</a></span>
+                </div>
             </Form>
         </section>
     );
@@ -97,9 +100,9 @@ export class Demo extends React.Component {
             password: {
                 value: '',
             },
-            remember: {
-                value: true,
-            },
+            // remember: {
+            //     value: true,
+            // },
         },
     };
 
@@ -109,11 +112,20 @@ export class Demo extends React.Component {
         }));
     };
 
+    handleSubmit = (e, onValidate) => {
+        e.preventDefault();
+        onValidate((err, values) => {
+            if (!err) {
+                console.table(values)
+            }
+        })
+    };
+
     render() {
         const { fields } = this.state;
         return (
             <main id="loginView">
-                <CustomizedForm {...fields} onChange={this.handleFormChange} />
+                <CustomizedForm {...fields} onChange={this.handleFormChange} onSubmit={this.handleSubmit} />
                 <section className="login-decoration-side">
 
                 </section>

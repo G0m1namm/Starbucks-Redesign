@@ -14,6 +14,13 @@
         background-color: $white2;
         background-image: url('../../../assets/images/bg-mask.png');
 
+        & a{
+            &:hover,
+            &:focus{
+                text-decoration: underline;
+                color: $greenDarker;
+            }
+        }
         & > .login-form{
             place-self: center;
             max-width: 400px;
@@ -22,8 +29,8 @@
             & .ant-input-group-addon{
                 padding: 10px 14px;
                 border-radius: 0;
-                background-color: $green;
-                color: $white;
+                background-color:  $white2;
+                color: $green;
             }
 
             & .ant-input{
@@ -41,9 +48,13 @@
                     box-shadow: 0 0 0 2px rgba($color: $lightGreen, $alpha: 0.4);
                 }
             }
-
-            & > .login-form-actions-container{
-
+            & .login-form-forgot{
+                font-size: 12px;
+            }
+            & > .login-form-actions-container{  
+                display: grid;
+                gap: 7px;
+                color: $lightgray;
             }
         }
     }

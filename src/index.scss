@@ -44,9 +44,20 @@ background: darken($color: $green, $amount: 10);
 background: darken($color: $green, $amount: 20); 
 }
 
-::selection {
-    background: $green !important;
+button.ant-btn{
+    padding: 12px 22px;
+    height: unset;
+    border-radius: 0;
+    background-color: $green;
+    border-color: $green;
+
+    &:hover,
+    &:focus{
+        background-color: $greenDark;
+        border-color: $green;
+    }
 }
+
 .btn{
   all: initial;
   width: max-content;
