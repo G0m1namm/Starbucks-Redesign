@@ -3,7 +3,6 @@ import { Form, Icon, Input, Button, Row, Col } from 'antd';
 import WomanImage from "../../../assets/images/lookin-device.webp";
 import Logo from "../../../assets/icons/starbucks_logo.svg";
 import "./Login.scss";
-import { useHistory } from 'react-router-dom';
 
 const CustomizedForm = Form.create({
     name: 'global_state',
