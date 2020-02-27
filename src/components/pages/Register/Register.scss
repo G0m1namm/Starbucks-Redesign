@@ -1,6 +1,6 @@
 @import '../../../styles/colors';
 
-#loginView{
+#registerView{
     display: grid;
     grid-template-columns: minmax(320px, 1fr) 1fr;
     height: 100vh;
@@ -15,13 +15,14 @@
         cursor: pointer;
     }
 
-    & > .login-form-container{
+    & > .register-form-container{
         width: 100%;
         padding: 1rem;
         display: flex;
         place-content: center;
         background-color: $white2;
         background-image: url('../../../assets/images/bg-mask.png');
+        overflow-y: auto;
 
         & a{
             &:hover,
@@ -30,13 +31,21 @@
                 color: $greenDarker;
             }
         }
-        & > .login-form{
+        & > .register-form{
             place-self: center;
             width: 100%;
             max-width: 400px;
             min-width: 284px;
 
-            & .login-welcome-title{
+            & .ant-alert{
+                margin-bottom: 1rem;
+
+                &.ant-alert-error > .ant-alert-message{
+                    color: $red;
+                }
+            }
+
+            & .register-welcome-title{
                 font-size: 30px;
                 color: $black;
                 font-family: "StolzlMedium", sans-serif;
@@ -63,10 +72,10 @@
                     box-shadow: 0 0 0 2px rgba($color: $lightGreen, $alpha: 0.4);
                 }
             }
-            & .login-form-forgot{
+            & .register-form-forgot{
                 font-size: 12px;
             }
-            & > .login-form-actions-container{  
+            & > .register-form-actions-container{  
                 display: grid;
                 place-content: center;
                 gap: 7px;
@@ -74,7 +83,7 @@
             }
         }
     }
-    & > .login-decoration-side{
+    & > .register-decoration-side{
         position: relative;
         width: 100%;
         height: 100%;
@@ -85,7 +94,7 @@
         place-content: center;
 
         & > img{
-            filter: brightness(10);
+            filter: brightness(3);
             max-width: 400px;
             display: block;
             margin: 0 auto;

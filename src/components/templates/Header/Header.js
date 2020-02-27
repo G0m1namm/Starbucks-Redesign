@@ -5,16 +5,30 @@ import { MapPin, ChevronDown } from "react-feather";
 import { useHistory } from "react-router-dom";
 import { AuthContext } from "../../../helpers/AuthProvider";
 import { Menu, Avatar, Dropdown, List } from "antd";
+import { AnimatePresence, motion } from "framer-motion";
 import './Header.scss';
 
 export function AuthButtons(){
     const history = useHistory();
-
+    const variant = {
+        initial: {
+            scale: 0.5,
+            opacity: 0
+        },
+        visible: {
+            scale: 1,
+            opacity: 1
+        },
+        exit: {
+            scale: 0.5,
+            opacity: 0
+        }
+    }
     return (
-        <div className="auth-actions-wrapper">
+        <motion.div className="auth-actions-wrapper" variants={variant} initial="initial" animate="visible" exit="exit">
             <button className="btn btn-secondary" onClick={() => history.push("/login")}>Sign In</button>
-            <button className="btn btn-primary">Sign Up</button>
-        </div>
+            <button className="btn btn-primary" onClick={() => history.push("/register")}>Sign Up</button>
+        </motion.div>
     );
 }
 
@@ -34,7 +48,23 @@ export function DropdownMenu() {
 }
 
 export function UserLoggedMenu({ nickName }) {
+    const variant = {
+        initial: {
+            scale: 0.5,
+            opacity: 0
+        },
+        visible: {
+            scale: 1,
+            opacity: 1
+        },
+        exit: {
+            scale: 0.5,
+            opacity: 0
+        }
+    }
+
     return (
+        <motion.div variants={variant} initial="initial" animate="visible" exit="exit">
         <Dropdown
             overlay={<DropdownMenu />}
             trigger={['click']}
@@ -53,6 +83,7 @@ export function UserLoggedMenu({ nickName }) {
                 </List.Item>
             </List>
         </Dropdown>
+        </motion.div>
     );
 }
 
@@ -76,7 +107,9 @@ export default function Header() {
                     Prague, CZ
                 </IconButton>
             </div>
-            {nickName ? (<UserLoggedMenu nickName={nickName} />) : (<AuthButtons />)}
+            <AnimatePresence exitBeforeEnter>
+                {nickName ? (<UserLoggedMenu nickName={nickName} />) : (<AuthButtons />)}
+            </AnimatePresence>
         </header>
     );
 }

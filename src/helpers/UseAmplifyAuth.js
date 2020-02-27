@@ -74,6 +74,13 @@ const useAmplifyAuth = (history) => {
             console.log("signed in");
           }
           break;
+        case "signUp":
+        if (isMounted) {
+          history.push("/home");
+          setTriggerFetch(true);
+          console.log("signed up");
+        }
+        break;
         default:
           return;
       }
@@ -108,7 +115,15 @@ const useAmplifyAuth = (history) => {
       }
   }
 
-  return { state, handleSignout, handleSignIn };
+  const handleSignUp = async ({nickname, ...data}) => {
+    try {
+      await Auth.signUp({...data, attributes: {nickname}});
+    } catch (error) {
+      return error;
+    }
+}
+
+  return { state, handleSignout, handleSignIn, handleSignUp };
 };
 
 export default useAmplifyAuth;
