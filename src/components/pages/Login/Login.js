@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Form, Icon, Input, Button, Row, Col } from 'antd';
 import WomanImage from "../../../assets/images/lookin-device.webp";
 import Logo from "../../../assets/icons/starbucks_logo.svg";
 import "./Login.scss";
 import { Auth } from 'aws-amplify';
+import { Redirect, useHistory } from 'react-router-dom';
 
 const CustomizedForm = Form.create({
     name: 'global_state',
@@ -11,6 +12,7 @@ const CustomizedForm = Form.create({
         props.onChange(changedFields);
     },
     mapPropsToFields(props) {
+        console.log(props)
         return {
             email: Form.createFormField({
                 ...props.email,
@@ -84,8 +86,8 @@ const CustomizedForm = Form.create({
     );
 });
 
-export class Login extends React.Component {
-    state = {
+export function Login() {
+    let initial = {
         fields: {
             email: {
                 value: '',
@@ -97,48 +99,48 @@ export class Login extends React.Component {
             //     value: true,
             // },
         },
-        isValidating: false
     };
+    const history = useHistory();
+    const [state, setState] = useState(initial);
+    const [isValidating, setIsValidating] = useState(false);
 
-    handleFormChange = changedFields => {
-        this.setState(({ fields }) => ({
+    const handleFormChange = changedFields => {
+        setState(({ fields }) => ({
             fields: { ...fields, ...changedFields },
         }));
     };
 
-    handleSubmit = (e, onValidate) => {
+    const handleSubmit = (e, onValidate) => {
         e.preventDefault();
         onValidate((err, values) => {
             if (!err) {
-                console.table(values);
-                this.handleSignIn(values);
+                // console.table(values);
+                handleSignIn(values);
             }
         })
     };
 
-    handleSignIn = ({ email, password }) => {
-        this.setState({isValidating: true});
-        Auth.signIn({username: email, password})
-        .then(user => {
-            console.log(user);
-        })
-        .then(() => this.setState({isValidating: false}))
-        .catch(err => console.table(err))
+    const handleSignIn = ({ email, password }) => {
+        setIsValidating(true);
+
+        Auth.signIn({ username: email, password })
+            .then(user => {
+                history.push("/");
+            })
+            .then(() => setIsValidating(false))
+            .catch(err => console.table(err))
     }
 
-    render() {
-        const { fields, isValidating } = this.state;
-        return (
-            <main id="loginView">
-                <img src={Logo} alt="Starbucks logo" className="starbucks-logo" />
-                <CustomizedForm {...fields} onChange={this.handleFormChange} isValidating={isValidating} onSubmit={this.handleSubmit} />
-                <section className="login-decoration-side">
-                    <span>Sign In</span>
-                    {/* <span><small>Easy and fast</small></span> */}
-                    <img src={WomanImage} alt="Woman watching a device" />
-                </section>
-                {/* <pre className="language-bash">{JSON.stringify(fields, null, 2)}</pre> */}
-            </main>
-        );
-    }
+    return (
+        <main id="loginView">
+            <img src={Logo} alt="Starbucks logo" className="starbucks-logo" />
+            <CustomizedForm {...state.fields} onChange={handleFormChange} isValidating={isValidating} onSubmit={handleSubmit} />
+            <section className="login-decoration-side">
+                <span>Sign In</span>
+                {/* <span><small>Easy and fast</small></span> */}
+                <img src={WomanImage} alt="Woman watching a device" />
+            </section>
+            {/* <pre className="language-bash">{JSON.stringify(fields, null, 2)}</pre> */}
+        </main>
+    );
 }

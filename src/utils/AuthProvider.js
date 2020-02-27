@@ -18,6 +18,7 @@ export default function AuthProvider() {
                 data => {
                     const currentUser = { username: data.username, ...data.attributes };
                     if (currentUser.email_verified) setUser({ currentUser, status: "welcome" });
+                    console.log(data);
                 }
             )
             .catch(err => console.log(err));
@@ -28,8 +29,8 @@ export default function AuthProvider() {
     }
 
     useEffect(() => {
-        console.table(formData);
-    }, [formData]);
+        console.table(user);
+    }, [user]);
 
     return (
         <AuthContext.Provider value={user}>
