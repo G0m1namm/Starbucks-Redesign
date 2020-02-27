@@ -3,8 +3,7 @@ import { Form, Icon, Input, Button, Row, Col } from 'antd';
 import WomanImage from "../../../assets/images/lookin-device.webp";
 import Logo from "../../../assets/icons/starbucks_logo.svg";
 import "./Login.scss";
-import { Auth } from 'aws-amplify';
-import { Redirect, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 const CustomizedForm = Form.create({
     name: 'global_state',
@@ -12,7 +11,6 @@ const CustomizedForm = Form.create({
         props.onChange(changedFields);
     },
     mapPropsToFields(props) {
-        console.log(props)
         return {
             email: Form.createFormField({
                 ...props.email,
@@ -78,15 +76,15 @@ const CustomizedForm = Form.create({
                         </Col>
                     </Row>
                 </Form.Item>
-                <div className="login-form-actions-container">
+                {/* <div className="login-form-actions-container">
                     <span>Already have an account? <a href="" className="green">Join Now!!</a></span>
-                </div>
+                </div> */}
             </Form>
         </section>
     );
 });
 
-export function Login() {
+export function Login({handleSignIn}) {
     let initial = {
         fields: {
             email: {
@@ -100,7 +98,6 @@ export function Login() {
             // },
         },
     };
-    const history = useHistory();
     const [state, setState] = useState(initial);
     const [isValidating, setIsValidating] = useState(false);
 
@@ -112,24 +109,13 @@ export function Login() {
 
     const handleSubmit = (e, onValidate) => {
         e.preventDefault();
-        onValidate((err, values) => {
+        onValidate((err, {email, password}) => {
             if (!err) {
-                // console.table(values);
-                handleSignIn(values);
+                setIsValidating(true);
+                handleSignIn({ username: email, password });
             }
         })
     };
-
-    const handleSignIn = ({ email, password }) => {
-        setIsValidating(true);
-
-        Auth.signIn({ username: email, password })
-            .then(user => {
-                history.push("/");
-            })
-            .then(() => setIsValidating(false))
-            .catch(err => console.table(err))
-    }
 
     return (
         <main id="loginView">

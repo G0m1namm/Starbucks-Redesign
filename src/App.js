@@ -1,9 +1,10 @@
 import React from 'react';
 // import logo from './logo.svg';
-import  { BreakpointProvider } from 'react-socks';
+import { BreakpointProvider } from 'react-socks';
 import Amplify from 'aws-amplify';
 import awsmobile from './aws-exports';
-import AuthProvider from './utils/AuthProvider';
+import AuthProvider from './helpers/AuthProvider';
+import { BrowserRouter as Router } from "react-router-dom";
 import './App.scss';
 
 Amplify.configure(awsmobile);
@@ -12,7 +13,9 @@ Amplify.configure(awsmobile);
 function App() {
   return (
     <BreakpointProvider>
-      <AuthProvider />
+      <Router>
+        <AuthProvider />
+      </Router>
     </BreakpointProvider>
   );
 }

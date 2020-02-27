@@ -1,15 +1,14 @@
 import React, { useContext, useEffect, useState } from "react";
 import LogoIcon from "../../../assets/icons/starbucks_logo.svg";
 import { IconButton } from "../../atoms/IconButton";
-import { MapPin, ArrowDown, ChevronDown } from "react-feather";
-import './Header.scss';
+import { MapPin, ChevronDown } from "react-feather";
 import { useHistory } from "react-router-dom";
-import { AuthContext } from "../../../utils/AuthProvider";
-import { Menu, Avatar, Dropdown, List, Icon } from "antd";
-import { signOut } from "../../../utils/SignOutUser";
-const { SubMenu } = Menu;
+import { AuthContext } from "../../../helpers/AuthProvider";
+import { Menu, Avatar, Dropdown, List } from "antd";
+import './Header.scss';
 
-export function AuthButtons({history}){
+export function AuthButtons(){
+    const history = useHistory();
 
     return (
         <div className="auth-actions-wrapper">
@@ -19,25 +18,25 @@ export function AuthButtons({history}){
     );
 }
 
-export function DropdownMenu({history}) {
-    console.log(history);
-    
+export function DropdownMenu() {
+    const {handleSignout} = useContext(AuthContext);
+
     return (
         <Menu>
             <Menu.Item key="menu:dashboard">
                 Dashboard
             </Menu.Item>
-            <Menu.Item key="menu:logout" onClick={() => signOut(() => history.push("/home"))}>
+            <Menu.Item key="menu:logout" onClick={async () => await handleSignout()}>
                 Logout
             </Menu.Item>
         </Menu>
     );
 }
 
-export function UserLoggedMenu({ nickName, history }) {
+export function UserLoggedMenu({ nickName }) {
     return (
         <Dropdown
-            overlay={<DropdownMenu history={history}/>}
+            overlay={<DropdownMenu />}
             trigger={['click']}
         >
             <List>
@@ -58,15 +57,12 @@ export function UserLoggedMenu({ nickName, history }) {
 }
 
 export default function Header() {
-    const user = useContext(AuthContext);
+    const {user} = useContext(AuthContext);
     const [nickName, setNickName] = useState('');
-    let history = useHistory();
 
     useEffect(() => {
-        if (user) {
-            console.table(user.currentUser);
-            setNickName(user.currentUser.email);
-        }
+        if(user) {setNickName(user.attributes.email)}
+        else {setNickName('')}
     }, [user])
 
     return (
@@ -80,7 +76,7 @@ export default function Header() {
                     Prague, CZ
                 </IconButton>
             </div>
-            {nickName ? (<UserLoggedMenu nickName={nickName} history={history}/>) : (<AuthButtons history={history}/>)}
+            {nickName ? (<UserLoggedMenu nickName={nickName} />) : (<AuthButtons />)}
         </header>
     );
 }
