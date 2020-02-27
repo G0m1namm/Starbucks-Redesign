@@ -24,7 +24,7 @@ export default function AuthProvider() {
                             <Login handleSignIn={handleSignIn}/>
                         </PrivateRouter>
                         <PrivateRouter path="/register">
-                            <Register handleSignUp={handleSignUp}/>
+                            <Register handleSignUp={handleSignUp} user={user}/>
                         </PrivateRouter>
                     </FormDataContext.Provider>
                 </Switch>
