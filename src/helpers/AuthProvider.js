@@ -6,6 +6,7 @@ import MainRoutingWrapper from "../components/templates/MainRoutingWrapper/MainR
 import useAmplifyAuth from "./UseAmplifyAuth";
 import { Register } from "../components/pages/Register/Register";
 import Verify from "../components/pages/VerifyRegister/Verify";
+import LoaderScreen from "../components/templates/Loader/LoaderScreen";
 
 export const AuthContext = React.createContext();
 export const FormDataContext = React.createContext();
@@ -19,7 +20,8 @@ export default function AuthProvider() {
         <AuthContext.Provider value={{ user, handleSignout }}>
             <Switch>
                 <Route exact path={["/", "/home"]}>
-                    <MainRoutingWrapper />
+                    {/* <MainRoutingWrapper /> */}
+                    <LoaderScreen/>
                 </Route>
                 <FormDataContext.Provider>
                     <PrivateRouter path="/login" user={user}>

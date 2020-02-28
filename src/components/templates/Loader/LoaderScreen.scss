@@ -1,0 +1,49 @@
+@import "../../../styles/colors";
+@import "../../../styles/mixins";
+
+#starbucksLoader{
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background-color: $green;
+    overflow: hidden;
+
+    & > .layers-container{
+        position: relative;
+        width: inherit;
+        height: inherit;
+
+        & > .white-bg-layer,
+        & > .green-bg-layer,
+        & > .logotype-layer{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: inherit;
+            height: inherit;
+        }
+        
+        & > .white-bg-layer{
+            background-color: $white;
+            z-index: 2000;
+        }
+
+        & > .green-bg-layer{
+            background-color: $green;
+            z-index: 2001;
+        }
+
+        & > .logotype-layer{
+            z-index: 2002;
+            display: grid;
+            place-content: center;
+            
+            & > .logotype{
+                text-transform: uppercase;
+                color: $white;
+                font-size: 10vw;
+                font-family: "StolzlBold", sans-serif;
+            }
+        }
+    }
+}
