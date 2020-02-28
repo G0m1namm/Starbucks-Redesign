@@ -71,13 +71,8 @@ const useAmplifyAuth = (history) => {
       switch (payload.event) {
         case "signIn":
           if (isMounted) {
-            if(payload.data.attributes.email_verified === true){
-              history.push("/verify");
-              setTriggerFetch(true);
-            } else{
-              history.push("/home");
-              setTriggerFetch(true);
-            }
+            history.push("/home");
+            setTriggerFetch(true);
           }
           break;
         case "signUp":
@@ -102,13 +97,11 @@ const useAmplifyAuth = (history) => {
 
   const handleSignout = async () => {
     try {
-      console.log("signed out");
       await Auth.signOut();
       history.goBack();
       setTriggerFetch(false);
       dispatch({ type: "RESET_USER_DATA" });
     } catch (error) {
-      console.error("Error signing out user ", error);
     }
   };
 
@@ -116,7 +109,8 @@ const useAmplifyAuth = (history) => {
     try {
       await Auth.signIn(data);
     } catch (error) {
-      console.error("Error signing in user ", error);
+      if (error.code === "UserNotConfirmedException") history.push("/verify");
+      return error;
     }
   }
 
@@ -128,9 +122,9 @@ const useAmplifyAuth = (history) => {
     }
   }
 
-  const handleConfirmSignUp = async (data) => {
+  const handleConfirmSignUp = async ({ username, code }) => {
     try {
-      return await Auth.confirmSignUp(data);
+      return await Auth.confirmSignUp(username, code);
     } catch (error) {
       return error;
     }

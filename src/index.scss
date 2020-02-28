@@ -44,6 +44,10 @@ background: darken($color: $green, $amount: 10);
 background: darken($color: $green, $amount: 20); 
 }
 
+.lightgray{
+    color: $lightgray;
+}
+
 button.ant-btn{
     padding: 12px 22px;
     height: unset;

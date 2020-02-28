@@ -1,12 +1,11 @@
 import React, { useState, useContext, useEffect } from 'react'
 import { Form, Icon, Input, Button, Row, Col, Alert } from 'antd';
-import WomanImage from "../../../assets/images/lookin-device.webp";
 import Logo from "../../../assets/icons/starbucks_logo.svg";
-import CloneStarGif from "../../../assets/images/clone-star.gif";
+import PhoneDrawedImage from "../../../assets/images/phone-drawed.webp";
 import { useHistory } from 'react-router-dom';
 import ReactCodeInput from 'react-verification-code-input';
-import "./Verify.scss";
 import { AuthContext } from '../../../helpers/AuthProvider';
+import "./Verify.scss";
 
 const CustomizedForm = Form.create({
     name: 'verify_form',
@@ -15,6 +14,10 @@ const CustomizedForm = Form.create({
     },
     mapPropsToFields(props) {
         return {
+            email_address: Form.createFormField({
+                ...props.email_address,
+                value: props.email_address.value,
+            }),
             code: Form.createFormField({
                 ...props.code,
                 value: props.code.value,
@@ -26,16 +29,29 @@ const CustomizedForm = Form.create({
     },
 })(props => {
     const { getFieldDecorator, validateFields } = props.form;
-    // const [errorMessage, setErrorMessage] = props.errors;
+    const [errorMessage, setErrorMessage] = props.errors;
 
     return (
-        <section className="register-form-container">
-            <Form className="register-form" onSubmit={(e) => props.onSubmit(e, validateFields)}>
+        <section className="verify-form-container">
+            <Form className="verify-form" onSubmit={(e) => props.onSubmit(e, validateFields)}>
                 <Form.Item>
-                    <span className="register-welcome-title">Authenticate Your Account</span>
+                    <span className="verify-welcome-title">Authenticate Your Account</span>
                     <br />
                     <small>We've sent you a verification code to your email</small>
                 </Form.Item>
+                {(props.email == null) && 
+                    <Form.Item label="Email address" colon={false} hasFeedback>
+                        {getFieldDecorator('email_address', {
+                            rules: [{ type: 'email', message: 'The input is not valid email address!' }, { required: true, message: 'Please input your email address!', }],
+                        })(
+                            <Input
+                                addonBefore={<Icon type="mail" />}
+                                placeholder="example@email.com"
+                                hasFeedback
+                            />,
+                        )}
+                    </Form.Item>
+                }
                 <Form.Item label="Verification code" colon={false}>
                     {getFieldDecorator('code', {
                         rules: [{ required: true, message: 'Please input your verification code!' }, { min: 6, message: "Please input at least 6 characters!" }],
@@ -43,34 +59,34 @@ const CustomizedForm = Form.create({
                         <ReactCodeInput type="number" fields={6} className="input-verification-code" />
                     )}
                 </Form.Item>
-                {/* {errorMessage ? (<Alert message={errorMessage} type="error" closable afterClose={() => setErrorMessage(null)} />) : null} */}
+                {errorMessage ? (<Alert message={errorMessage} type="error" closable afterClose={() => setErrorMessage(null)} />) : null}
                 <Form.Item>
                     <Row gutter={12} type="flex" justify="center">
                         <Col>
-                            <Button block type="primary" loading={props.isValidating} htmlType="submit" className="register-form-button">
+                            <Button block type="primary" loading={props.isValidating} htmlType="submit" className="verify-form-button">
                                 Verify
                             </Button>
                         </Col>
                     </Row>
                 </Form.Item>
-                <div className="register-form-actions-container">
-                    <span>It may take a minute to receive your code. Haven't received it? <a href="#" className="green">Resend a new code</a>.</span>
-                </div>
             </Form>
         </section>
     );
 });
 
-export default function Verify({handleConfirmSignUp, handleResendSignUp, email}) {
+export default function Verify({ handleConfirmSignUp, email }) {
     let initial = {
         fields: {
+            email_address:{
+                value: '',
+            },
             code: {
                 value: null,
             },
         },
     };
     const [state, setState] = useState(initial);
-    // const [errorMessage, setErrorMessage] = useState(null);
+    const [errorMessage, setErrorMessage] = useState(null);
     const [isValidating, setIsValidating] = useState(false);
     const [userAttributes, setUserAttributes] = useState(null);
     const history = useHistory();
@@ -83,14 +99,10 @@ export default function Verify({handleConfirmSignUp, handleResendSignUp, email})
         }));
     };
 
-    // const handleErrorSignUp = error => {
-    //     setErrorMessage(error);
-    //     setIsValidating(false);
-    // };
-
-    const handleResendCode = () => {
-
-    }
+    const handleErrorSignUp = error => {
+        setErrorMessage(error);
+        setIsValidating(false);
+    };
 
     useEffect(() => {
         (user) ? setUserAttributes(user.attributes) : setUserAttributes(email);
@@ -98,27 +110,26 @@ export default function Verify({handleConfirmSignUp, handleResendSignUp, email})
 
     const handleSubmit = (e, onValidate) => {
         e.preventDefault();
-        onValidate(async (err, {code}) => {
+        onValidate(async (err, { code, email_address }) => {
             if (!err) {
                 setIsValidating(true);
-                const data = {username: userAttributes.email, code: parseInt(code)};
+                const data = { username: (userAttributes) ? userAttributes.email : email_address, code: code };
+                console.log(data);
                 const confirmData = await handleConfirmSignUp(data);
-                console.log(confirmData);
-                // (signUpError.message) ?  handleErrorSignUp(signUpError.message) : setErrorMessage(null);
+                if(confirmData === "SUCCESS") history.push("/login");
+                (confirmData && confirmData.message) ?  handleErrorSignUp(confirmData.message) : setErrorMessage(null);
             }
         })
     };
 
     return (
-        <main id="registerView">
+        <main id="verifyView">
             <img src={Logo} alt="Starbucks logo" className="starbucks-logo" onClick={() => history.push("/home")} />
-            <CustomizedForm {...state.fields} onChange={handleFormChange} isValidating={isValidating} onSubmit={handleSubmit} />
-            <section className="register-decoration-side">
-                <span>Sign Up</span>
-                {/* <span><small>Easy and fast</small></span> */}
-                <img src={CloneStarGif} alt="Star clonning itself gif" />
+            <CustomizedForm {...state.fields} onChange={handleFormChange} errors={[errorMessage, setErrorMessage]} isValidating={isValidating} onSubmit={handleSubmit} email={email}/>
+            <section className="verify-decoration-side">
+                <span>Account Verification</span>
+                <img src={PhoneDrawedImage} alt="Phone drawed with a star in the middle" />
             </section>
-            {/* <pre className="language-bash">{JSON.stringify(fields, null, 2)}</pre> */}
         </main>
     );
 }

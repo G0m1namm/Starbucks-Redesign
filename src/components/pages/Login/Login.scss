@@ -30,6 +30,15 @@
                 color: $greenDarker;
             }
         }
+        
+        & .ant-alert{
+            margin-bottom: 1rem;
+
+            &.ant-alert-error > .ant-alert-message{
+                color: $red;
+            }
+        }
+
         & > .login-form{
             place-self: center;
             width: 100%;

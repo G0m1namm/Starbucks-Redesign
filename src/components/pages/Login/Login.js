@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Form, Icon, Input, Button, Row, Col } from 'antd';
+import { Form, Icon, Input, Button, Row, Col, Alert } from 'antd';
 import WomanImage from "../../../assets/images/lookin-device.webp";
 import Logo from "../../../assets/icons/starbucks_logo.svg";
 import "./Login.scss";
@@ -20,10 +20,6 @@ const CustomizedForm = Form.create({
                 ...props.password,
                 value: props.password.value,
             }),
-            // remember: Form.createFormField({
-            //     ...props.remember,
-            //     value: props.remember.value,
-            // }),
         };
     },
     onValuesChange(_, values) {
@@ -31,6 +27,8 @@ const CustomizedForm = Form.create({
     },
 })(props => {
     const { getFieldDecorator, validateFields } = props.form;
+    const [errorMessage, setErrorMessage] = props.errors;
+
     return (
         <section className="login-form-container">
             <Form className="login-form" onSubmit={(e) => props.onSubmit(e, validateFields)}>
@@ -62,6 +60,7 @@ const CustomizedForm = Form.create({
                         />,
                     )}
                 </Form.Item>
+                {errorMessage ? (<Alert message={errorMessage} type="error" closable afterClose={() => setErrorMessage(null)} />) : null}
                 <Form.Item>
                     <Row gutter={12} type="flex">
                         <Col span={12}>
@@ -70,15 +69,12 @@ const CustomizedForm = Form.create({
                             </Button>
                         </Col>
                         <Col span={12}>
-                            <a className="login-form-forgot green" href="">
-                                Forgot password
+                            <a className="login-form-forgot lightgray" href="/register">
+                                without account? <strong className="green">Join Us!</strong>
                             </a>
                         </Col>
                     </Row>
                 </Form.Item>
-                {/* <div className="login-form-actions-container">
-                    <span>Already have an account? <a href="" className="green">Join Now!!</a></span>
-                </div> */}
             </Form>
         </section>
     );
@@ -93,12 +89,10 @@ export function Login({handleSignIn}) {
             password: {
                 value: '',
             },
-            // remember: {
-            //     value: true,
-            // },
         },
     };
     const [state, setState] = useState(initial);
+    const [errorMessage, setErrorMessage] = useState(null);
     const [isValidating, setIsValidating] = useState(false);
     const history = useHistory();
 
@@ -107,13 +101,19 @@ export function Login({handleSignIn}) {
             fields: { ...fields, ...changedFields },
         }));
     };
+    
+    const handleErrorSignUp = error => {
+        setErrorMessage(error);
+        setIsValidating(false);
+    };
 
     const handleSubmit = (e, onValidate) => {
         e.preventDefault();
-        onValidate((err, {email, password}) => {
+        onValidate(async (err, {email, password}) => {
             if (!err) {
                 setIsValidating(true);
-                handleSignIn({ username: email, password });
+                const signUpError = await handleSignIn({ username: email, password });
+                (signUpError && signUpError.message) ?  handleErrorSignUp(signUpError.message) : setErrorMessage(null);
             }
         })
     };
@@ -121,13 +121,11 @@ export function Login({handleSignIn}) {
     return (
         <main id="loginView">
             <img src={Logo} alt="Starbucks logo" className="starbucks-logo" onClick={() => history.push("/home")}/>
-            <CustomizedForm {...state.fields} onChange={handleFormChange} isValidating={isValidating} onSubmit={handleSubmit} />
+            <CustomizedForm {...state.fields} onChange={handleFormChange} errors={[errorMessage, setErrorMessage]} isValidating={isValidating} onSubmit={handleSubmit} />
             <section className="login-decoration-side">
                 <span>Sign In</span>
-                {/* <span><small>Easy and fast</small></span> */}
                 <img src={WomanImage} alt="Woman watching a device" />
             </section>
-            {/* <pre className="language-bash">{JSON.stringify(fields, null, 2)}</pre> */}
         </main>
     );
 }

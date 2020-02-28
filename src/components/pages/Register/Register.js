@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Form, Icon, Input, Button, Row, Col, Alert } from 'antd';
 import WomanImage from "../../../assets/images/lookin-device.webp";
 import Logo from "../../../assets/icons/starbucks_logo.svg";
 import CloneStarGif from "../../../assets/images/clone-star.gif";
-import "./Register.scss";
 import { useHistory } from 'react-router-dom';
+import "./Register.scss";
 
 const CustomizedForm = Form.create({
     name: 'register_form',
@@ -87,7 +87,7 @@ const CustomizedForm = Form.create({
                     </Row>
                 </Form.Item>
                 <div className="register-form-actions-container">
-                    <span>Already have an account? <a href="/register" className="green">Join Now!!</a></span>
+                    <span>Already have an account? <a href="/login" className="green">Sign In!!</a></span>
                 </div>
             </Form>
         </section>
@@ -131,10 +131,13 @@ export function Register({ handleSignUp, setEmail }) {
                 setIsValidating(true);
                 setEmail(email);
                 const signUpError = await handleSignUp({ username: email, password, nickname });
-                (signUpError.message) ?  handleErrorSignUp(signUpError.message) : setErrorMessage(null);
+                console.log(signUpError);
+                (signUpError && signUpError.message) ?  handleErrorSignUp(signUpError.message) : setErrorMessage(null);
             }
         })
     };
+
+    useEffect(() => {console.log("in register")}, []);
 
     return (
         <main id="registerView">
@@ -142,10 +145,8 @@ export function Register({ handleSignUp, setEmail }) {
             <CustomizedForm {...state.fields} onChange={handleFormChange} errors={[errorMessage, setErrorMessage]} isValidating={isValidating} onSubmit={handleSubmit} />
             <section className="register-decoration-side">
                 <span>Sign Up</span>
-                {/* <span><small>Easy and fast</small></span> */}
                 <img src={CloneStarGif} alt="Star clonning itself gif" />
             </section>
-            {/* <pre className="language-bash">{JSON.stringify(fields, null, 2)}</pre> */}
         </main>
     );
 }

@@ -45,36 +45,6 @@
                 }
             }
 
-            & .ant-form-item-children {
-                display: contents;
-            }
-
-            & .input-verification-code {
-                margin: 0 auto;
-                & > [class*="styles_react-code-input"]{
-                    & > input{
-                        border-radius: 0;
-                        border-color: rgba($color: $lightgray, $alpha: 0.7);
-                        color: $green;
-                        font-family: 'StolzlRegular', sans-serif;
-
-                        &:focus{
-                            border-color: $green;
-                            caret-color: rgba($color: $lightgray, $alpha: 0.7);
-                        }
-                    }
-                }
-            }
-
-            & .ant-form-item-control.has-error{
-                & .input-verification-code input{
-                    border-color: $red;
-                    &:focus{
-                        border-color: $lightgray;
-                    }
-                }   
-            }
-
             & .register-welcome-title{
                 font-size: 30px;
                 color: $black;
