@@ -43,7 +43,9 @@ const useAmplifyAuth = (history) => {
       }
       try {
         if (isMounted) {
-          const data = await Auth.currentAuthenticatedUser();
+          const data = await Auth.currentAuthenticatedUser({
+            bypassCache: true  // Optional, By default is false. If set to true, this call will send a request to Cognito to get the latest user data
+          });
           if (data) {
             dispatch({
               type: "FETCH_USER_DATA_SUCCESS",
@@ -69,18 +71,21 @@ const useAmplifyAuth = (history) => {
       switch (payload.event) {
         case "signIn":
           if (isMounted) {
-            history.push("/home");
-            setTriggerFetch(true);
-            console.log("signed in");
+            if(payload.data.attributes.email_verified === true){
+              history.push("/verify");
+              setTriggerFetch(true);
+            } else{
+              history.push("/home");
+              setTriggerFetch(true);
+            }
           }
           break;
         case "signUp":
-        if (isMounted) {
-          history.push("/home");
-          setTriggerFetch(true);
-          console.log("signed up");
-        }
-        break;
+          if (isMounted) {
+            history.push("/verify");
+            setTriggerFetch(true);
+          }
+          break;
         default:
           return;
       }
@@ -108,22 +113,37 @@ const useAmplifyAuth = (history) => {
   };
 
   const handleSignIn = async (data) => {
-      try {
-        await Auth.signIn(data);
-      } catch (error) {
-        console.error("Error signing in user ", error);
-      }
+    try {
+      await Auth.signIn(data);
+    } catch (error) {
+      console.error("Error signing in user ", error);
+    }
   }
 
-  const handleSignUp = async ({nickname, ...data}) => {
+  const handleSignUp = async ({ nickname, ...data }) => {
     try {
-      await Auth.signUp({...data, attributes: {nickname}});
+      return await Auth.signUp({ ...data, attributes: { nickname } });
     } catch (error) {
       return error;
     }
-}
+  }
 
-  return { state, handleSignout, handleSignIn, handleSignUp };
+  const handleConfirmSignUp = async (data) => {
+    try {
+      return await Auth.confirmSignUp(data);
+    } catch (error) {
+      return error;
+    }
+  }
+
+  const handleResendSignUp = async (username) => {
+    try {
+      return await Auth.resendSignUp(username);
+    } catch (error) {
+      return error;
+    }
+  }
+  return { state, handleSignout, handleSignIn, handleSignUp, handleConfirmSignUp, handleResendSignUp };
 };
 
 export default useAmplifyAuth;

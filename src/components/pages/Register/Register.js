@@ -94,7 +94,7 @@ const CustomizedForm = Form.create({
     );
 });
 
-export function Register({ handleSignUp }) {
+export function Register({ handleSignUp, setEmail }) {
     let initial = {
         fields: {
             email: {
@@ -129,6 +129,7 @@ export function Register({ handleSignUp }) {
         onValidate(async (err, { email, password, nickname }) => {
             if (!err) {
                 setIsValidating(true);
+                setEmail(email);
                 const signUpError = await handleSignUp({ username: email, password, nickname });
                 (signUpError.message) ?  handleErrorSignUp(signUpError.message) : setErrorMessage(null);
             }

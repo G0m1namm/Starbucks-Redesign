@@ -34,11 +34,16 @@
             display: flex;
             place-content: center;
             font-weight: 100;
+
+            & > h3 {
+                color: $white;
+                font-size: 18px;
+            }
         }
 
         & .list-main-item,
         & .list-item-box{
-            padding: 1.5rem 1rem;
+            padding: 1.5rem;
             background-color: $green;
             border-bottom: 1px solid rgba($color: $white, $alpha: 0.2);
             min-height: 100px;
