@@ -37,7 +37,7 @@ const CustomizedForm = Form.create({
                 <Form.Item>
                     <span className="verify-welcome-title">Authenticate Your Account</span>
                     <br />
-                    <small>We've sent you a verification code to your email</small>
+                    <small>We've sent you a verification code to your email.<br/> It can take few minutes.</small>
                 </Form.Item>
                 {(props.email == null) && 
                     <Form.Item label="Email address" colon={false} hasFeedback>
