@@ -94,7 +94,7 @@ const CustomizedForm = Form.create({
     );
 });
 
-export function Register({ handleSignUp, setEmail }) {
+export default function Register({ handleSignUp, setEmail }) {
     let initial = {
         fields: {
             email: {

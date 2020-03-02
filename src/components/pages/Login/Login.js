@@ -80,7 +80,7 @@ const CustomizedForm = Form.create({
     );
 });
 
-export function Login({handleSignIn}) {
+export default function Login({handleSignIn}) {
     let initial = {
         fields: {
             email: {
