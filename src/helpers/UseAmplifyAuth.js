@@ -71,7 +71,7 @@ const useAmplifyAuth = (navigate) => {
       switch (payload.event) {
         case "signIn":
           if (isMounted) {
-            navigate("/home");
+            navigate("/");
             setTriggerFetch(true);
           }
           break;

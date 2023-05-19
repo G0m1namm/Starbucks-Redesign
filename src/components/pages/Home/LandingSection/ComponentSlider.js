@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import ComponentSlideOne from "./ComponentSlideOne";
 import "./ComponentSlide.scss";
 import ComponentSlideTwo from "./ComponentSlideTwo";
-import ComponentSlideThree from "./ComponentThree";
+import ComponentSlideThree from "./ComponentSlideThree";
 import { motion, AnimatePresence } from "framer-motion";
 import { wrap } from "@popmotion/popcorn";
 import ArrowBackIosRoundedIcon from '@material-ui/icons/ArrowBackIosRounded';
@@ -27,13 +27,17 @@ const variants = {
             transition: {
                 duration: 1,
                 delay: 2,
-                ease: "easeInOut"
+                ease: "easeOut"
             }
         };
     },
     center: {
         x: 0,
-        opacity: 1
+        opacity: 1,
+        transition: {
+            duration: 0.5,
+            ease: "easeOut"
+        }
     },
     exit: (direction) => {
         return {
@@ -42,13 +46,13 @@ const variants = {
             transition: {
                 duration: 0.4,
                 delay: 0.4,
-                ease: "easeInOut"
+                ease: "easeIn"
             }
         };
     }
 };
 
-export const SliderControls = ({counter}) => {
+export const SliderControls = ({ counter }) => {
     const page = useContext(CountStateContext);
     const dispatch = useContext(CountDispatchContext);
 
@@ -76,18 +80,18 @@ export const SliderControls = ({counter}) => {
     );
 }
 
-export const ActualSlideProgressBar = ({counter}) => {
+export const ActualSlideProgressBar = ({ counter }) => {
     const page = useContext(CountStateContext);
 
     return (
         <div id="actualSlideTimer">
             <span className="actual-slider-number">0{page}</span>
             <LinearProgress
-                    className="actual-slider-progress-bar"
-                    variant="determinate"
-                    defaultValue={0}
-                    value={counter}
-                />
+                className="actual-slider-progress-bar"
+                variant="determinate"
+                defaultValue={0}
+                value={counter}
+            />
         </div>
     );
 }
@@ -101,7 +105,7 @@ export default function ComponentSlider() {
         setPage([page + newDirection, newDirection]);
         setCounter(0);
     };
-    
+
     useEffect(() => {
         const timer =
             counter < 100 ? setInterval(() => setCounter(counter + 1), 100) : paginate(1);;
@@ -119,11 +123,6 @@ export default function ComponentSlider() {
                 initial={"enter"}
                 animate={"center"}
                 exit={"exit"}
-                transition={{
-                    x: { type: "spring", stiffness: 300, damping: 200 },
-                    opacity: { duration: 0.2 },
-                    when: "beforeChildren"
-                }}
                 className="component-wrapper-animated"
             >
                 <AnimatePresence initial={false} custom={direction} exitBeforeEnter>
@@ -132,8 +131,8 @@ export default function ComponentSlider() {
             </motion.div>
             <CountStateContext.Provider value={imageIndex + 1}>
                 <CountDispatchContext.Provider value={paginate}>
-                    <ActualSlideProgressBar counter={counter}/>
-                    <SliderControls counter={counter}/>
+                    <ActualSlideProgressBar counter={counter} />
+                    <SliderControls counter={counter} />
                 </CountDispatchContext.Provider>
             </CountStateContext.Provider >
         </section>

@@ -40,7 +40,7 @@ export const Card = ({
             animate={inView ? "show" : "hidden"}
             exit="hidden"
             variants={variants}
-            positionTransition 
+            layout
         >
             {children}
         </motion.div>

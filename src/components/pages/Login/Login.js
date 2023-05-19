@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
-import { Form, Input, Button, Row, Col, Alert } from 'antd';
+import { Form } from '@ant-design/compatible';
+import '@ant-design/compatible/assets/index.css';
+import { Input, Button, Row, Col, Alert } from 'antd';
 import WomanImage from "../../../assets/images/lookin-device.webp";
 import Logo from "../../../assets/icons/starbucks_logo.svg";
 import { MailOutlined, LockOutlined } from '@ant-design/icons';
@@ -121,7 +123,7 @@ export default function Login({ handleSignIn }) {
 
     return (
         <main id="loginView">
-            <img src={Logo} alt="Starbucks logo" className="starbucks-logo" onClick={() => navigate("/home")} />
+            <img src={Logo} alt="Starbucks logo" className="starbucks-logo" onClick={() => navigate("/")} />
             <CustomizedForm {...state.fields} onChange={handleFormChange} errors={[errorMessage, setErrorMessage]} isValidating={isValidating} onSubmit={handleSubmit} />
             <section className="login-decoration-side">
                 <span>Sign In</span>

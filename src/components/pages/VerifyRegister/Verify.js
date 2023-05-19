@@ -1,5 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react'
-import { Form, Icon, Input, Button, Row, Col, Alert } from 'antd';
+import { Form } from '@ant-design/compatible';
+import '@ant-design/compatible/assets/index.css';
+import { Input, Button, Row, Col, Alert } from 'antd';
 import Logo from "../../../assets/icons/starbucks_logo.svg";
 import PhoneDrawedImage from "../../../assets/images/phone-drawed.webp";
 import { useNavigate } from 'react-router-dom';
@@ -125,7 +127,7 @@ export default function Verify({ handleConfirmSignUp, email }) {
 
     return (
         <main id="verifyView">
-            <img src={Logo} alt="Starbucks logo" className="starbucks-logo" onClick={() => navigate("/home")} />
+            <img src={Logo} alt="Starbucks logo" className="starbucks-logo" onClick={() => navigate("/")} />
             <CustomizedForm {...state.fields} onChange={handleFormChange} errors={[errorMessage, setErrorMessage]} isValidating={isValidating} onSubmit={handleSubmit} email={email} />
             <section className="verify-decoration-side">
                 <span>Account Verification</span>

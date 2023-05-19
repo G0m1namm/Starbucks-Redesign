@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { Form, Input, Button, Row, Col, Alert } from 'antd';
+import { Form } from '@ant-design/compatible';
+import '@ant-design/compatible/assets/index.css';
+import { Input, Button, Row, Col, Alert } from 'antd';
 import WomanImage from "../../../assets/images/lookin-device.webp";
 import Logo from "../../../assets/icons/starbucks_logo.svg";
 import CloneStarGif from "../../../assets/images/clone-star.gif";
@@ -142,7 +144,7 @@ export default function Register({ handleSignUp, setEmail }) {
 
     return (
         <main id="registerView">
-            <img src={Logo} alt="Starbucks logo" className="starbucks-logo" onClick={() => navigate("/home")} />
+            <img src={Logo} alt="Starbucks logo" className="starbucks-logo" onClick={() => navigate("/")} />
             <CustomizedForm {...state.fields} onChange={handleFormChange} errors={[errorMessage, setErrorMessage]} isValidating={isValidating} onSubmit={handleSubmit} />
             <section className="register-decoration-side">
                 <span>Sign Up</span>
