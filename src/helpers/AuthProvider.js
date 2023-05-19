@@ -1,6 +1,6 @@
 import React, { useState, Suspense, lazy } from "react";
 import PrivateRouter from "./PrivateRouter";
-import { Route, Switch, useHistory } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 // import MainRoutingWrapper from "../components/templates/MainRoutingWrapper/MainRoutinWrapper";
 import useAmplifyAuth from "./UseAmplifyAuth";
 import Login from "../components/pages/Login/Login";
@@ -13,14 +13,14 @@ export const FormDataContext = React.createContext();
 const MainRoutingWrapper = lazy(() => import("../components/templates/MainRoutingWrapper/MainRoutinWrapper"));
 
 export default function AuthProvider() {
-    let history = useHistory();
-    const { state: { user }, handleSignout, handleSignIn, handleSignUp, handleConfirmSignUp, handleResendSignUp } = useAmplifyAuth(history);
+    const navigate = useNavigate();
+    const { state: { user }, handleSignout, handleSignIn, handleSignUp, handleConfirmSignUp, handleResendSignUp } = useAmplifyAuth(navigate);
     const [email, setEmail] = useState(null);
 
     return (
         <AuthContext.Provider value={{ user, handleSignout }}>
             <Suspense fallback={<LoaderScreen />}>
-                <Switch>
+                <Routes>
                     <Route exact path={["/", "/home"]}>
                         <MainRoutingWrapper />
                     </Route>
@@ -35,7 +35,7 @@ export default function AuthProvider() {
                             <Verify handleConfirmSignUp={handleConfirmSignUp} handleResendSignUp={handleResendSignUp} email={email} />
                         </PrivateRouter>
                     </FormDataContext.Provider>
-                </Switch>
+                </Routes>
             </Suspense>
         </AuthContext.Provider>
     );

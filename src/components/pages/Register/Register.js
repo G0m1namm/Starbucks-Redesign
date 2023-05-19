@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import { Form, Icon, Input, Button, Row, Col, Alert } from 'antd';
+import { Form, Input, Button, Row, Col, Alert } from 'antd';
 import WomanImage from "../../../assets/images/lookin-device.webp";
 import Logo from "../../../assets/icons/starbucks_logo.svg";
 import CloneStarGif from "../../../assets/images/clone-star.gif";
-import { useHistory } from 'react-router-dom';
+import { MailOutlined, LockOutlined, UserOutlined } from '@ant-design/icons';
+import { useNavigate } from 'react-router-dom';
 import "./Register.scss";
 
 const CustomizedForm = Form.create({
@@ -47,7 +48,7 @@ const CustomizedForm = Form.create({
                         rules: [{ required: true, message: 'Please input your nickname!' }, { min: 8, message: "Please input at least 8 characters!" }],
                     })(
                         <Input
-                            addonBefore={<Icon type="user" />}
+                            addonBefore={<UserOutlined />}
                             placeholder="MyNickname"
                             hasFeedback
                             autoFocus
@@ -59,7 +60,7 @@ const CustomizedForm = Form.create({
                         rules: [{ type: 'email', message: 'The input is not valid email address!' }, { required: true, message: 'Please input your email address!', }],
                     })(
                         <Input
-                            addonBefore={<Icon type="mail" />}
+                            addonBefore={<MailOutlined />}
                             placeholder="example@email.com"
                             hasFeedback
                         />,
@@ -70,7 +71,7 @@ const CustomizedForm = Form.create({
                         rules: [{ required: true, message: 'Please input your password!' }],
                     })(
                         <Input.Password
-                            addonBefore={<Icon type="lock" />}
+                            addonBefore={<LockOutlined />}
                             type="password"
                             placeholder="Password"
                         />,
@@ -111,14 +112,14 @@ export default function Register({ handleSignUp, setEmail }) {
     const [state, setState] = useState(initial);
     const [errorMessage, setErrorMessage] = useState(null);
     const [isValidating, setIsValidating] = useState(false);
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const handleFormChange = changedFields => {
         setState(({ fields }) => ({
             fields: { ...fields, ...changedFields },
         }));
     };
-    
+
     const handleErrorSignUp = error => {
         setErrorMessage(error);
         setIsValidating(false);
@@ -132,16 +133,16 @@ export default function Register({ handleSignUp, setEmail }) {
                 setEmail(email);
                 const signUpError = await handleSignUp({ username: email, password, nickname });
                 console.log(signUpError);
-                (signUpError && signUpError.message) ?  handleErrorSignUp(signUpError.message) : setErrorMessage(null);
+                (signUpError && signUpError.message) ? handleErrorSignUp(signUpError.message) : setErrorMessage(null);
             }
         })
     };
 
-    useEffect(() => {console.log("in register")}, []);
+    useEffect(() => { console.log("in register") }, []);
 
     return (
         <main id="registerView">
-            <img src={Logo} alt="Starbucks logo" className="starbucks-logo" onClick={() => history.push("/home")} />
+            <img src={Logo} alt="Starbucks logo" className="starbucks-logo" onClick={() => navigate("/home")} />
             <CustomizedForm {...state.fields} onChange={handleFormChange} errors={[errorMessage, setErrorMessage]} isValidating={isValidating} onSubmit={handleSubmit} />
             <section className="register-decoration-side">
                 <span>Sign Up</span>

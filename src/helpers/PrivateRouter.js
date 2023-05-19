@@ -1,5 +1,5 @@
 import React from "react";
-import { Redirect, Route } from "react-router-dom";
+import { Navigate, Route } from "react-router-dom";
 
 export default function PrivateRouter({ children, user, ...props }) {
     return (
@@ -7,11 +7,9 @@ export default function PrivateRouter({ children, user, ...props }) {
             {...props}
             render={({ location }) =>
                 user ? (
-                    <Redirect
-                        to={{
-                            pathname: "/",
-                            state: { from: location }
-                        }}
+                    <Navigate
+                        to="/"
+                        state={{ from: location }}
                     />
                 ) : (children)
             }

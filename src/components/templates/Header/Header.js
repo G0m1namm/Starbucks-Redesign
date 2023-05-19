@@ -2,14 +2,14 @@ import React, { useContext, useEffect, useState } from "react";
 import LogoIcon from "../../../assets/icons/starbucks_logo.svg";
 import { IconButton } from "../../atoms/IconButton";
 import { MapPin, ChevronDown } from "react-feather";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../helpers/AuthProvider";
 import { Menu, Avatar, Dropdown, List } from "antd";
 import { AnimatePresence, motion } from "framer-motion";
 import './Header.scss';
 
-export function AuthButtons(){
-    const history = useHistory();
+export function AuthButtons() {
+    const navigate = useNavigate();
     const variant = {
         initial: {
             scale: 0.5,
@@ -26,14 +26,14 @@ export function AuthButtons(){
     }
     return (
         <motion.div className="auth-actions-wrapper" variants={variant} initial="initial" animate="visible" exit="exit">
-            <button className="btn btn-secondary" onClick={() => history.push("/login")}>Sign In</button>
-            <button className="btn btn-primary" onClick={() => history.push("/register")}>Sign Up</button>
+            <button className="btn btn-secondary" onClick={() => navigate("/login")}>Sign In</button>
+            <button className="btn btn-primary" onClick={() => navigate("/register")}>Sign Up</button>
         </motion.div>
     );
 }
 
 export function DropdownMenu() {
-    const {handleSignout} = useContext(AuthContext);
+    const { handleSignout } = useContext(AuthContext);
 
     return (
         <Menu>
@@ -65,35 +65,35 @@ export function UserLoggedMenu({ nickName }) {
 
     return (
         <motion.div variants={variant} initial="initial" animate="visible" exit="exit">
-        <Dropdown
-            overlay={<DropdownMenu />}
-            trigger={['click']}
-        >
-            <List>
-                <List.Item actions={[<ChevronDown />]} style={{ padding: 0 }}>
-                    <List.Item.Meta
-                        avatar={
-                            <Avatar size="large">
-                                {nickName[0].toUpperCase()}
-                            </Avatar>
-                        }
-                        title={nickName}
-                        description={`level ${nickName.length}`}
-                    />
-                </List.Item>
-            </List>
-        </Dropdown>
+            <Dropdown
+                overlay={<DropdownMenu />}
+                trigger={['click']}
+            >
+                <List>
+                    <List.Item actions={[<ChevronDown />]} style={{ padding: 0 }}>
+                        <List.Item.Meta
+                            avatar={
+                                <Avatar size="large">
+                                    {nickName[0].toUpperCase()}
+                                </Avatar>
+                            }
+                            title={nickName}
+                            description={`level ${nickName.length}`}
+                        />
+                    </List.Item>
+                </List>
+            </Dropdown>
         </motion.div>
     );
 }
 
 export default function Header() {
-    const {user} = useContext(AuthContext);
+    const { user } = useContext(AuthContext);
     const [nickName, setNickName] = useState('');
 
     useEffect(() => {
-        if(user) {setNickName(user.attributes.email)}
-        else {setNickName('')}
+        if (user) { setNickName(user.attributes.email) }
+        else { setNickName('') }
     }, [user])
 
     return (

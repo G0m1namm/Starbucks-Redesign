@@ -1,3 +1,4 @@
+@use 'sass:color';
 @import '../../../../styles/utils';
 
 #componentSlider,
@@ -135,10 +136,10 @@
         margin-left: 20px;
         width: 100%;
         height: 2px;
-        background-color: scale-color($color: $grayTextDescription, $red: null, $green: null, $blue: null, $saturation: 10%, $lightness: 40%, $alpha: 0.3);
+        background-color: color.adjust($color: $grayTextDescription, $saturation: 10%, $lightness: 40%, $alpha: 0.3);
         
         & > .MuiLinearProgress-bar{
-            background-color: scale-color($color: $grayTextDescription, $red: null, $green: null, $blue: null, $saturation: 0%, $lightness: -30%, $alpha: 0.9);
+            background-color: color.adjust($color: $grayTextDescription, $saturation: 0%, $lightness: -30%, $alpha: 0.9);
         }
     }
 }
@@ -159,17 +160,17 @@
         & > button{
             transform-origin: right center;
             &:first-child{
-                background-color: scale-color($color: $green, $red: null, $green: null, $blue: null, $saturation: 0%, $lightness: -10%, $alpha: 1.0);
+                background-color: color.adjust($color: $green, $saturation: 0%, $lightness: -10%, $alpha: 1.0);
                 
                 &:hover{
-                background-color: scale-color($color: $green, $red: null, $green: null, $blue: null, $saturation: 0%, $lightness: -5%, $alpha: 1.0);
+                background-color: color.adjust($color: $green, $saturation: 0%, $lightness: -5%, $alpha: 1.0);
                 }
             }
             &:last-child{
-                background-color: scale-color($color: $green, $red: null, $green: null, $blue: null, $saturation: 0%, $lightness: -20%, $alpha: 1.0);
+                background-color: color.adjust($color: $green, $saturation: 0%, $lightness: -20%, $alpha: 1.0);
                 
                 &:hover{
-                    background-color: scale-color($color: $green, $red: null, $green: null, $blue: null, $saturation: 0%, $lightness: -30%, $alpha: 1.0);
+                    background-color: color.adjust($color: $green, $saturation: 0%, $lightness: -30%, $alpha: 1.0);
                 }
             }
         }
@@ -186,7 +187,7 @@
             left: 0;
             z-index: 3;
             width: 100%;
-            background-color: scale-color($color: $green, $red: null, $green: null, $blue: null, $saturation: 0%, $lightness: -10%, $alpha: 1.0);
+            background-color: color.adjust($color: $green, $saturation: 0%, $lightness: -10%, $alpha: 1.0);
             
             & > .MuiLinearProgress-bar{
                 background-color: $white;

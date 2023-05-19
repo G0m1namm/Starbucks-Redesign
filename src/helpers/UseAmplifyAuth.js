@@ -25,7 +25,7 @@ const amplifyAuthReducer = (state, action) => {
   }
 };
 
-const useAmplifyAuth = (history) => {
+const useAmplifyAuth = (navigate) => {
   const initialState = {
     isLoading: true,
     isError: false,
@@ -71,13 +71,13 @@ const useAmplifyAuth = (history) => {
       switch (payload.event) {
         case "signIn":
           if (isMounted) {
-            history.push("/home");
+            navigate("/home");
             setTriggerFetch(true);
           }
           break;
         case "signUp":
           if (isMounted) {
-            history.push("/verify");
+            navigate("/verify");
             setTriggerFetch(true);
           }
           break;
@@ -93,12 +93,12 @@ const useAmplifyAuth = (history) => {
       Hub.remove("auth");
       isMounted = false;
     };
-  }, [triggerFetch, history]);
+  }, [triggerFetch, navigate]);
 
   const handleSignout = async () => {
     try {
       await Auth.signOut();
-      history.goBack();
+      navigate(-1);
       setTriggerFetch(false);
       dispatch({ type: "RESET_USER_DATA" });
     } catch (error) {
@@ -109,7 +109,7 @@ const useAmplifyAuth = (history) => {
     try {
       await Auth.signIn(data);
     } catch (error) {
-      if (error.code === "UserNotConfirmedException") history.push("/verify");
+      if (error.code === "UserNotConfirmedException") navigate("/verify");
       return error;
     }
   }

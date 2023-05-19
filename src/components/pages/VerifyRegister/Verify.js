@@ -2,10 +2,11 @@ import React, { useState, useContext, useEffect } from 'react'
 import { Form, Icon, Input, Button, Row, Col, Alert } from 'antd';
 import Logo from "../../../assets/icons/starbucks_logo.svg";
 import PhoneDrawedImage from "../../../assets/images/phone-drawed.webp";
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import ReactCodeInput from 'react-verification-code-input';
 import { AuthContext } from '../../../helpers/AuthProvider';
 import "./Verify.scss";
+import { MailOutlined } from '@ant-design/icons';
 
 const CustomizedForm = Form.create({
     name: 'verify_form',
@@ -37,15 +38,15 @@ const CustomizedForm = Form.create({
                 <Form.Item>
                     <span className="verify-welcome-title">Authenticate Your Account</span>
                     <br />
-                    <small>We've sent you a verification code to your email.<br/> It can take few minutes.</small>
+                    <small>We've sent you a verification code to your email.<br /> It can take few minutes.</small>
                 </Form.Item>
-                {(props.email == null) && 
+                {(props.email == null) &&
                     <Form.Item label="Email address" colon={false} hasFeedback>
                         {getFieldDecorator('email_address', {
                             rules: [{ type: 'email', message: 'The input is not valid email address!' }, { required: true, message: 'Please input your email address!', }],
                         })(
                             <Input
-                                addonBefore={<Icon type="mail" />}
+                                addonBefore={<MailOutlined />}
                                 placeholder="example@email.com"
                                 hasFeedback
                             />,
@@ -77,7 +78,7 @@ const CustomizedForm = Form.create({
 export default function Verify({ handleConfirmSignUp, email }) {
     let initial = {
         fields: {
-            email_address:{
+            email_address: {
                 value: '',
             },
             code: {
@@ -89,7 +90,7 @@ export default function Verify({ handleConfirmSignUp, email }) {
     const [errorMessage, setErrorMessage] = useState(null);
     const [isValidating, setIsValidating] = useState(false);
     const [userAttributes, setUserAttributes] = useState(null);
-    const history = useHistory();
+    const navigate = useNavigate();
     const { user } = useContext(AuthContext);
 
 
@@ -116,16 +117,16 @@ export default function Verify({ handleConfirmSignUp, email }) {
                 const data = { username: (userAttributes) ? userAttributes.email : email_address, code: code };
                 console.log(data);
                 const confirmData = await handleConfirmSignUp(data);
-                if(confirmData === "SUCCESS") history.push("/login");
-                (confirmData && confirmData.message) ?  handleErrorSignUp(confirmData.message) : setErrorMessage(null);
+                if (confirmData === "SUCCESS") navigate("/login");
+                (confirmData && confirmData.message) ? handleErrorSignUp(confirmData.message) : setErrorMessage(null);
             }
         })
     };
 
     return (
         <main id="verifyView">
-            <img src={Logo} alt="Starbucks logo" className="starbucks-logo" onClick={() => history.push("/home")} />
-            <CustomizedForm {...state.fields} onChange={handleFormChange} errors={[errorMessage, setErrorMessage]} isValidating={isValidating} onSubmit={handleSubmit} email={email}/>
+            <img src={Logo} alt="Starbucks logo" className="starbucks-logo" onClick={() => navigate("/home")} />
+            <CustomizedForm {...state.fields} onChange={handleFormChange} errors={[errorMessage, setErrorMessage]} isValidating={isValidating} onSubmit={handleSubmit} email={email} />
             <section className="verify-decoration-side">
                 <span>Account Verification</span>
                 <img src={PhoneDrawedImage} alt="Phone drawed with a star in the middle" />
