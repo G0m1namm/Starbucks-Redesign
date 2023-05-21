@@ -1,15 +1,15 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useMemo } from "react";
 import LogoIcon from "../../../assets/icons/starbucks_logo.svg";
 import { IconButton } from "../../atoms/IconButton";
-import { MapPin, ChevronDown } from "react-feather";
-import { useHistory } from "react-router-dom";
+import { MapPin } from "react-feather";
+import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../helpers/AuthProvider";
-import { Menu, Avatar, Dropdown, List } from "antd";
+import { Avatar, Col, Row, Typography } from "antd";
 import { AnimatePresence, motion } from "framer-motion";
 import './Header.scss';
 
-export function AuthButtons(){
-    const history = useHistory();
+export function AuthButtons() {
+    const navigate = useNavigate();
     const variant = {
         initial: {
             scale: 0.5,
@@ -26,28 +26,14 @@ export function AuthButtons(){
     }
     return (
         <motion.div className="auth-actions-wrapper" variants={variant} initial="initial" animate="visible" exit="exit">
-            <button className="btn btn-secondary" onClick={() => history.push("/login")}>Sign In</button>
-            <button className="btn btn-primary" onClick={() => history.push("/register")}>Sign Up</button>
+            <button className="btn btn-secondary" onClick={() => navigate("/login")}>Sign In</button>
+            <button className="btn btn-primary" onClick={() => navigate("/register")}>Sign Up</button>
         </motion.div>
     );
 }
 
-export function DropdownMenu() {
-    const {handleSignout} = useContext(AuthContext);
+export function UserLoggedMenu({ nickName, handleSignout }) {
 
-    return (
-        <Menu>
-            <Menu.Item key="menu:dashboard">
-                Dashboard
-            </Menu.Item>
-            <Menu.Item key="menu:logout" onClick={async () => await handleSignout()}>
-                Logout
-            </Menu.Item>
-        </Menu>
-    );
-}
-
-export function UserLoggedMenu({ nickName }) {
     const variant = {
         initial: {
             scale: 0.5,
@@ -63,38 +49,33 @@ export function UserLoggedMenu({ nickName }) {
         }
     }
 
+    const handleLogOut = async () => await handleSignout();
+
     return (
         <motion.div variants={variant} initial="initial" animate="visible" exit="exit">
-        <Dropdown
-            overlay={<DropdownMenu />}
-            trigger={['click']}
-        >
-            <List>
-                <List.Item actions={[<ChevronDown />]} style={{ padding: 0 }}>
-                    <List.Item.Meta
-                        avatar={
+            <Row gutter={20}>
+                <Col>
+                    <Row align="middle" gutter={12}>
+                        <Col>
                             <Avatar size="large">
                                 {nickName[0].toUpperCase()}
                             </Avatar>
-                        }
-                        title={nickName}
-                        description={`level ${nickName.length}`}
-                    />
-                </List.Item>
-            </List>
-        </Dropdown>
+                        </Col>
+                        <Col>
+                            <Typography.Text ellipsis style={{ maxWidth: 130 }}>{nickName}</Typography.Text>
+                        </Col>
+                    </Row>
+                </Col>
+                <Col>
+                    <button className="btn btn-primary" onClick={handleLogOut}>Sign Up</button>
+                </Col>
+            </Row>
         </motion.div>
     );
 }
 
 export default function Header() {
-    const {user} = useContext(AuthContext);
-    const [nickName, setNickName] = useState('');
-
-    useEffect(() => {
-        if(user) {setNickName(user.attributes.email)}
-        else {setNickName('')}
-    }, [user])
+    const { user, handleSignout } = useContext(AuthContext);
 
     return (
         <header>
@@ -108,7 +89,7 @@ export default function Header() {
                 </IconButton>
             </div>
             <AnimatePresence exitBeforeEnter>
-                {nickName ? (<UserLoggedMenu nickName={nickName} />) : (<AuthButtons />)}
+                {user?.attributes.email ? (<UserLoggedMenu nickName={user.attributes.email} handleSignout={handleSignout} />) : (<AuthButtons />)}
             </AnimatePresence>
         </header>
     );

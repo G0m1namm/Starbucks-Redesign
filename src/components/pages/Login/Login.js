@@ -1,9 +1,12 @@
 import React, { useState } from 'react'
-import { Form, Icon, Input, Button, Row, Col, Alert } from 'antd';
+import { Form } from '@ant-design/compatible';
+import '@ant-design/compatible/assets/index.css';
+import { Input, Button, Row, Col, Alert } from 'antd';
 import WomanImage from "../../../assets/images/lookin-device.webp";
 import Logo from "../../../assets/icons/starbucks_logo.svg";
+import { MailOutlined, LockOutlined } from '@ant-design/icons';
+import { useNavigate } from 'react-router-dom';
 import "./Login.scss";
-import { useHistory } from 'react-router-dom';
 
 const CustomizedForm = Form.create({
     name: 'global_state',
@@ -37,32 +40,32 @@ const CustomizedForm = Form.create({
                     <br />
                     <small>Login to your account</small>
                 </Form.Item>
-                <Form.Item label="Email address" colon={false} hasFeedback>
+                <Form.Item label="Email address" colon={false} hasFeedback className='input-block'>
                     {getFieldDecorator('email', {
                         rules: [{ type: 'email', message: 'The input is not valid email address!' }, { required: true, message: 'Please input your email address!', }],
                     })(
                         <Input
-                            addonBefore={<Icon type="mail" />}
+                            addonBefore={<MailOutlined />}
                             placeholder="example@email.com"
                             hasFeedback
                             autoFocus
                         />,
                     )}
                 </Form.Item>
-                <Form.Item label="Password" colon={false} hasFeedback>
+                <Form.Item label="Password" colon={false} hasFeedback className='input-block'>
                     {getFieldDecorator('password', {
                         rules: [{ required: true, message: 'Please input your password!' }],
                     })(
                         <Input.Password
-                            addonBefore={<Icon type="lock" />}
+                            addonBefore={<LockOutlined />}
                             type="password"
                             placeholder="Password"
                         />,
                     )}
                 </Form.Item>
                 {errorMessage ? (<Alert message={errorMessage} type="error" closable afterClose={() => setErrorMessage(null)} />) : null}
-                <Form.Item>
-                    <Row gutter={12} type="flex">
+                <Form.Item className='input-block'>
+                    <Row gutter={12}>
                         <Col span={12}>
                             <Button block type="primary" loading={props.isValidating} htmlType="submit" className="login-form-button">
                                 Log in
@@ -80,7 +83,7 @@ const CustomizedForm = Form.create({
     );
 });
 
-export default function Login({handleSignIn}) {
+export default function Login({ handleSignIn }) {
     let initial = {
         fields: {
             email: {
@@ -94,14 +97,14 @@ export default function Login({handleSignIn}) {
     const [state, setState] = useState(initial);
     const [errorMessage, setErrorMessage] = useState(null);
     const [isValidating, setIsValidating] = useState(false);
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const handleFormChange = changedFields => {
         setState(({ fields }) => ({
             fields: { ...fields, ...changedFields },
         }));
     };
-    
+
     const handleErrorSignUp = error => {
         setErrorMessage(error);
         setIsValidating(false);
@@ -109,18 +112,18 @@ export default function Login({handleSignIn}) {
 
     const handleSubmit = (e, onValidate) => {
         e.preventDefault();
-        onValidate(async (err, {email, password}) => {
+        onValidate(async (err, { email, password }) => {
             if (!err) {
                 setIsValidating(true);
                 const signUpError = await handleSignIn({ username: email, password });
-                (signUpError && signUpError.message) ?  handleErrorSignUp(signUpError.message) : setErrorMessage(null);
+                (signUpError && signUpError.message) ? handleErrorSignUp(signUpError.message) : setErrorMessage(null);
             }
         })
     };
 
     return (
         <main id="loginView">
-            <img src={Logo} alt="Starbucks logo" className="starbucks-logo" onClick={() => history.push("/home")}/>
+            <img src={Logo} alt="Starbucks logo" className="starbucks-logo" onClick={() => navigate("/")} />
             <CustomizedForm {...state.fields} onChange={handleFormChange} errors={[errorMessage, setErrorMessage]} isValidating={isValidating} onSubmit={handleSubmit} />
             <section className="login-decoration-side">
                 <span>Sign In</span>

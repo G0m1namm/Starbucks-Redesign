@@ -48,7 +48,7 @@ export default function ComponentSlideThree() {
     };
 
     return (
-        <motion.div positionTransition initial="initial" variants={stagger} exit="initial" id="componentSlideThree">
+        <motion.div layout initial="initial" variants={stagger} exit="initial" id="componentSlideThree">
             <motion.div className="component-three-info" variants={variants} initial="initial" animate="animate">
                 <motion.div variants={stagger} custom={1}>
                     <ComponentCategory>coffee stories</ComponentCategory>

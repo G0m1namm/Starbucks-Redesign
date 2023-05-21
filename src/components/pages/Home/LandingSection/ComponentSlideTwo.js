@@ -47,7 +47,7 @@ export default function ComponentSlideTwo() {
     };
 
     return (
-        <motion.div positionTransition initial="initial" variants={stagger} exit="initial" id="componentSlideTwo">
+        <motion.div layout initial="initial" variants={stagger} exit="initial" id="componentSlideTwo">
             <motion.div className="component-two-info" variants={variants} initial="initial" animate="animate">
                 <motion.div variants={stagger} custom={1}>
                     <ComponentCategory>special offer</ComponentCategory>

@@ -1,20 +1,9 @@
 import React from "react";
-import { Redirect, Route } from "react-router-dom";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
+import { useAuth } from "./AuthProvider";
 
-export default function PrivateRouter({ children, user, ...props }) {
-    return (
-        <Route
-            {...props}
-            render={({ location }) =>
-                user ? (
-                    <Redirect
-                        to={{
-                            pathname: "/",
-                            state: { from: location }
-                        }}
-                    />
-                ) : (children)
-            }
-        />
-    )
+export default function PrivateRouter() {
+    const { user } = useAuth();
+    let location = useLocation();
+    return !user ? <Outlet /> : <Navigate to="/" state={{ from: location }} replace />
 }

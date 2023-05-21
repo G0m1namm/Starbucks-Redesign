@@ -1,38 +1,56 @@
 {
-    "develop": {
-        "awscloudformation": {
-            "AuthRoleName": "amplify-fitness-develop-145543-authRole",
-            "UnauthRoleArn": "arn:aws:iam::280825150766:role/amplify-fitness-develop-145543-unauthRole",
-            "AuthRoleArn": "arn:aws:iam::280825150766:role/amplify-fitness-develop-145543-authRole",
-            "Region": "us-east-2",
-            "DeploymentBucketName": "amplify-fitness-develop-145543-deployment",
-            "UnauthRoleName": "amplify-fitness-develop-145543-unauthRole",
-            "StackName": "amplify-fitness-develop-145543",
-            "StackId": "arn:aws:cloudformation:us-east-2:280825150766:stack/amplify-fitness-develop-145543/d3ca1db0-4e9a-11ea-ac0e-023ebc410218",
-            "AmplifyAppId": "d1qkfz9q5wqmr6"
-        },
-        "categories": {
-            "auth": {
-                "fitnessa3314097": {}
-            }
-        }
+  "staging": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-starbucksredesign-staging-224448-authRole",
+      "UnauthRoleArn": "arn:aws:iam::272638356372:role/amplify-starbucksredesign-staging-224448-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::272638356372:role/amplify-starbucksredesign-staging-224448-authRole",
+      "Region": "us-east-2",
+      "DeploymentBucketName": "amplify-starbucksredesign-staging-224448-deployment",
+      "UnauthRoleName": "amplify-starbucksredesign-staging-224448-unauthRole",
+      "StackName": "amplify-starbucksredesign-staging-224448",
+      "StackId": "arn:aws:cloudformation:us-east-2:272638356372:stack/amplify-starbucksredesign-staging-224448/ece55640-f75f-11ed-81e9-02f2b31ef29f",
+      "AmplifyAppId": "d3f6c9479ex9nk"
     },
-    "dev": {
-        "awscloudformation": {
-            "AuthRoleName": "amplify-fitness-dev-113739-authRole",
-            "UnauthRoleArn": "arn:aws:iam::280825150766:role/amplify-fitness-dev-113739-unauthRole",
-            "AuthRoleArn": "arn:aws:iam::280825150766:role/amplify-fitness-dev-113739-authRole",
-            "Region": "us-east-2",
-            "DeploymentBucketName": "amplify-fitness-dev-113739-deployment",
-            "UnauthRoleName": "amplify-fitness-dev-113739-unauthRole",
-            "StackName": "amplify-fitness-dev-113739",
-            "StackId": "arn:aws:cloudformation:us-east-2:280825150766:stack/amplify-fitness-dev-113739/26aeb170-57ed-11ea-8ce2-0a3121d24df0",
-            "AmplifyAppId": "d1qkfz9q5wqmr6"
-        },
-        "categories": {
-            "auth": {
-                "fitness10b3f91d": {}
-            }
-        }
+    "categories": {
+      "auth": {
+        "starbucksredesign": {}
+      }
     }
+  },
+  "develop": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-fitness-develop-145543-authRole",
+      "UnauthRoleArn": "arn:aws:iam::280825150766:role/amplify-fitness-develop-145543-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::280825150766:role/amplify-fitness-develop-145543-authRole",
+      "Region": "us-east-2",
+      "DeploymentBucketName": "amplify-fitness-develop-145543-deployment",
+      "UnauthRoleName": "amplify-fitness-develop-145543-unauthRole",
+      "StackName": "amplify-fitness-develop-145543",
+      "StackId": "arn:aws:cloudformation:us-east-2:280825150766:stack/amplify-fitness-develop-145543/d3ca1db0-4e9a-11ea-ac0e-023ebc410218",
+      "AmplifyAppId": "d1qkfz9q5wqmr6"
+    },
+    "categories": {
+      "auth": {
+        "fitnessa3314097": {}
+      }
+    }
+  },
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-fitness-dev-113739-authRole",
+      "UnauthRoleArn": "arn:aws:iam::280825150766:role/amplify-fitness-dev-113739-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::280825150766:role/amplify-fitness-dev-113739-authRole",
+      "Region": "us-east-2",
+      "DeploymentBucketName": "amplify-fitness-dev-113739-deployment",
+      "UnauthRoleName": "amplify-fitness-dev-113739-unauthRole",
+      "StackName": "amplify-fitness-dev-113739",
+      "StackId": "arn:aws:cloudformation:us-east-2:280825150766:stack/amplify-fitness-dev-113739/26aeb170-57ed-11ea-8ce2-0a3121d24df0",
+      "AmplifyAppId": "d1qkfz9q5wqmr6"
+    },
+    "categories": {
+      "auth": {
+        "fitness10b3f91d": {}
+      }
+    }
+  }
 }

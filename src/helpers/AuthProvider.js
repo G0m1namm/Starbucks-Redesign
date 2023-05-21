@@ -1,41 +1,41 @@
 import React, { useState, Suspense, lazy } from "react";
 import PrivateRouter from "./PrivateRouter";
-import { Route, Switch, useHistory } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 // import MainRoutingWrapper from "../components/templates/MainRoutingWrapper/MainRoutinWrapper";
 import useAmplifyAuth from "./UseAmplifyAuth";
 import Login from "../components/pages/Login/Login";
 import Register from "../components/pages/Register/Register";
 import Verify from "../components/pages/VerifyRegister/Verify";
 import LoaderScreen from "../components/templates/Loader/LoaderScreen";
+import Home from "../components/pages/Home/Home";
 
 export const AuthContext = React.createContext();
-export const FormDataContext = React.createContext();
+export const useAuth = () => React.useContext(AuthContext);
+
 const MainRoutingWrapper = lazy(() => import("../components/templates/MainRoutingWrapper/MainRoutinWrapper"));
 
 export default function AuthProvider() {
-    let history = useHistory();
-    const { state: { user }, handleSignout, handleSignIn, handleSignUp, handleConfirmSignUp, handleResendSignUp } = useAmplifyAuth(history);
+    const navigate = useNavigate();
+    const { state, handleSignout, handleSignIn, handleSignUp, handleConfirmSignUp, handleResendSignUp } = useAmplifyAuth(navigate);
     const [email, setEmail] = useState(null);
 
     return (
-        <AuthContext.Provider value={{ user, handleSignout }}>
+        <AuthContext.Provider value={{ user: state?.user, handleSignout }}>
             <Suspense fallback={<LoaderScreen />}>
-                <Switch>
-                    <Route exact path={["/", "/home"]}>
-                        <MainRoutingWrapper />
+                <Routes>
+                    <Route element={<MainRoutingWrapper />}>
+                        <Route path="/" element={<Home />} />
                     </Route>
-                    <FormDataContext.Provider>
-                        <PrivateRouter path="/login" user={user}>
-                            <Login handleSignIn={handleSignIn} />
-                        </PrivateRouter>
-                        <PrivateRouter path="/register" user={user} >
-                            <Register handleSignUp={handleSignUp} setEmail={(e) => setEmail(e)} />
-                        </PrivateRouter>
-                        <PrivateRouter path="/verify" user={user}>
-                            <Verify handleConfirmSignUp={handleConfirmSignUp} handleResendSignUp={handleResendSignUp} email={email} />
-                        </PrivateRouter>
-                    </FormDataContext.Provider>
-                </Switch>
+                    <Route element={<PrivateRouter />}>
+                        <Route exact path="/login" element={<Login handleSignIn={handleSignIn} />} />
+                    </Route>
+                    <Route element={<PrivateRouter />}>
+                        <Route exact path="/register" element={<Register handleSignUp={handleSignUp} setEmail={(e) => setEmail(e)} />} />
+                    </Route>
+                    <Route element={<PrivateRouter />}>
+                        <Route exact path="/verify" element={<Verify handleConfirmSignUp={handleConfirmSignUp} handleResendSignUp={handleResendSignUp} email={email} />} />
+                    </Route>
+                </Routes>
             </Suspense>
         </AuthContext.Provider>
     );

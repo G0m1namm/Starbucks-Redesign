@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { Form, Icon, Input, Button, Row, Col, Alert } from 'antd';
-import WomanImage from "../../../assets/images/lookin-device.webp";
+import { Form } from '@ant-design/compatible';
+import '@ant-design/compatible/assets/index.css';
+import { Input, Button, Row, Col, Alert } from 'antd';
 import Logo from "../../../assets/icons/starbucks_logo.svg";
 import CloneStarGif from "../../../assets/images/clone-star.gif";
-import { useHistory } from 'react-router-dom';
+import { MailOutlined, LockOutlined, UserOutlined } from '@ant-design/icons';
+import { useNavigate } from 'react-router-dom';
 import "./Register.scss";
 
 const CustomizedForm = Form.create({
@@ -42,50 +44,50 @@ const CustomizedForm = Form.create({
                     <br />
                     <small>Create an account</small>
                 </Form.Item>
-                <Form.Item label="Nickname" colon={false} hasFeedback>
+                <Form.Item label="Nickname" colon={false} hasFeedback className='input-block'>
                     {getFieldDecorator('nickname', {
                         rules: [{ required: true, message: 'Please input your nickname!' }, { min: 8, message: "Please input at least 8 characters!" }],
                     })(
                         <Input
-                            addonBefore={<Icon type="user" />}
+                            addonBefore={<UserOutlined />}
                             placeholder="MyNickname"
                             hasFeedback
                             autoFocus
                         />,
                     )}
                 </Form.Item>
-                <Form.Item label="Email address" colon={false} hasFeedback>
+                <Form.Item label="Email address" colon={false} hasFeedback className='input-block'>
                     {getFieldDecorator('email', {
                         rules: [{ type: 'email', message: 'The input is not valid email address!' }, { required: true, message: 'Please input your email address!', }],
                     })(
                         <Input
-                            addonBefore={<Icon type="mail" />}
+                            addonBefore={<MailOutlined />}
                             placeholder="example@email.com"
                             hasFeedback
                         />,
                     )}
                 </Form.Item>
-                <Form.Item label="Password" colon={false} hasFeedback>
+                <Form.Item label="Password" colon={false} hasFeedback className='input-block'>
                     {getFieldDecorator('password', {
-                        rules: [{ required: true, message: 'Please input your password!' }],
+                        rules: [{ required: true, message: 'Please input your password!' }, { min: 8, message: "Please use at least 8 characters!" }],
                     })(
                         <Input.Password
-                            addonBefore={<Icon type="lock" />}
+                            addonBefore={<LockOutlined />}
                             type="password"
                             placeholder="Password"
                         />,
                     )}
                 </Form.Item>
                 {errorMessage ? (<Alert message={errorMessage} type="error" closable afterClose={() => setErrorMessage(null)} />) : null}
-                <Form.Item>
-                    <Row gutter={12} type="flex" justify="center">
-                        <Col>
+                <Row justify="center">
+                    <Col>
+                        <Form.Item>
                             <Button block type="primary" loading={props.isValidating} htmlType="submit" className="register-form-button">
                                 Create account
                             </Button>
-                        </Col>
-                    </Row>
-                </Form.Item>
+                        </Form.Item>
+                    </Col>
+                </Row>
                 <div className="register-form-actions-container">
                     <span>Already have an account? <a href="/login" className="green">Sign In!!</a></span>
                 </div>
@@ -111,14 +113,14 @@ export default function Register({ handleSignUp, setEmail }) {
     const [state, setState] = useState(initial);
     const [errorMessage, setErrorMessage] = useState(null);
     const [isValidating, setIsValidating] = useState(false);
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const handleFormChange = changedFields => {
         setState(({ fields }) => ({
             fields: { ...fields, ...changedFields },
         }));
     };
-    
+
     const handleErrorSignUp = error => {
         setErrorMessage(error);
         setIsValidating(false);
@@ -132,16 +134,16 @@ export default function Register({ handleSignUp, setEmail }) {
                 setEmail(email);
                 const signUpError = await handleSignUp({ username: email, password, nickname });
                 console.log(signUpError);
-                (signUpError && signUpError.message) ?  handleErrorSignUp(signUpError.message) : setErrorMessage(null);
+                (signUpError && signUpError.message) ? handleErrorSignUp(signUpError.message) : setErrorMessage(null);
             }
         })
     };
 
-    useEffect(() => {console.log("in register")}, []);
+    useEffect(() => { console.log("in register") }, []);
 
     return (
         <main id="registerView">
-            <img src={Logo} alt="Starbucks logo" className="starbucks-logo" onClick={() => history.push("/home")} />
+            <img src={Logo} alt="Starbucks logo" className="starbucks-logo" onClick={() => navigate("/")} />
             <CustomizedForm {...state.fields} onChange={handleFormChange} errors={[errorMessage, setErrorMessage]} isValidating={isValidating} onSubmit={handleSubmit} />
             <section className="register-decoration-side">
                 <span>Sign Up</span>

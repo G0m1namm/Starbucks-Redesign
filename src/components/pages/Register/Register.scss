@@ -72,6 +72,14 @@
                     box-shadow: 0 0 0 2px rgba($color: $lightGreen, $alpha: 0.4);
                 }
             }
+
+            & .ant-input-affix-wrapper {
+                & > input {
+                    padding-inline-start: 0;
+                    padding-block: 6px;
+                }
+            }
+            
             & .register-form-forgot{
                 font-size: 12px;
             }
