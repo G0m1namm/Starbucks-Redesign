@@ -50,6 +50,7 @@
                 color: $black;
                 font-family: "StolzlMedium", sans-serif;
             }
+
             & .ant-input-group-addon{
                 padding: 10px 14px;
                 border-radius: 0;
@@ -70,6 +71,13 @@
 
                 &:focus{
                     box-shadow: 0 0 0 2px rgba($color: $lightGreen, $alpha: 0.4);
+                }
+            }
+
+            & .ant-input-affix-wrapper {
+                & > input {
+                    padding-inline-start: 0;
+                    padding-block: 6px;
                 }
             }
             & .login-form-forgot{

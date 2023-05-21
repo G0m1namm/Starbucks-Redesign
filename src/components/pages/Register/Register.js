@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import { Form } from '@ant-design/compatible';
 import '@ant-design/compatible/assets/index.css';
 import { Input, Button, Row, Col, Alert } from 'antd';
-import WomanImage from "../../../assets/images/lookin-device.webp";
 import Logo from "../../../assets/icons/starbucks_logo.svg";
 import CloneStarGif from "../../../assets/images/clone-star.gif";
 import { MailOutlined, LockOutlined, UserOutlined } from '@ant-design/icons';
@@ -45,7 +44,7 @@ const CustomizedForm = Form.create({
                     <br />
                     <small>Create an account</small>
                 </Form.Item>
-                <Form.Item label="Nickname" colon={false} hasFeedback>
+                <Form.Item label="Nickname" colon={false} hasFeedback className='input-block'>
                     {getFieldDecorator('nickname', {
                         rules: [{ required: true, message: 'Please input your nickname!' }, { min: 8, message: "Please input at least 8 characters!" }],
                     })(
@@ -57,7 +56,7 @@ const CustomizedForm = Form.create({
                         />,
                     )}
                 </Form.Item>
-                <Form.Item label="Email address" colon={false} hasFeedback>
+                <Form.Item label="Email address" colon={false} hasFeedback className='input-block'>
                     {getFieldDecorator('email', {
                         rules: [{ type: 'email', message: 'The input is not valid email address!' }, { required: true, message: 'Please input your email address!', }],
                     })(
@@ -68,9 +67,9 @@ const CustomizedForm = Form.create({
                         />,
                     )}
                 </Form.Item>
-                <Form.Item label="Password" colon={false} hasFeedback>
+                <Form.Item label="Password" colon={false} hasFeedback className='input-block'>
                     {getFieldDecorator('password', {
-                        rules: [{ required: true, message: 'Please input your password!' }],
+                        rules: [{ required: true, message: 'Please input your password!' }, { min: 8, message: "Please use at least 8 characters!" }],
                     })(
                         <Input.Password
                             addonBefore={<LockOutlined />}
@@ -80,15 +79,15 @@ const CustomizedForm = Form.create({
                     )}
                 </Form.Item>
                 {errorMessage ? (<Alert message={errorMessage} type="error" closable afterClose={() => setErrorMessage(null)} />) : null}
-                <Form.Item>
-                    <Row gutter={12} type="flex" justify="center">
-                        <Col>
+                <Row justify="center">
+                    <Col>
+                        <Form.Item>
                             <Button block type="primary" loading={props.isValidating} htmlType="submit" className="register-form-button">
                                 Create account
                             </Button>
-                        </Col>
-                    </Row>
-                </Form.Item>
+                        </Form.Item>
+                    </Col>
+                </Row>
                 <div className="register-form-actions-container">
                     <span>Already have an account? <a href="/login" className="green">Sign In!!</a></span>
                 </div>

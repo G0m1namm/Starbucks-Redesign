@@ -16,11 +16,11 @@ const MainRoutingWrapper = lazy(() => import("../components/templates/MainRoutin
 
 export default function AuthProvider() {
     const navigate = useNavigate();
-    const { state: { user }, handleSignout, handleSignIn, handleSignUp, handleConfirmSignUp, handleResendSignUp } = useAmplifyAuth(navigate);
+    const { state, handleSignout, handleSignIn, handleSignUp, handleConfirmSignUp, handleResendSignUp } = useAmplifyAuth(navigate);
     const [email, setEmail] = useState(null);
 
     return (
-        <AuthContext.Provider value={{ user, handleSignout }}>
+        <AuthContext.Provider value={{ user: state?.user, handleSignout }}>
             <Suspense fallback={<LoaderScreen />}>
                 <Routes>
                     <Route element={<MainRoutingWrapper />}>

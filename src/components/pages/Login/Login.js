@@ -40,7 +40,7 @@ const CustomizedForm = Form.create({
                     <br />
                     <small>Login to your account</small>
                 </Form.Item>
-                <Form.Item label="Email address" colon={false} hasFeedback>
+                <Form.Item label="Email address" colon={false} hasFeedback className='input-block'>
                     {getFieldDecorator('email', {
                         rules: [{ type: 'email', message: 'The input is not valid email address!' }, { required: true, message: 'Please input your email address!', }],
                     })(
@@ -52,7 +52,7 @@ const CustomizedForm = Form.create({
                         />,
                     )}
                 </Form.Item>
-                <Form.Item label="Password" colon={false} hasFeedback>
+                <Form.Item label="Password" colon={false} hasFeedback className='input-block'>
                     {getFieldDecorator('password', {
                         rules: [{ required: true, message: 'Please input your password!' }],
                     })(
@@ -64,8 +64,8 @@ const CustomizedForm = Form.create({
                     )}
                 </Form.Item>
                 {errorMessage ? (<Alert message={errorMessage} type="error" closable afterClose={() => setErrorMessage(null)} />) : null}
-                <Form.Item>
-                    <Row gutter={12} type="flex">
+                <Form.Item className='input-block'>
+                    <Row gutter={12}>
                         <Col span={12}>
                             <Button block type="primary" loading={props.isValidating} htmlType="submit" className="login-form-button">
                                 Log in

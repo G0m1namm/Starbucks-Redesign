@@ -43,7 +43,7 @@ const CustomizedForm = Form.create({
                     <small>We've sent you a verification code to your email.<br /> It can take few minutes.</small>
                 </Form.Item>
                 {(props.email == null) &&
-                    <Form.Item label="Email address" colon={false} hasFeedback>
+                    <Form.Item label="Email address" colon={false} hasFeedback className='input-block'>
                         {getFieldDecorator('email_address', {
                             rules: [{ type: 'email', message: 'The input is not valid email address!' }, { required: true, message: 'Please input your email address!', }],
                         })(
@@ -55,7 +55,7 @@ const CustomizedForm = Form.create({
                         )}
                     </Form.Item>
                 }
-                <Form.Item label="Verification code" colon={false}>
+                <Form.Item label="Verification code" colon={false} className='input-block'>
                     {getFieldDecorator('code', {
                         rules: [{ required: true, message: 'Please input your verification code!' }, { min: 6, message: "Please input at least 6 characters!" }],
                     })(
@@ -63,15 +63,15 @@ const CustomizedForm = Form.create({
                     )}
                 </Form.Item>
                 {errorMessage ? (<Alert message={errorMessage} type="error" closable afterClose={() => setErrorMessage(null)} />) : null}
-                <Form.Item>
-                    <Row gutter={12} type="flex" justify="center">
-                        <Col>
+                <Row justify="center">
+                    <Col>
+                        <Form.Item>
                             <Button block type="primary" loading={props.isValidating} htmlType="submit" className="verify-form-button">
                                 Verify
                             </Button>
-                        </Col>
-                    </Row>
-                </Form.Item>
+                        </Form.Item>
+                    </Col>
+                </Row>
             </Form>
         </section>
     );
@@ -108,15 +108,15 @@ export default function Verify({ handleConfirmSignUp, email }) {
     };
 
     useEffect(() => {
-        (user) ? setUserAttributes(user.attributes) : setUserAttributes(email);
-    }, [user, email])
+        (user) ? setUserAttributes(user.attributes) : setUserAttributes({ email });
+    }, [user, email,])
 
     const handleSubmit = (e, onValidate) => {
         e.preventDefault();
         onValidate(async (err, { code, email_address }) => {
             if (!err) {
                 setIsValidating(true);
-                const data = { username: (userAttributes) ? userAttributes.email : email_address, code: code };
+                const data = { username: userAttributes?.email ? userAttributes.email : email_address, code: code };
                 console.log(data);
                 const confirmData = await handleConfirmSignUp(data);
                 if (confirmData === "SUCCESS") navigate("/login");

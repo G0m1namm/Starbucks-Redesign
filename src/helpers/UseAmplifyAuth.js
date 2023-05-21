@@ -90,7 +90,6 @@ const useAmplifyAuth = (navigate) => {
     fetchUserData();
 
     return () => {
-      Hub.remove("auth");
       isMounted = false;
     };
   }, [triggerFetch, navigate]);
@@ -116,7 +115,7 @@ const useAmplifyAuth = (navigate) => {
 
   const handleSignUp = async ({ nickname, ...data }) => {
     try {
-      return await Auth.signUp({ ...data, attributes: { nickname } });
+      return await Auth.signUp({ ...data, attributes: { name: nickname } });
     } catch (error) {
       return error;
     }
