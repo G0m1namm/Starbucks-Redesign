@@ -1,69 +1,64 @@
-@use 'sass:color';
-@import '../../../../styles/utils';
+@use "sass:color";
+@import "../../../../styles/utils";
 
 #componentSlider,
-#componentSlider > div.component-wrapper-animated{
+#componentSlider > div.component-wrapper-animated {
     width: 100%;
     height: 100%;
     min-height: calc(100vh - 82px);
     position: relative;
     z-index: 3;
-    
 }
-
-// #componentSlider{
-//     &::after{
-//         content: '';
-//         position: absolute;
-//         top: 50px; 
-//         left: 0;
-//         width: 2px;
-//         z-index: 5;
-//         height: calc(100% - 100px);
-//         background-color: rgba($color: $lightgray, $alpha: 0.7);
-//     }
-// }
 
 #componentSlideOne,
 #componentSlideTwo,
-#componentSlideThree{
+#componentSlideThree {
     height: inherit;
     min-height: inherit;
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 100%;
     z-index: 4;
+    grid-template-columns: 100%;
+    grid-template-rows: 300px auto;
+
+    @media #{$mediumUp} {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 100%;
+    }
 
     & .component-one-info,
     & .component-two-info,
-    & .component-three-info{
+    & .component-three-info {
         height: fit-content;
-        @include fluid-type(padding-left, 320px, 1366px, 0px, 50px);
-        // @include fluid-type(padding-top, 320px, 1366px, 20px, 50px);
         place-self: center;
+        width: 100%;
+        @include fluid-type(padding-left, 320px, 1366px, 0px, 50px);
+
+        @media #{$mediumUp} {
+            width: unset;
+        }
 
         & .component-title,
-        & .component-description{
+        & .component-description {
             @include fluid-type(margin-top, 320px, 1366px, 10px, 20px);
             @include fluid-type(margin-bottom, 320px, 1366px, 10px, 20px);
         }
 
-        & .component-description{
+        & .component-description {
             @include fluid-type(margin-bottom, 320px, 1366px, 10px, 35px);
         }
 
-        & .component-category{
+        & .component-category {
             @include fluid-type(margin-bottom, 320px, 1366px, 20px, 30px);
         }
     }
 
     & .component-one-image,
     & .component-two-image,
-    & .component-three-image{
+    & .component-three-image {
         display: inherit;
         align-items: flex-end;
-        
-        & img{
+
+        & img {
             width: 100%;
             max-width: 620px;
             filter: drop-shadow(32px -3px 24px #3f2d3050);
@@ -71,50 +66,66 @@
     }
 }
 
+#componentSlideOne,
 #componentSlideTwo,
-#componentSlideThree{
+#componentSlideThree {
     &::after,
-    &::before{
+    &::before {
         content: "";
         position: absolute;
         top: 0;
         left: 0;
-        width: calc(100vw + 30px);
-        margin-left: -100px;
+        width: calc(100% + 40px);
+        margin-left: -20px;
         height: 100%;
+
+        @media #{$mediumUp} {
+            width: calc(100vw + 30px);
+            margin-left: -100px;
+        }
     }
 
-    &::after{    
-        background-image: url('../../../../assets/images/cappuccino-slide-2-1.jpg');
+    &::after {
         background-size: cover;
         background-position: center right;
+        background-repeat: no-repeat;
         z-index: -2;
     }
 
-    &::before{
-        background-color: rgba($color: $black, $alpha: 0.2);
+    &::before {
+        //background-color: rgba($color: $black, $alpha: 0.2);
         z-index: -1;
     }
-    
-    & .component-two-info,
-    & .component-three-info{
-        & .component-title{
-            color: $white;
-        }
-    }
+
     & .component-two-image,
-    & .component-three-image{
+    & .component-three-image {
         opacity: 0;
     }
 }
 
-#componentSlideThree{
-    &::after{
-        background-image: url('../../../../assets/images/coffe-beans-slide-3.jpg');
+#componentSlideOne {
+    &::after {
+        background-image: url("../../../../assets/images/frappuccino-image-slide-bg.png");
+        background-size: contain;
+        background-position: center bottom;
+    }
+}
+#componentSlideTwo {
+    &::after {
+        background-image: url("../../../../assets/images/several-coffees-slide-4.png");
+        background-size: contain;
+        background-position: center bottom;
     }
 }
 
-#actualSlideTimer{
+#componentSlideThree {
+    &::after {
+        background-image: url("../../../../assets/images/pink-coffee-slide.png");
+        background-position: center 20vh;
+    }
+}
+
+#actualSlideTimer {
     display: grid;
     grid-template-columns: 25px 1fr;
     place-items: center;
@@ -127,74 +138,86 @@
     padding-left: 50px;
     z-index: 5;
 
-    & > .actual-slider-number{
+    & > .actual-slider-number {
         font-family: "StolzlMedium", sans-serif;
         letter-spacing: 2px;
         color: rgba($color: $grayTextDescription, $alpha: 0.5);
     }
-    & > .actual-slider-progress-bar{
+    & > .actual-slider-progress-bar {
         margin-left: 20px;
         width: 100%;
         height: 2px;
         background-color: color.adjust($color: $grayTextDescription, $saturation: 10%, $lightness: 40%, $alpha: 0.3);
-        
-        & > .MuiLinearProgress-bar{
-            background-color: color.adjust($color: $grayTextDescription, $saturation: 0%, $lightness: -30%, $alpha: 0.9);
+
+        & > .MuiLinearProgress-bar {
+            background-color: color.adjust(
+                $color: $grayTextDescription,
+                $saturation: 0%,
+                $lightness: -30%,
+                $alpha: 0.9
+            );
         }
     }
 }
 
-#componentSliderControls{
+#componentSliderControls {
     min-width: 320px;
     position: absolute;
-    bottom: 0;
+    bottom: 20px;
     right: 0;
     z-index: 5;
     display: grid;
-    grid-template-columns: max-content  1fr;
+    grid-template-columns: max-content 1fr;
+    width: calc(100% + 40px);
+    margin: -20px;
 
-    & > .slider-control-actions{
+    @media #{$mediumUp} {
+        margin: 0;
+        width: unset;
+    }
+
+    & > .slider-control-actions {
         display: grid;
         grid-template-rows: repeat(2, 1fr);
 
-        & > button{
+        & > button {
             transform-origin: right center;
-            &:first-child{
-                background-color: color.adjust($color: $green, $saturation: 0%, $lightness: -10%, $alpha: 1.0);
-                
-                &:hover{
-                background-color: color.adjust($color: $green, $saturation: 0%, $lightness: -5%, $alpha: 1.0);
+            &:first-child {
+                background-color: color.adjust($color: $green, $saturation: 0%, $lightness: -10%, $alpha: 1);
+
+                &:hover {
+                    background-color: color.adjust($color: $green, $saturation: 0%, $lightness: -5%, $alpha: 1);
                 }
             }
-            &:last-child{
-                background-color: color.adjust($color: $green, $saturation: 0%, $lightness: -20%, $alpha: 1.0);
-                
-                &:hover{
-                    background-color: color.adjust($color: $green, $saturation: 0%, $lightness: -30%, $alpha: 1.0);
+            &:last-child {
+                background-color: color.adjust($color: $green, $saturation: 0%, $lightness: -20%, $alpha: 1);
+
+                &:hover {
+                    background-color: color.adjust($color: $green, $saturation: 0%, $lightness: -30%, $alpha: 1);
                 }
             }
         }
     }
 
-    & > .slider-control-info{
+    & > .slider-control-info {
         position: relative;
         padding: 22px 30px;
         background-color: $green;
-        
-        & > .slider-progress-bar{
+
+        & > .slider-progress-bar {
             position: absolute;
             top: 0;
             left: 0;
             z-index: 3;
             width: 100%;
-            background-color: color.adjust($color: $green, $saturation: 0%, $lightness: -10%, $alpha: 1.0);
-            
-            & > .MuiLinearProgress-bar{
+            background-color: color.adjust($color: $green, $saturation: 0%, $lightness: -10%, $alpha: 1);
+
+            & > .MuiLinearProgress-bar {
                 background-color: $white;
             }
         }
 
-        & > .slider-control-item-indicator{
+        & > .slider-control-item-indicator {
             width: 100%;
             display: flex;
             flex-wrap: nowrap;
@@ -203,18 +226,18 @@
             font-size: 12px;
             margin-bottom: 10px;
 
-            & > span:last-child{
+            & > span:last-child {
                 font-size: 14px;
             }
         }
 
-        & > .slider-control-next-title{
+        & > .slider-control-next-title {
             color: $white;
             letter-spacing: 2px;
             margin-bottom: 10px;
         }
 
-        & > .slider-control-next-description{
+        & > .slider-control-next-description {
             color: rgba($color: $white, $alpha: 0.5);
             margin-top: 15px;
             font-size: 12px;
@@ -222,11 +245,16 @@
     }
 }
 
-#componentSlider > .component-slider-waterprint{
+#componentSlider > .component-slider-waterprint {
     position: absolute;
-    left: -40%;
-    z-index: 4;
+    left: -110%;
+    z-index: 1;
     height: inherit;
     min-height: inherit;
     filter: grayscale(1) opacity(0.05);
+
+    @media #{$mediumUp} {
+        left: -40%;
+        z-index: 4;
+    }
 }

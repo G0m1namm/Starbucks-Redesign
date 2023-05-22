@@ -2,8 +2,7 @@ import React from "react";
 import './ComponentSlide.scss'
 import { ComponentCategory, ComponentTitle } from "../../../organisms/Home/ComponenSlider/ComponentInfo";
 
-// Photo by Hans Vivek on Unsplash
-import CoffeeBeansImage from "../../../../assets/images/coffe-beans-slide-3.jpg";
+import CoffeeBeansImage from "../../../../assets/images/pink-coffee-slide.png";
 
 import { DescriptionSwitchView, ImageSwitchView } from "../../../molecules/Home/ComponentSlider/ComponentSwitchView";
 import { motion } from "framer-motion";

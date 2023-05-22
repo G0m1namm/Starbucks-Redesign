@@ -29,7 +29,11 @@
     align-items: unset;
 
     & .menu-modal-backdrop{
-        background: linear-gradient(90deg, transparent 50%,rgba(0, 0, 0, 0.2)) !important;
+        background: $white;
+
+        @media #{$mediumUp}{
+            background: linear-gradient(90deg, transparent 50%,rgba(0, 0, 0, 0.2)) !important;
+        }
     }
 
     & > .menu-content--expanded{
@@ -44,11 +48,17 @@
 
         & > .menu-content-header-mask{
             height: 82px;
-            background: linear-gradient(90deg, transparent, $white);
+            padding: 20px 30px;
+            background: none;
             display: block;
-            
             border-bottom: 1px solid rgba($color: #000, $alpha: 0.1);
+            background: $white;
+            
+            @media #{$mediumUp}{
+                background: linear-gradient(90deg, transparent, $white);
+            }
         }
+        
         & > .menu-content-wrapper{
             background-color: $white;
             height: calc(100vh - 82px);
@@ -59,7 +69,12 @@
 .menu-content-backdrop{
     & .menu-content-wrapper{
         display: grid;
-        grid-template-columns: 100px auto;
+        grid-template-columns: 100%;
+
+        @media #{$mediumUp} {
+            grid-template-columns: 100px auto;
+        }
+
         & > .menu-content-icon{
             position: relative;
             padding: 50px 30px;
@@ -117,10 +132,17 @@
 
             & > .menu-content-actions{
                 display: flex;
-                align-items: flex-end;
+                align-items: flex-start;
                 justify-content: space-between;
                 height: fit-content;
                 overflow: hidden;
+                flex-direction: column-reverse;
+                gap: 20px;
+
+                @media #{$mediumUp} {
+                    align-items: flex-end;
+                    flex-direction: row;
+                }
             }
         }
     }

@@ -9,6 +9,9 @@ import { NavigationLinks } from "../../../data/navigation";
 import ArticlePreview from "../../organisms/Menu/ArticlePreview/ArticlePreview";
 import NavWrapper, { NavLink } from "../../atoms/NavLink";
 import { SocialIconsWrapper } from "../../molecules/Menu/SocialIconsWrapper";
+import { useMenuContext } from "../../../helpers/MenuProvider";
+import { Breakpoint } from "react-socks";
+import { Row } from "antd";
 
 export function Recomendations({ products }) {
     const x = useMotionValue(0);
@@ -96,7 +99,7 @@ export function CategorizedNavigation() {
 
 export default function Menu() {
     const products = [...previewProducts];
-    const [open, setOpen] = useState(false);
+    const { open, setOpen } = useMenuContext();
     const menuVariants = {
         collapsed: {
             x: '-100vw',
@@ -121,11 +124,13 @@ export default function Menu() {
 
     return (
         <>
-            <aside id="asideMenu">
-                <div className="menu-icon-wrapper" onClick={() => setOpen(!open)}>
-                    <MenuICon />
-                </div>
-            </aside >
+            <Breakpoint medium up>
+                <aside id="asideMenu">
+                    <div className="menu-icon-wrapper" onClick={() => setOpen(prev => !prev)}>
+                        <MenuICon />
+                    </div>
+                </aside >
+            </Breakpoint>
             <AnimatePresence exitBeforeEnter>
                 <Modal
                     open={open}
@@ -145,11 +150,21 @@ export default function Menu() {
                         transition={menuTransitions}
                         className="menu-content--expanded"
                     >
-                        <span className="menu-content-header-mask" />
+                        <span className="menu-content-header-mask">
+                            <Breakpoint medium down>
+                                <Row justify="end" align="middle">
+                                    <div className="menu-content-header-close" onClick={() => setOpen(prev => !prev)}>
+                                        <X size={40} color="gray" />
+                                    </div>
+                                </Row>
+                            </Breakpoint>
+                        </span>
                         <div className="menu-content-wrapper">
-                            <div className="menu-content-icon" onClick={() => setOpen(!open)}>
-                                <X />
-                            </div>
+                            <Breakpoint medium up>
+                                <div className="menu-content-icon" onClick={() => setOpen(prev => !prev)}>
+                                    <X />
+                                </div>
+                            </Breakpoint>
                             <div className="menu-content">
                                 <Recomendations products={products} />
                                 <CategorizedNavigation />

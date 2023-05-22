@@ -44,7 +44,7 @@ export default function ComponentSlideOne() {
     };
 
     return (
-        <motion.div layout initial="initial" variants={stagger} exit="initial" id="componentSlideOne">
+        <motion.div layout initial="initial" variants={stagger} exit="exit" id="componentSlideOne">
             <motion.div className="component-one-info" variants={variants} initial="initial" animate="animate" >
                 <motion.div variants={stagger} custom={1}>
                     <ComponentCategory>Summer drinks</ComponentCategory>
