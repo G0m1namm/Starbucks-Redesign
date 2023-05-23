@@ -5,11 +5,11 @@ import { MapPin } from "react-feather";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../helpers/AuthProvider";
 import { Avatar, Col, Row, Typography } from "antd";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useAnimation, useScroll } from "framer-motion";
 import { Breakpoint } from "react-socks";
 import { CgMenuGridO } from "react-icons/cg";
-import './Header.scss';
 import { useMenuContext } from "../../../helpers/MenuProvider";
+import './Header.scss';
 
 export function AuthButtons() {
     const navigate = useNavigate();
@@ -91,9 +91,37 @@ export function UserLoggedMenu({ nickName, handleSignout }) {
 
 export default function Header() {
     const { user, handleSignout } = useContext(AuthContext);
+    const { scrollY } = useScroll();
+
+    const controls = useAnimation();
+    const delta = React.useRef(0);
+    const lastScrollY = React.useRef(0);
+
+    scrollY.onChange((val) => {
+        const diff = Math.abs(val - lastScrollY.current);
+        if (val >= lastScrollY.current) {
+            delta.current = delta.current >= 10 ? 10 : delta.current + diff;
+        } else {
+            delta.current = delta.current <= -10 ? -10 : delta.current - diff;
+        }
+
+        if (delta.current >= 10 && val > 80) {
+            controls.start("hidden");
+        } else if (delta.current <= -10 || val < 80) {
+            controls.start("visible");
+        }
+        lastScrollY.current = val;
+    });
 
     return (
-        <header>
+        <motion.header
+            initial="visible"
+            animate={controls}
+            variants={{
+                visible: { top: 0 },
+                hidden: { top: -82 }
+            }}
+        >
             <div className="logo-wrapper">
                 <img className="logo-image" src={LogoIcon} alt="logo de starbucks" />
                 <Breakpoint medium up>
@@ -108,6 +136,6 @@ export default function Header() {
             <AnimatePresence exitBeforeEnter>
                 {user?.attributes.email ? (<UserLoggedMenu nickName={user.attributes.email} handleSignout={handleSignout} />) : (<AuthButtons />)}
             </AnimatePresence>
-        </header>
+        </motion.header>
     );
 }

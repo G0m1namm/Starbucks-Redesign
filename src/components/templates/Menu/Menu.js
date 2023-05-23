@@ -11,7 +11,9 @@ import NavWrapper, { NavLink } from "../../atoms/NavLink";
 import { SocialIconsWrapper } from "../../molecules/Menu/SocialIconsWrapper";
 import { useMenuContext } from "../../../helpers/MenuProvider";
 import { Breakpoint } from "react-socks";
-import { Row } from "antd";
+import { Col, Row } from "antd";
+import { useContext } from "react";
+import { AuthContext } from "../../../helpers/AuthProvider";
 
 export function Recomendations({ products }) {
     const x = useMotionValue(0);
@@ -100,6 +102,8 @@ export function CategorizedNavigation() {
 export default function Menu() {
     const products = [...previewProducts];
     const { open, setOpen } = useMenuContext();
+    const { user, handleSignout } = useContext(AuthContext);
+
     const menuVariants = {
         collapsed: {
             x: '-100vw',
@@ -121,6 +125,8 @@ export default function Menu() {
         damping: 100,
         duration: 0.3
     }
+
+    const handleLogOut = async () => await handleSignout();
 
     return (
         <>
@@ -152,10 +158,15 @@ export default function Menu() {
                     >
                         <span className="menu-content-header-mask">
                             <Breakpoint medium down>
-                                <Row justify="end" align="middle">
-                                    <div className="menu-content-header-close" onClick={() => setOpen(prev => !prev)}>
-                                        <X size={40} color="gray" />
-                                    </div>
+                                <Row justify="space-between" align="middle">
+                                    <Col>
+                                        {user && <button className="btn btn-primary" onClick={handleLogOut}>Sign Up</button>}
+                                    </Col>
+                                    <Col>
+                                        <div className="menu-content-header-close" onClick={() => setOpen(prev => !prev)}>
+                                            <X size={40} color="gray" />
+                                        </div>
+                                    </Col>
                                 </Row>
                             </Breakpoint>
                         </span>

@@ -34,3 +34,14 @@ body {
 .ant-row.input-block {
     display: block;
 }
+
+.auth-layout {
+    display: grid;
+    grid-template-columns: 100%;
+    height: 100vh;
+    position: relative;
+
+    @media #{$mediumUp} {
+        grid-template-columns: minmax(380px, 1fr) 1fr;
+    }
+}

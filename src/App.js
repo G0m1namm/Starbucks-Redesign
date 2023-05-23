@@ -1,5 +1,4 @@
 import React from 'react';
-// import logo from './logo.svg';
 import { BreakpointProvider } from 'react-socks';
 import { Amplify } from 'aws-amplify';
 import config from './aws-exports';

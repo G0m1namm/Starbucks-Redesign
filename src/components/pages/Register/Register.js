@@ -7,6 +7,7 @@ import CloneStarGif from "../../../assets/images/clone-star.gif";
 import { MailOutlined, LockOutlined, UserOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import "./Register.scss";
+import { Breakpoint } from 'react-socks';
 
 const CustomizedForm = Form.create({
     name: 'register_form',
@@ -79,15 +80,17 @@ const CustomizedForm = Form.create({
                     )}
                 </Form.Item>
                 {errorMessage ? (<Alert message={errorMessage} type="error" closable afterClose={() => setErrorMessage(null)} />) : null}
-                <Row justify="center">
-                    <Col>
-                        <Form.Item>
-                            <Button block type="primary" loading={props.isValidating} htmlType="submit" className="register-form-button">
-                                Create account
-                            </Button>
-                        </Form.Item>
-                    </Col>
-                </Row>
+                <Form.Item className='input-block'>
+                    <Row align="middle">
+                        <Col xs={24} lg={12}>
+                            <Row justify="center">
+                                <Button block type="primary" loading={props.isValidating} htmlType="submit" className="register-form-button">
+                                    Create account
+                                </Button>
+                            </Row>
+                        </Col>
+                    </Row>
+                </Form.Item>
                 <div className="register-form-actions-container">
                     <span>Already have an account? <a href="/login" className="green">Sign In!!</a></span>
                 </div>
@@ -142,13 +145,15 @@ export default function Register({ handleSignUp, setEmail }) {
     useEffect(() => { console.log("in register") }, []);
 
     return (
-        <main id="registerView">
+        <main id="registerView" className='auth-layout'>
             <img src={Logo} alt="Starbucks logo" className="starbucks-logo" onClick={() => navigate("/")} />
             <CustomizedForm {...state.fields} onChange={handleFormChange} errors={[errorMessage, setErrorMessage]} isValidating={isValidating} onSubmit={handleSubmit} />
-            <section className="register-decoration-side">
-                <span>Sign Up</span>
-                <img src={CloneStarGif} alt="Star clonning itself gif" />
-            </section>
+            <Breakpoint medium up>
+                <section className="register-decoration-side">
+                    <span>Sign Up</span>
+                    <img src={CloneStarGif} alt="Star clonning itself gif" />
+                </section>
+            </Breakpoint>
         </main>
     );
 }

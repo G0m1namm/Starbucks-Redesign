@@ -9,6 +9,7 @@ import ReactCodeInput from 'react-verification-code-input';
 import { AuthContext } from '../../../helpers/AuthProvider';
 import "./Verify.scss";
 import { MailOutlined } from '@ant-design/icons';
+import { Breakpoint, useCurrentBreakpointName } from 'react-socks';
 
 const CustomizedForm = Form.create({
     name: 'verify_form',
@@ -33,6 +34,7 @@ const CustomizedForm = Form.create({
 })(props => {
     const { getFieldDecorator, validateFields } = props.form;
     const [errorMessage, setErrorMessage] = props.errors;
+    const breakpoint = useCurrentBreakpointName();
 
     return (
         <section className="verify-form-container">
@@ -63,15 +65,17 @@ const CustomizedForm = Form.create({
                     )}
                 </Form.Item>
                 {errorMessage ? (<Alert message={errorMessage} type="error" closable afterClose={() => setErrorMessage(null)} />) : null}
-                <Row justify="center">
-                    <Col>
-                        <Form.Item>
-                            <Button block type="primary" loading={props.isValidating} htmlType="submit" className="verify-form-button">
-                                Verify
-                            </Button>
-                        </Form.Item>
-                    </Col>
-                </Row>
+                <Form.Item className='input-block'>
+                    <Row align="middle">
+                        <Col xs={24} lg={12}>
+                            <Row justify="center">
+                                <Button block type="primary" loading={props.isValidating} htmlType="submit" className="verify-form-button">
+                                    Verify
+                                </Button>
+                            </Row>
+                        </Col>
+                    </Row>
+                </Form.Item>
             </Form>
         </section>
     );
@@ -126,13 +130,15 @@ export default function Verify({ handleConfirmSignUp, email }) {
     };
 
     return (
-        <main id="verifyView">
+        <main id="verifyView" className='auth-layout'>
             <img src={Logo} alt="Starbucks logo" className="starbucks-logo" onClick={() => navigate("/")} />
             <CustomizedForm {...state.fields} onChange={handleFormChange} errors={[errorMessage, setErrorMessage]} isValidating={isValidating} onSubmit={handleSubmit} email={email} />
-            <section className="verify-decoration-side">
-                <span>Account Verification</span>
-                <img src={PhoneDrawedImage} alt="Phone drawed with a star in the middle" />
-            </section>
+            <Breakpoint medium up>
+                <section className="verify-decoration-side">
+                    <span>Account Verification</span>
+                    <img src={PhoneDrawedImage} alt="Phone drawed with a star in the middle" />
+                </section>
+            </Breakpoint>
         </main>
     );
 }

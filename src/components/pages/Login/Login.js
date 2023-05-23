@@ -7,6 +7,7 @@ import Logo from "../../../assets/icons/starbucks_logo.svg";
 import { MailOutlined, LockOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import "./Login.scss";
+import { Breakpoint } from 'react-socks';
 
 const CustomizedForm = Form.create({
     name: 'global_state',
@@ -65,16 +66,20 @@ const CustomizedForm = Form.create({
                 </Form.Item>
                 {errorMessage ? (<Alert message={errorMessage} type="error" closable afterClose={() => setErrorMessage(null)} />) : null}
                 <Form.Item className='input-block'>
-                    <Row gutter={12}>
-                        <Col span={12}>
-                            <Button block type="primary" loading={props.isValidating} htmlType="submit" className="login-form-button">
-                                Log in
-                            </Button>
+                    <Row gutter={12} align="middle">
+                        <Col xs={24} lg={12}>
+                            <Row justify="center">
+                                <Button block type="primary" loading={props.isValidating} htmlType="submit" className="login-form-button">
+                                    Log in
+                                </Button>
+                            </Row>
                         </Col>
-                        <Col span={12}>
-                            <a className="login-form-forgot lightgray" href="/register">
-                                without account? <strong className="green">Join Us!</strong>
-                            </a>
+                        <Col xs={24} lg={12}>
+                            <Row justify="center">
+                                <a className="login-form-forgot lightgray" href="/register">
+                                    without account? <strong className="green">Join Us!</strong>
+                                </a>
+                            </Row>
                         </Col>
                     </Row>
                 </Form.Item>
@@ -122,13 +127,15 @@ export default function Login({ handleSignIn }) {
     };
 
     return (
-        <main id="loginView">
+        <main id="loginView" className='auth-layout'>
             <img src={Logo} alt="Starbucks logo" className="starbucks-logo" onClick={() => navigate("/")} />
             <CustomizedForm {...state.fields} onChange={handleFormChange} errors={[errorMessage, setErrorMessage]} isValidating={isValidating} onSubmit={handleSubmit} />
-            <section className="login-decoration-side">
-                <span>Sign In</span>
-                <img src={WomanImage} alt="Woman watching a device" />
-            </section>
+            <Breakpoint medium up>
+                <section className="login-decoration-side">
+                    <span>Sign In</span>
+                    <img src={WomanImage} alt="Woman watching a device" />
+                </section>
+            </Breakpoint>
         </main>
     );
 }
