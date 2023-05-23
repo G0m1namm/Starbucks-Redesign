@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "./Menu.scss";
 import { ArrowRight, X } from "react-feather";
 import { MenuICon } from "../../atoms/MenuIcon";
@@ -18,6 +18,7 @@ import { useNavigate } from "react-router";
 
 export function Recomendations({ products }) {
     const x = useMotionValue(0);
+
     const productListVariants = {
         hidden: { opacity: 0 },
         visible: {
@@ -29,11 +30,10 @@ export function Recomendations({ products }) {
         }
     }
     const productVariants = {
-        productHidden: { x: -20, opacity: 0, scale: 0 },
+        productHidden: { x: -20, opacity: 0 },
         productVisible: i => ({
             x: 0,
             opacity: 1,
-            scale: 1,
             transition: {
                 delay: (i + 1.3) * 0.2,
                 when: "afterChildren",
@@ -46,7 +46,7 @@ export function Recomendations({ products }) {
                 className="menu-product-list"
                 style={{ x }}
                 drag="x"
-                dragConstraints={{ left: -307, right: 0 }}
+                dragConstraints={{ left: products.length * -205, right: 0 }}
                 variants={productListVariants}
                 initial="hidden"
                 animate="visible"
