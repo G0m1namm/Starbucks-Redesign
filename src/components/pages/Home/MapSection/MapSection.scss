@@ -6,7 +6,7 @@
     padding-block: 30px;
     padding-block-start: 50px;
 
-    @media #{$mediumUp} {
+    @media #{$largeUp} {
         padding: 0 0 30px 30px;
     }
 
@@ -32,7 +32,7 @@
         margin-inline-start: -20px;
         position: relative;
 
-        @media #{$mediumUp} {
+        @media #{$largeUp} {
             grid-template-columns: 1fr 300px;
             grid-template-rows: 400px 100px;
             grid-template-areas: "view list" "search list";

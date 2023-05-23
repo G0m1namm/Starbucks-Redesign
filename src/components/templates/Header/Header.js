@@ -12,6 +12,7 @@ import { useMenuContext } from "../../../helpers/MenuProvider";
 import './Header.scss';
 
 export function AuthButtons() {
+    const { setOpen } = useMenuContext();
     const navigate = useNavigate();
     const variant = {
         initial: {
@@ -29,8 +30,25 @@ export function AuthButtons() {
     }
     return (
         <motion.div className="auth-actions-wrapper" variants={variant} initial="initial" animate="visible" exit="exit">
-            <button className="btn btn-secondary" onClick={() => navigate("/login")}>Sign In</button>
-            <button className="btn btn-primary" onClick={() => navigate("/register")}>Sign Up</button>
+            <Row gutter={12}>
+                <Col>
+                    <Breakpoint medium up>
+                        <button className="btn btn-secondary" onClick={() => navigate("/login")}>Sign In</button>
+                    </Breakpoint>
+                </Col>
+                <Col>
+                    <Breakpoint medium up>
+                        <button className="btn btn-primary" onClick={() => navigate("/register")}>Sign Up</button>
+                    </Breakpoint>
+                </Col>
+                <Breakpoint medium down>
+                    <Col>
+                        <Row align="middle" onClick={() => setOpen(prev => !prev)}>
+                            <CgMenuGridO size={40} color="gray" />
+                        </Row>
+                    </Col>
+                </Breakpoint>
+            </Row>
         </motion.div>
     );
 }
@@ -65,12 +83,12 @@ export function UserLoggedMenu({ nickName, handleSignout }) {
                                 {nickName[0].toUpperCase()}
                             </Avatar>
                         </Col>
-                        <Breakpoint medium up>
+                        <Breakpoint large up>
                             <Col>
                                 <Typography.Text ellipsis style={{ maxWidth: 130 }}>{nickName}</Typography.Text>
                             </Col>
                         </Breakpoint>
-                        <Breakpoint medium down>
+                        <Breakpoint large down>
                             <Col>
                                 <Row align="middle" onClick={() => setOpen(prev => !prev)}>
                                     <CgMenuGridO size={40} color="gray" />
@@ -79,7 +97,7 @@ export function UserLoggedMenu({ nickName, handleSignout }) {
                         </Breakpoint>
                     </Row>
                 </Col>
-                <Breakpoint medium up>
+                <Breakpoint large up>
                     <Col>
                         <button className="btn btn-primary" onClick={handleLogOut}>Sign Up</button>
                     </Col>
@@ -105,9 +123,9 @@ export default function Header() {
             delta.current = delta.current <= -10 ? -10 : delta.current - diff;
         }
 
-        if (delta.current >= 10 && val > 80) {
+        if (delta.current >= 10 && val > 82) {
             controls.start("hidden");
-        } else if (delta.current <= -10 || val < 80) {
+        } else if (delta.current <= -10 || val < 82) {
             controls.start("visible");
         }
         lastScrollY.current = val;
@@ -115,16 +133,16 @@ export default function Header() {
 
     return (
         <motion.header
-            initial="visible"
+            initial={false}
             animate={controls}
             variants={{
                 visible: { top: 0 },
-                hidden: { top: -82 }
+                hidden: { top: -84 }
             }}
         >
             <div className="logo-wrapper">
                 <img className="logo-image" src={LogoIcon} alt="logo de starbucks" />
-                <Breakpoint medium up>
+                <Breakpoint large up>
                     <IconButton
                         icon={<MapPin />}
                         className="btn btn-secondary-outlined icon-btn open-map-button"

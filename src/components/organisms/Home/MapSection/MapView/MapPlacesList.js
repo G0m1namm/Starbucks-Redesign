@@ -51,7 +51,7 @@ export default function MapPlacesList() {
                         schedule={place.schedule}
                         lat={place.lat}
                         lng={place.lng}
-                        setOpenList={breakpoint === "medium" ? null : setOpenList}
+                        setOpenList={breakpoint === "large" ? null : setOpenList}
                     />
                 )}
             </div>

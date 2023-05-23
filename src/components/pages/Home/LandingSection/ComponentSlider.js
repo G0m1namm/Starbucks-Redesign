@@ -22,16 +22,16 @@ const components = [
 
 const componentsContent = [
     {
-        title: "Our best coffee beans",
-        description: "See how we roast them"
+        title: "Meet our new Summer coffee drinks",
+        description: "Enjoy the bright days "
     },
     {
         title: "50% discount for Almond Cappuccino",
         description: "Taste new flavors"
     },
     {
-        title: "Meet our new Summer coffee drinks",
-        description: "Enjoy the bright days "
+        title: "Our best coffee beans",
+        description: "See how we roast them"
     },
 ]
 
@@ -90,8 +90,8 @@ export const SliderControls = ({ counter }) => {
                     <span>Next slide</span>
                     <span>0{page === 3 ? 1 : page + 1}</span>
                 </div>
-                <h3 className="slider-control-next-title">{componentsContent[imageIndex].title}</h3>
-                <p className="slider-control-next-description">{componentsContent[imageIndex].description}</p>
+                <h3 className="slider-control-next-title">{imageIndex === 2 ? componentsContent[0].title : componentsContent[imageIndex + 1].title}</h3>
+                <p className="slider-control-next-description">{imageIndex === 2 ? componentsContent[0].description : componentsContent[imageIndex + 1].description}</p>
             </div>
         </div>
     );
@@ -125,7 +125,7 @@ export default function ComponentSlider() {
 
     useEffect(() => {
         const timer =
-            counter < 100 ? setInterval(() => setCounter(counter + 1), 100000) : paginate(1);;
+            counter < 100 ? setInterval(() => setCounter(counter + 1), 100) : paginate(1);;
 
         return () => clearInterval(timer);
     }, [counter]);

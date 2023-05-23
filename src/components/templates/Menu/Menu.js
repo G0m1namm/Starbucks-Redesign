@@ -14,6 +14,7 @@ import { Breakpoint } from "react-socks";
 import { Col, Row } from "antd";
 import { useContext } from "react";
 import { AuthContext } from "../../../helpers/AuthProvider";
+import { useNavigate } from "react-router";
 
 export function Recomendations({ products }) {
     const x = useMotionValue(0);
@@ -103,6 +104,7 @@ export default function Menu() {
     const products = [...previewProducts];
     const { open, setOpen } = useMenuContext();
     const { user, handleSignout } = useContext(AuthContext);
+    const navigate = useNavigate();
 
     const menuVariants = {
         collapsed: {
@@ -130,7 +132,7 @@ export default function Menu() {
 
     return (
         <>
-            <Breakpoint medium up>
+            <Breakpoint large up>
                 <aside id="asideMenu">
                     <div className="menu-icon-wrapper" onClick={() => setOpen(prev => !prev)}>
                         <MenuICon />
@@ -160,7 +162,21 @@ export default function Menu() {
                             <Breakpoint medium down>
                                 <Row justify="space-between" align="middle">
                                     <Col>
-                                        {user && <button className="btn btn-primary" onClick={handleLogOut}>Sign Up</button>}
+                                        <Row gutter={12}>
+                                            {!user && <Col>
+                                                <Breakpoint medium down>
+                                                    <button className="btn btn-secondary" onClick={() => navigate("/login")}>Sign In</button>
+                                                </Breakpoint>
+                                            </Col>}
+                                            {!user && <Col>
+                                                <Breakpoint medium down>
+                                                    <button className="btn btn-primary" onClick={() => navigate("/register")}>Sign Up</button>
+                                                </Breakpoint>
+                                            </Col>}
+                                            <Col>
+                                                {user && <button className="btn btn-primary" onClick={handleLogOut}>Sign Up</button>}
+                                            </Col>
+                                        </Row>
                                     </Col>
                                     <Col>
                                         <div className="menu-content-header-close" onClick={() => setOpen(prev => !prev)}>
@@ -171,7 +187,7 @@ export default function Menu() {
                             </Breakpoint>
                         </span>
                         <div className="menu-content-wrapper">
-                            <Breakpoint medium up>
+                            <Breakpoint large up>
                                 <div className="menu-content-icon" onClick={() => setOpen(prev => !prev)}>
                                     <X />
                                 </div>

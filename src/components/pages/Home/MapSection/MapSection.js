@@ -42,7 +42,7 @@ export default function MapSection() {
                                 onZoomChange={onZoomChange}
                             />
                             <MapPlacesList />
-                            <Breakpoint medium up>
+                            <Breakpoint large up>
                                 <MapSearchBar />
                             </Breakpoint>
                         </div>

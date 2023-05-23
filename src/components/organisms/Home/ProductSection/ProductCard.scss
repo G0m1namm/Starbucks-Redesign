@@ -1,7 +1,8 @@
 @import "../../../../styles/utils";
 
-.product-card-root{
+.product-card-root {
     width: 100%;
+    height: 100%;
     max-width: 320px;
     padding: 1.5rem;
     display: grid;
@@ -12,14 +13,14 @@
     @extend .card-shadow;
     cursor: pointer;
 
-    & > .product-image{
+    & > .product-image {
         width: 100%;
         height: 100%;
         max-height: 180px;
         display: flex;
         place-content: center;
 
-        & > img{
+        & > img {
             width: auto;
             height: 100%;
             object-fit: cover;
@@ -27,33 +28,33 @@
         }
     }
 
-    & > .product-info{
+    & > .product-info {
         padding: 1rem;
         display: grid;
-        
-        & > .product-detail{
+
+        & > .product-detail {
             color: $lightgray;
             font-size: 12px;
             margin-bottom: 7px;
 
-            & svg{
+            & svg {
                 width: 7px;
                 height: 7px;
                 margin: 0 5px;
             }
         }
 
-        & > .product-title{
+        & > .product-title {
             color: $black;
             font-size: 1rem;
             margin-bottom: 10px;
-            font-family: 'StolzlBold', sans-serif;
+            font-family: "StolzlBold", sans-serif;
         }
 
-        & > .product-price{
+        & > .product-price {
             font-size: 1.4rem;
             color: $green;
-            font-family: 'StolzlBold', sans-serif;
+            font-family: "StolzlBold", sans-serif;
         }
     }
 }

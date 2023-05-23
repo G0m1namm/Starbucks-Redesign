@@ -16,6 +16,12 @@
 
         & > .process-image {
             margin: 20px 50px;
+            min-width: 300px;
+
+            & img {
+                width: 100%;
+                height: auto;
+            }
         }
 
         & > .process-content {

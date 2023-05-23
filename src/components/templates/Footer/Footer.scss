@@ -157,7 +157,7 @@ footer .footer-navigation-content {
             grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
             grid-auto-rows: max-content;
 
-            @media #{$mediumUp} {
+            @media #{$largeUp} {
                 grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
             }
 
