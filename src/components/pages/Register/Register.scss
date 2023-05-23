@@ -2,96 +2,22 @@
 @import "../../../styles/variables";
 
 #registerView {
-    & > .starbucks-logo {
-        position: absolute;
-        top: 30px;
-        left: 20px;
-        width: 40px;
-        height: 40px;
-        cursor: pointer;
-
-        @media #{$mediumUp} {
-            left: 30px;
+    & .register-interactive-side {
+        & > .register-form-container {
+            & > .register-form {
+                & .register-form-forgot {
+                    font-size: 12px;
+                }
+                & > .register-form-actions-container {
+                    display: grid;
+                    place-content: center;
+                    gap: 7px;
+                    color: $lightgray;
+                }
+            }
         }
     }
 
-    & > .register-form-container {
-        width: 100%;
-        padding: 1rem;
-        display: flex;
-        place-content: center;
-        background-color: $white2;
-        background-image: url("../../../assets/images/bg-mask.png");
-        overflow-y: auto;
-
-        & a {
-            &:hover,
-            &:focus {
-                text-decoration: underline;
-                color: $greenDarker;
-            }
-        }
-        & > .register-form {
-            place-self: center;
-            width: 100%;
-            max-width: 400px;
-            min-width: 284px;
-            margin-block-start: 60px;
-
-            & .ant-alert {
-                margin-bottom: 1rem;
-
-                &.ant-alert-error > .ant-alert-message {
-                    color: $red;
-                }
-            }
-
-            & .register-welcome-title {
-                font-size: 30px;
-                color: $black;
-                font-family: "StolzlMedium", sans-serif;
-            }
-            & .ant-input-group-addon {
-                padding: 10px 14px;
-                border-radius: 0;
-                background-color: $white2;
-                color: $green;
-            }
-
-            & .ant-input {
-                border-radius: 0;
-                height: unset;
-                padding: 10px 11px;
-                color: $black;
-                font-family: "StolzlBook", sans-serif;
-                &:hover,
-                &:focus {
-                    border-color: $lightGreen;
-                }
-
-                &:focus {
-                    box-shadow: 0 0 0 2px rgba($color: $lightGreen, $alpha: 0.4);
-                }
-            }
-
-            & .ant-input-affix-wrapper {
-                & > input {
-                    padding-inline-start: 0;
-                    padding-block: 6px;
-                }
-            }
-
-            & .register-form-forgot {
-                font-size: 12px;
-            }
-            & > .register-form-actions-container {
-                display: grid;
-                place-content: center;
-                gap: 7px;
-                color: $lightgray;
-            }
-        }
-    }
     & .register-decoration-side {
         position: relative;
         width: 100%;

@@ -29,19 +29,16 @@ const CustomizedForm = Form.create({
                 value: props.nickname.value,
             }),
         };
-    },
-    onValuesChange(_, values) {
-        // console.table(values);
-    },
+    }
 })(props => {
     const { getFieldDecorator, validateFields } = props.form;
     const [errorMessage, setErrorMessage] = props.errors;
 
     return (
-        <section className="register-form-container">
-            <Form className="register-form" onSubmit={(e) => props.onSubmit(e, validateFields)}>
-                <Form.Item>
-                    <span className="register-welcome-title">Join Us!</span>
+        <section className="register-form-container form-container">
+            <Form className="register-form form-wrapper" onSubmit={(e) => props.onSubmit(e, validateFields)}>
+                <Form.Item className='register-title-container title-container'>
+                    <span className="register-welcome-title title">Join Us!</span>
                     <br />
                     <small>Create an account</small>
                 </Form.Item>
@@ -146,8 +143,14 @@ export default function Register({ handleSignUp, setEmail }) {
 
     return (
         <main id="registerView" className='auth-layout'>
-            <img src={Logo} alt="Starbucks logo" className="starbucks-logo" onClick={() => navigate("/")} />
-            <CustomizedForm {...state.fields} onChange={handleFormChange} errors={[errorMessage, setErrorMessage]} isValidating={isValidating} onSubmit={handleSubmit} />
+            <Row justify="start" className='register-interactive-side content-side'>
+                <Col span={24} className='register-logo-container logo-container'>
+                    <img src={Logo} alt="Starbucks logo" className="starbucks-logo" onClick={() => navigate("/")} />
+                </Col>
+                <Col span={24}>
+                    <CustomizedForm {...state.fields} onChange={handleFormChange} errors={[errorMessage, setErrorMessage]} isValidating={isValidating} onSubmit={handleSubmit} />
+                </Col>
+            </Row>
             <Breakpoint medium up>
                 <section className="register-decoration-side">
                     <span>Sign Up</span>

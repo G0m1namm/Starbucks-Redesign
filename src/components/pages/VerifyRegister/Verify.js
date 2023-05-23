@@ -9,7 +9,7 @@ import ReactCodeInput from 'react-verification-code-input';
 import { AuthContext } from '../../../helpers/AuthProvider';
 import "./Verify.scss";
 import { MailOutlined } from '@ant-design/icons';
-import { Breakpoint, useCurrentBreakpointName } from 'react-socks';
+import { Breakpoint, useCurrentWidth } from 'react-socks';
 
 const CustomizedForm = Form.create({
     name: 'verify_form',
@@ -34,13 +34,13 @@ const CustomizedForm = Form.create({
 })(props => {
     const { getFieldDecorator, validateFields } = props.form;
     const [errorMessage, setErrorMessage] = props.errors;
-    const breakpoint = useCurrentBreakpointName();
+    const width = useCurrentWidth();
 
     return (
-        <section className="verify-form-container">
-            <Form className="verify-form" onSubmit={(e) => props.onSubmit(e, validateFields)}>
-                <Form.Item>
-                    <span className="verify-welcome-title">Authenticate Your Account</span>
+        <section className="verify-form-container form-container">
+            <Form className="verify-form form-wrapper" onSubmit={(e) => props.onSubmit(e, validateFields)}>
+                <Form.Item className='title-container'>
+                    <span className="verify-welcome-title title">Authenticate Your Account</span>
                     <br />
                     <small>We've sent you a verification code to your email.<br /> It can take few minutes.</small>
                 </Form.Item>
@@ -61,7 +61,13 @@ const CustomizedForm = Form.create({
                     {getFieldDecorator('code', {
                         rules: [{ required: true, message: 'Please input your verification code!' }, { min: 6, message: "Please input at least 6 characters!" }],
                     })(
-                        <ReactCodeInput type="number" fields={6} className="input-verification-code" />
+                        <ReactCodeInput
+                            type="number"
+                            fields={6}
+                            fieldWidth={width <= 992 ? 52 : 58}
+                            fieldHeight={width <= 992 ? 52 : 58}
+                            className="input-verification-code"
+                        />
                     )}
                 </Form.Item>
                 {errorMessage ? (<Alert message={errorMessage} type="error" closable afterClose={() => setErrorMessage(null)} />) : null}
@@ -131,8 +137,14 @@ export default function Verify({ handleConfirmSignUp, email }) {
 
     return (
         <main id="verifyView" className='auth-layout'>
-            <img src={Logo} alt="Starbucks logo" className="starbucks-logo" onClick={() => navigate("/")} />
-            <CustomizedForm {...state.fields} onChange={handleFormChange} errors={[errorMessage, setErrorMessage]} isValidating={isValidating} onSubmit={handleSubmit} email={email} />
+            <Row justify="start" className='verify-interactive-side content-side'>
+                <Col span={24} className='logo-container'>
+                    <img src={Logo} alt="Starbucks logo" className="starbucks-logo" onClick={() => navigate("/")} />
+                </Col>
+                <Col span={24}>
+                    <CustomizedForm {...state.fields} onChange={handleFormChange} errors={[errorMessage, setErrorMessage]} isValidating={isValidating} onSubmit={handleSubmit} />
+                </Col>
+            </Row>
             <Breakpoint medium up>
                 <section className="verify-decoration-side">
                     <span>Account Verification</span>

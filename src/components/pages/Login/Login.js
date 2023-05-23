@@ -25,19 +25,16 @@ const CustomizedForm = Form.create({
                 value: props.password.value,
             }),
         };
-    },
-    onValuesChange(_, values) {
-        // console.table(values);
-    },
+    }
 })(props => {
     const { getFieldDecorator, validateFields } = props.form;
     const [errorMessage, setErrorMessage] = props.errors;
 
     return (
-        <section className="login-form-container">
-            <Form className="login-form" onSubmit={(e) => props.onSubmit(e, validateFields)}>
-                <Form.Item className='login-title-container'>
-                    <span className="login-welcome-title">Welcome!</span>
+        <section className="login-form-container form-container">
+            <Form className="login-form form-wrapper" onSubmit={(e) => props.onSubmit(e, validateFields)}>
+                <Form.Item className='login-title-container title-container'>
+                    <span className="login-welcome-title title">Welcome!</span>
                     <br />
                     <small>Login to your account</small>
                 </Form.Item>
@@ -128,8 +125,8 @@ export default function Login({ handleSignIn }) {
 
     return (
         <main id="loginView" className='auth-layout'>
-            <Row justify="start" className='login-interactive-side'>
-                <Col span={24} className='login-logo-container'>
+            <Row justify="start" className='login-interactive-side content-side'>
+                <Col span={24} className='logo-container'>
                     <img src={Logo} alt="Starbucks logo" className="starbucks-logo" onClick={() => navigate("/")} />
                 </Col>
                 <Col span={24}>
