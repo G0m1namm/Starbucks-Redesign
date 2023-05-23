@@ -36,7 +36,7 @@ const CustomizedForm = Form.create({
     return (
         <section className="login-form-container">
             <Form className="login-form" onSubmit={(e) => props.onSubmit(e, validateFields)}>
-                <Form.Item>
+                <Form.Item className='login-title-container'>
                     <span className="login-welcome-title">Welcome!</span>
                     <br />
                     <small>Login to your account</small>
@@ -128,8 +128,14 @@ export default function Login({ handleSignIn }) {
 
     return (
         <main id="loginView" className='auth-layout'>
-            <img src={Logo} alt="Starbucks logo" className="starbucks-logo" onClick={() => navigate("/")} />
-            <CustomizedForm {...state.fields} onChange={handleFormChange} errors={[errorMessage, setErrorMessage]} isValidating={isValidating} onSubmit={handleSubmit} />
+            <Row justify="start" className='login-interactive-side'>
+                <Col span={24} className='login-logo-container'>
+                    <img src={Logo} alt="Starbucks logo" className="starbucks-logo" onClick={() => navigate("/")} />
+                </Col>
+                <Col span={24}>
+                    <CustomizedForm {...state.fields} onChange={handleFormChange} errors={[errorMessage, setErrorMessage]} isValidating={isValidating} onSubmit={handleSubmit} />
+                </Col>
+            </Row>
             <Breakpoint medium up>
                 <section className="login-decoration-side">
                     <span>Sign In</span>

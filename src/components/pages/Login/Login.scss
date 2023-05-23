@@ -2,96 +2,113 @@
 @import "../../../styles/variables";
 
 #loginView {
-    & > .starbucks-logo {
-        position: absolute;
-        top: 30px;
-        left: 20px;
-        width: 40px;
-        height: 40px;
-        cursor: pointer;
-
-        @media #{$mediumUp} {
-            left: 30px;
-        }
-    }
-
-    & > .login-form-container {
-        width: 100%;
-        padding: 1rem;
-        display: flex;
-        place-content: center;
+    & .login-interactive-side {
+        align-content: flex-start;
+        position: relative;
         background-color: $white2;
         background-image: url("../../../assets/images/bg-mask.png");
 
-        & a {
-            &:hover,
-            &:focus {
-                text-decoration: underline;
-                color: $greenDarker;
+        & .login-logo-container {
+            display: inline-block;
+            height: min-content;
+            padding: 20px 30px;
+            margin-block-end: 36px;
+        }
+
+        & .starbucks-logo {
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+
+            @media #{$mediumUp} {
+                left: 30px;
             }
         }
 
-        & .ant-alert {
-            margin-bottom: 1rem;
-
-            &.ant-alert-error > .ant-alert-message {
-                color: $red;
-            }
-        }
-
-        & > .login-form {
-            place-self: center;
+        & .login-form-container {
             width: 100%;
-            max-width: 400px;
-            min-width: 284px;
-            margin-block-start: 60px;
+            height: 100%;
+            display: flex;
+            padding: 20px 30px;
 
-            & .login-welcome-title {
-                font-size: 30px;
-                color: $black;
-                font-family: "StolzlMedium", sans-serif;
+            @media #{$mediumUp} {
+                place-content: center;
             }
 
-            & .ant-input-group-addon {
-                padding: 10px 14px;
-                border-radius: 0;
-                background-color: $white2;
-                color: $green;
-            }
-
-            & .ant-input {
-                border-radius: 0;
-                height: unset;
-                padding: 10px 11px;
-                color: $black;
-                font-family: "StolzlBook", sans-serif;
+            & a {
                 &:hover,
                 &:focus {
-                    border-color: $lightGreen;
-                }
-
-                &:focus {
-                    box-shadow: 0 0 0 2px rgba($color: $lightGreen, $alpha: 0.4);
+                    text-decoration: underline;
+                    color: $greenDarker;
                 }
             }
 
-            & .ant-input-affix-wrapper {
-                & > input {
-                    padding-inline-start: 0;
-                    padding-block: 6px;
+            & .ant-alert {
+                margin-bottom: 1rem;
+
+                &.ant-alert-error > .ant-alert-message {
+                    color: $red;
                 }
             }
-            & .login-form-forgot {
-                font-size: 12px;
-            }
-            & > .login-form-actions-container {
-                display: grid;
-                place-content: center;
-                gap: 7px;
-                color: $lightgray;
+
+            & > .login-form {
+                place-self: center;
+                width: 100%;
+                max-width: 400px;
+                min-width: 284px;
+
+                & .login-title-container {
+                    margin-block-end: 36px;
+                }
+
+                & .login-welcome-title {
+                    font-size: 30px;
+                    color: $black;
+                    font-family: "StolzlMedium", sans-serif;
+                }
+
+                & .ant-input-group-addon {
+                    padding: 10px 14px;
+                    border-radius: 0;
+                    background-color: $white2;
+                    color: $green;
+                }
+
+                & .ant-input {
+                    border-radius: 0;
+                    height: unset;
+                    padding: 10px 11px;
+                    color: $black;
+                    font-family: "StolzlBook", sans-serif;
+                    &:hover,
+                    &:focus {
+                        border-color: $lightGreen;
+                    }
+
+                    &:focus {
+                        box-shadow: 0 0 0 2px rgba($color: $lightGreen, $alpha: 0.4);
+                    }
+                }
+
+                & .ant-input-affix-wrapper {
+                    & > input {
+                        padding-inline-start: 0;
+                        padding-block: 6px;
+                    }
+                }
+                & .login-form-forgot {
+                    font-size: 12px;
+                }
+                & > .login-form-actions-container {
+                    display: grid;
+                    place-content: center;
+                    gap: 7px;
+                    color: $lightgray;
+                }
             }
         }
     }
+
     & .login-decoration-side {
         position: relative;
         width: 100%;
