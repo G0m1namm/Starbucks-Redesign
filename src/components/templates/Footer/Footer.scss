@@ -169,7 +169,7 @@ footer .footer-navigation-content {
                     & + ul {
                         grid-auto-rows: min-content;
                         & a[class*="link"] {
-                            color: rgba(255, 255, 255, 0.6);
+                            color: $white2;
                             font-size: 12px;
                             font-family: "StolzlLight";
                             font-weight: 600;
