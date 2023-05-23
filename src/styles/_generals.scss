@@ -44,4 +44,107 @@ body {
     @media #{$mediumUp} {
         grid-template-columns: minmax(380px, 1fr) 1fr;
     }
+
+    .content-side {
+        align-content: flex-start;
+        position: relative;
+        background-color: $white2;
+        background-image: url("../assets/images/bg-mask.png");
+
+        & .logo-container {
+            display: inline-block;
+            height: min-content;
+            padding: 20px 30px;
+            margin-block-end: 16px;
+        }
+
+        & .starbucks-logo {
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+
+            @media #{$mediumUp} {
+                left: 30px;
+            }
+        }
+
+        & .form-container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            padding: 20px 30px;
+            padding-block-end: 40px;
+
+            @media #{$mediumUp} {
+                place-content: center;
+            }
+
+            .form-wrapper {
+                place-self: center;
+                width: 100%;
+                max-width: 400px;
+                min-width: 284px;
+
+                & .title {
+                    font-size: 30px;
+                    color: $black;
+                    font-family: "StolzlMedium", sans-serif;
+
+                    &-container {
+                        margin-block-end: 36px;
+
+                        small {
+                            font-size: 14px;
+                        }
+                    }
+                }
+
+                & .ant-input-group-addon {
+                    padding: 10px 14px;
+                    border-radius: 0;
+                    background-color: $white2;
+                    color: $green;
+                }
+
+                & .ant-input {
+                    border-radius: 0;
+                    height: unset;
+                    padding: 10px 11px;
+                    color: $black;
+                    font-family: "StolzlBook", sans-serif;
+                    &:hover,
+                    &:focus {
+                        border-color: $lightGreen;
+                    }
+
+                    &:focus {
+                        box-shadow: 0 0 0 2px rgba($color: $lightGreen, $alpha: 0.4);
+                    }
+                }
+
+                & .ant-input-affix-wrapper {
+                    & > input {
+                        padding-inline-start: 0;
+                        padding-block: 6px;
+                    }
+                }
+            }
+
+            & a {
+                &:hover,
+                &:focus {
+                    text-decoration: underline;
+                    color: $greenDarker;
+                }
+            }
+
+            & .ant-alert {
+                margin-bottom: 1rem;
+
+                &.ant-alert-error > .ant-alert-message {
+                    color: $red;
+                }
+            }
+        }
+    }
 }
