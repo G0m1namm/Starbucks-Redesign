@@ -1,6 +1,6 @@
 {
   "name": "starcbucks-redesign",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": true,
   "dependencies": {
     "@ant-design/compatible": "^1.0.0",
