@@ -2,7 +2,7 @@ import React, { useRef, useContext } from "react";
 import clx from "classnames";
 import { MapPlacesContext, HoveredPlaceDispatchContext } from "../../../../pages/Home/MapSection/MapSection";
 import { Col, Row } from "antd";
-import { Breakpoint, useCurrentBreakpointName } from "react-socks";
+import { Breakpoint, useCurrentWidth } from "react-socks";
 import { ArrowDownward, ArrowUpward } from "@material-ui/icons";
 import { useState } from "react";
 import classnames from 'classnames';
@@ -12,7 +12,7 @@ export default function MapPlacesList() {
     const asideRef = useRef(null);
     const places = useContext(MapPlacesContext);
     const [openList, setOpenList] = useState(false);
-    const breakpoint = useCurrentBreakpointName();
+    const width = useCurrentWidth();
 
     return (
         <aside id="mapAsideList" ref={asideRef}>
@@ -51,7 +51,7 @@ export default function MapPlacesList() {
                         schedule={place.schedule}
                         lat={place.lat}
                         lng={place.lng}
-                        setOpenList={breakpoint === "large" ? null : setOpenList}
+                        setOpenList={width > 992 ? null : setOpenList}
                     />
                 )}
             </div>

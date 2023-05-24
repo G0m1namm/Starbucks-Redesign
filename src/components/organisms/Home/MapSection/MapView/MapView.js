@@ -4,7 +4,7 @@ import MarkerMap from "../../../../atoms/MarkerMap/MarkerMap";
 import { HoveredPlaceValueContext, MapPlacesContext, HoveredPlaceDispatchContext } from "../../../../pages/Home/MapSection/MapSection";
 import { useCurrentWidth } from "react-socks";
 
-const API_KEY = "AIzaSyB3qTmTGpru9yGTUHHqsZM9ocNk4J2sD5U";
+const API_KEY = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
 
 export default function MapView(props) {
 
@@ -43,7 +43,7 @@ export default function MapView(props) {
                 onChildMouseEnter={onChildMouseEnter}
                 onChildMouseLeave={onChildMouseLeave}
             >
-                {greatPlaces.map(({ id, lat, lng, ...props }, index) =>
+                {greatPlaces.map(({ id, lat, lng, ...props }) =>
                     <MarkerMap
                         key={id}
                         lat={lat}

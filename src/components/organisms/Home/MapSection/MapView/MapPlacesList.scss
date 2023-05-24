@@ -34,7 +34,6 @@
         @media #{$largeUp} {
             max-height: unset;
             cursor: unset;
-            pointer-events: none;
             width: unset;
 
             &:hover {
@@ -59,6 +58,7 @@
 
             @media #{$largeUp} {
                 min-height: 100px;
+                pointer-events: none;
             }
 
             &-text {
