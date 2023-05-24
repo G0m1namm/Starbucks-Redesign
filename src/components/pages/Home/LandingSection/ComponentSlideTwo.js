@@ -1,8 +1,7 @@
 import React from "react";
 import './ComponentSlide.scss'
 import { ComponentCategory, ComponentTitle } from "../../../organisms/Home/ComponenSlider/ComponentInfo";
-// Photo by Dmitry Schemelev on Unsplash
-import CappuccinoImage from "../../../../assets/images/cappuccino-slide-2.jpg";
+import SeveralCoffeesImage from "../../../../assets/images/several-coffees-slide-4.png";
 
 import { DescriptionSwitchView, ImageSwitchView } from "../../../molecules/Home/ComponentSlider/ComponentSwitchView";
 import { motion } from "framer-motion";
@@ -65,7 +64,7 @@ export default function ComponentSlideTwo() {
             </motion.div>
             <div className="component-two-image">
                 <ImageSwitchView
-                    image={CappuccinoImage}
+                    image={SeveralCoffeesImage}
                     imgAlt="Starbuck cappuccino"
                     buttonText="Find out more"
                 />

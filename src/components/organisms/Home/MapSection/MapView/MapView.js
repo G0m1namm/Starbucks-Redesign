@@ -2,14 +2,16 @@ import React, { useContext } from "react";
 import GoogleMapReact from "google-map-react";
 import MarkerMap from "../../../../atoms/MarkerMap/MarkerMap";
 import { HoveredPlaceValueContext, MapPlacesContext, HoveredPlaceDispatchContext } from "../../../../pages/Home/MapSection/MapSection";
+import { useCurrentWidth } from "react-socks";
 
-const API_KEY = "AIzaSyB3qTmTGpru9yGTUHHqsZM9ocNk4J2sD5U";
+const API_KEY = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
 
 export default function MapView(props) {
 
     const hoverKey = useContext(HoveredPlaceValueContext);
     const greatPlaces = useContext(MapPlacesContext);
     const [onCenterChange, setPlaceKeyHovered] = useContext(HoveredPlaceDispatchContext);
+    const width = useCurrentWidth();
 
     const onBoundsChange = ({ lat, lng }, zoom) => {
         onCenterChange([lat, lng]);
@@ -29,7 +31,7 @@ export default function MapView(props) {
     }
 
     return (
-        <div style={{ height: '400px', width: '100%  ' }}>
+        <div style={{ height: width > 992 ? '400px' : '600px', width: '100%  ' }}>
             <GoogleMapReact
                 center={props.center}
                 zoom={props.zoom}
@@ -41,7 +43,7 @@ export default function MapView(props) {
                 onChildMouseEnter={onChildMouseEnter}
                 onChildMouseLeave={onChildMouseLeave}
             >
-                {greatPlaces.map(({ id, lat, lng, ...props }, index) =>
+                {greatPlaces.map(({ id, lat, lng, ...props }) =>
                     <MarkerMap
                         key={id}
                         lat={lat}

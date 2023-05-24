@@ -8,7 +8,7 @@ export default function MarkerMap(props) {
     return (
         <div className={clx("place-marker", { "place-marker--hover": props.hover || props.$hover })}>
             <AnimatePresence exitBeforeEnter>
-                {(props.$hover) && <MarkerInfo {...props} />}
+                {(props.hover || props.$hover) && <MarkerInfo {...props} />}
             </AnimatePresence>
             <motion.span whileTap={{ scale: 1.1 }} className="marker-indicator" />
         </div>

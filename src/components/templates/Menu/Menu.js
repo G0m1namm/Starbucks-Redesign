@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "./Menu.scss";
 import { ArrowRight, X } from "react-feather";
 import { MenuICon } from "../../atoms/MenuIcon";
@@ -9,9 +9,16 @@ import { NavigationLinks } from "../../../data/navigation";
 import ArticlePreview from "../../organisms/Menu/ArticlePreview/ArticlePreview";
 import NavWrapper, { NavLink } from "../../atoms/NavLink";
 import { SocialIconsWrapper } from "../../molecules/Menu/SocialIconsWrapper";
+import { useMenuContext } from "../../../helpers/MenuProvider";
+import { Breakpoint } from "react-socks";
+import { Col, Row } from "antd";
+import { useContext } from "react";
+import { AuthContext } from "../../../helpers/AuthProvider";
+import { useNavigate } from "react-router";
 
 export function Recomendations({ products }) {
     const x = useMotionValue(0);
+
     const productListVariants = {
         hidden: { opacity: 0 },
         visible: {
@@ -23,11 +30,10 @@ export function Recomendations({ products }) {
         }
     }
     const productVariants = {
-        productHidden: { x: -20, opacity: 0, scale: 0 },
+        productHidden: { x: -20, opacity: 0 },
         productVisible: i => ({
             x: 0,
             opacity: 1,
-            scale: 1,
             transition: {
                 delay: (i + 1.3) * 0.2,
                 when: "afterChildren",
@@ -40,7 +46,7 @@ export function Recomendations({ products }) {
                 className="menu-product-list"
                 style={{ x }}
                 drag="x"
-                dragConstraints={{ left: -307, right: 0 }}
+                dragConstraints={{ left: products.length * -205, right: 0 }}
                 variants={productListVariants}
                 initial="hidden"
                 animate="visible"
@@ -96,7 +102,10 @@ export function CategorizedNavigation() {
 
 export default function Menu() {
     const products = [...previewProducts];
-    const [open, setOpen] = useState(false);
+    const { open, setOpen } = useMenuContext();
+    const { user, handleSignout } = useContext(AuthContext);
+    const navigate = useNavigate();
+
     const menuVariants = {
         collapsed: {
             x: '-100vw',
@@ -119,13 +128,17 @@ export default function Menu() {
         duration: 0.3
     }
 
+    const handleLogOut = async () => await handleSignout();
+
     return (
         <>
-            <aside id="asideMenu">
-                <div className="menu-icon-wrapper" onClick={() => setOpen(!open)}>
-                    <MenuICon />
-                </div>
-            </aside >
+            <Breakpoint large up>
+                <aside id="asideMenu">
+                    <div className="menu-icon-wrapper" onClick={() => setOpen(prev => !prev)}>
+                        <MenuICon />
+                    </div>
+                </aside >
+            </Breakpoint>
             <AnimatePresence exitBeforeEnter>
                 <Modal
                     open={open}
@@ -145,11 +158,40 @@ export default function Menu() {
                         transition={menuTransitions}
                         className="menu-content--expanded"
                     >
-                        <span className="menu-content-header-mask" />
+                        <span className="menu-content-header-mask">
+                            <Breakpoint medium down>
+                                <Row justify="space-between" align="middle">
+                                    <Col>
+                                        <Row gutter={12}>
+                                            {!user && <Col>
+                                                <Breakpoint medium down>
+                                                    <button className="btn btn-secondary" onClick={() => navigate("/login")}>Sign In</button>
+                                                </Breakpoint>
+                                            </Col>}
+                                            {!user && <Col>
+                                                <Breakpoint medium down>
+                                                    <button className="btn btn-primary" onClick={() => navigate("/register")}>Sign Up</button>
+                                                </Breakpoint>
+                                            </Col>}
+                                            <Col>
+                                                {user && <button className="btn btn-primary" onClick={handleLogOut}>Sign Up</button>}
+                                            </Col>
+                                        </Row>
+                                    </Col>
+                                    <Col>
+                                        <div className="menu-content-header-close" onClick={() => setOpen(prev => !prev)}>
+                                            <X size={40} color="gray" />
+                                        </div>
+                                    </Col>
+                                </Row>
+                            </Breakpoint>
+                        </span>
                         <div className="menu-content-wrapper">
-                            <div className="menu-content-icon" onClick={() => setOpen(!open)}>
-                                <X />
-                            </div>
+                            <Breakpoint large up>
+                                <div className="menu-content-icon" onClick={() => setOpen(prev => !prev)}>
+                                    <X />
+                                </div>
+                            </Breakpoint>
                             <div className="menu-content">
                                 <Recomendations products={products} />
                                 <CategorizedNavigation />

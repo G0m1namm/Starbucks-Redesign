@@ -1,25 +1,25 @@
 @import "../../../styles/utils";
 
-.in-padding{
+.in-padding {
     @include fluid-type(padding-left, 800px, 1366px, 20px, 100px);
     @include fluid-type(padding-right, 800px, 1366px, 20px, 100px);
 }
 
-footer{
+footer {
     width: 100%;
     background-color: $green;
-    background-image: url('../../../assets/images/footer-bg-mask.png');
+    background-image: url("../../../assets/images/footer-bg-mask.png");
     position: relative;
     z-index: 9;
 
-    &::after{
-        content: '';
+    &::after {
+        content: "";
         position: absolute;
         top: 0;
         left: -25%;
         width: 100%;
         height: 100%;
-        background-image: url('../../../assets/icons/starbucks_logo.svg');
+        background-image: url("../../../assets/icons/starbucks_logo.svg");
         background-size: contain;
         background-repeat: no-repeat;
         filter: grayscale(1) opacity(0.04);
@@ -27,7 +27,7 @@ footer{
     }
 
     & > .brand-container,
-    & > .policy-conditions{
+    & > .policy-conditions {
         background-color: rgba($color: $greenDark, $alpha: 0.8);
         height: 70px;
         display: flex;
@@ -39,93 +39,141 @@ footer{
             align-items: center;
         }
 
-        & span{
-            font-family: 'StolzlLight', sans-serif;
+        & span {
+            font-family: "StolzlLight", sans-serif;
             color: rgba($color: $white, $alpha: 0.4);
             letter-spacing: 0px;
             font-size: 14px;
         }
     }
 
-    & > .policy-conditions{
+    & > .policy-conditions {
         place-content: center flex-start;
         place-items: center;
 
-        & span{
-            padding: 10px 0;
+        & span {
+            padding: 0;
 
-            &:first-child{
-                padding-right: 20px;
-                border-right: 2px solid rgba($color: $white, $alpha: 0.2);
+            @media #{$mediumUp} {
+                padding: 10px 0;
             }
 
-            &:last-child{
-                padding-left: 20px;
+            &:first-child,
+            &:last-child {
+                flex: 1;
+                justify-content: center;
+                padding: 0;
+
+                @media #{$mediumUp} {
+                    flex: unset;
+                    justify-content: flex-start;
+                }
+            }
+
+            &:first-child {
+                @media #{$mediumUp} {
+                    border-right: 2px solid rgba($color: $white, $alpha: 0.2);
+                    padding-right: 20px;
+                }
+            }
+
+            &:last-child {
+                @media #{$mediumUp} {
+                    padding-left: 20px;
+                }
             }
         }
     }
 }
 
-footer .footer-navigation-content{
+footer .footer-navigation-content {
     @extend .in-padding;
     margin: 20px 0;
     display: flex;
+    flex-direction: column-reverse;
 
-    & > .footer-actions{
+    @media #{$mediumUp} {
+        flex-direction: row;
+    }
+
+    & > .footer-actions {
         padding: 16px 20px;
         width: 100%;
-        max-width: 280px;
 
-        & > .change-location-action{
+        @media #{$mediumUp} {
+            max-width: 280px;
+        }
+
+        & > .change-location-action {
             display: flex;
             flex-wrap: nowrap;
-            & > span{
+
+            & > button {
+                white-space: nowrap;
+            }
+
+            & > span {
                 width: min-content;
                 font-size: 12px;
                 color: rgba($color: $white, $alpha: 0.6);
-                font-family: 'StolzlBook', sans-serif;
+                font-family: "StolzlBook", sans-serif;
                 text-decoration: underline;
                 padding: 8px 10px;
                 margin: 0 auto;
                 cursor: pointer;
-                &:hover{
+                &:hover {
                     text-decoration: unset;
+                }
+
+                @media #{$mediumUp} {
+                    max-width: 280px;
                 }
             }
         }
 
-        & > ul{
+        & > ul {
             margin-top: 15px;
             margin-bottom: 15px;
 
-            & div[class*="root"]:hover{
-                & > svg{                    
+            & div[class*="root"]:hover {
+                & > svg {
                     color: rgba(255, 255, 255, 0.9);
                 }
             }
         }
+
+        & > button {
+            width: calc(100% - 40px);
+            @media #{$mediumUp} {
+                width: max-content;
+            }
+        }
     }
 
-    & > .footer-main-content{
+    & > .footer-main-content {
         width: 100%;
-        & > .footer-nav-links{
+        & > .footer-nav-links {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
             grid-auto-rows: max-content;
 
-            & > nav[class*="navWrapper"]{
+            @media #{$largeUp} {
+                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            }
+
+            & > nav[class*="navWrapper"] {
                 grid-auto-rows: min-content;
                 & > h2 {
                     color: rgba(255, 255, 255, 0.9);
 
                     & + ul {
                         grid-auto-rows: min-content;
-                        & a[class*="link"]{
-                            color: rgba(255, 255, 255, 0.6);
+                        & a[class*="link"] {
+                            color: $white2;
                             font-size: 12px;
-                            font-family: 'StolzlLight';
+                            font-family: "StolzlLight";
                             font-weight: 600;
-                            &:hover{
+                            &:hover {
                                 color: $white;
                             }
                         }

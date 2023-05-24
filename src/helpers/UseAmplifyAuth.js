@@ -97,7 +97,7 @@ const useAmplifyAuth = (navigate) => {
   const handleSignout = async () => {
     try {
       await Auth.signOut();
-      navigate(-1);
+      navigate("/");
       setTriggerFetch(false);
       dispatch({ type: "RESET_USER_DATA" });
     } catch (error) {

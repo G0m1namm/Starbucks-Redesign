@@ -2,7 +2,7 @@ import React from "react";
 import { Breakpoint } from "react-socks";
 import { ComponentDescription } from "../../../organisms/Home/ComponenSlider/ComponentInfo";
 
-export const DescriptionSwitchView = ({desktopText, mobileText, buttonText}) => {
+export const DescriptionSwitchView = ({ desktopText, mobileText, buttonText }) => {
     return (
         <>
             <Breakpoint medium down>
@@ -16,16 +16,10 @@ export const DescriptionSwitchView = ({desktopText, mobileText, buttonText}) => 
     );
 }
 
-export const ImageSwitchView = ({image, imgAlt, buttonText}) => {
+export const ImageSwitchView = ({ image, imgAlt, buttonText }) => {
     return (
-        <>
-            <Breakpoint medium down>
-                <img src={image} alt={`${imgAlt}`} />
-                <button className="btn btn-primary">{buttonText}</button>
-            </Breakpoint>
-            <Breakpoint medium up>
-                <img src={image} alt={`${imgAlt}`} />
-            </Breakpoint>
-        </>
+        <Breakpoint medium up>
+            <img src={image} alt={`${imgAlt}`} />
+        </Breakpoint>
     );
 }

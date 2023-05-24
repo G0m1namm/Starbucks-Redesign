@@ -4,6 +4,7 @@ import MapPlacesList from "../../../organisms/Home/MapSection/MapView/MapPlacesL
 import MapSearchBar from "../../../organisms/Home/MapSection/MapView/MapSearchBar";
 import "./MapSection.scss";
 import { places } from "../../../../data/places";
+import { Breakpoint } from "react-socks";
 
 export const MapPlacesContext = React.createContext();
 export const HoveredPlaceDispatchContext = React.createContext();
@@ -11,15 +12,15 @@ export const HoveredPlaceValueContext = React.createContext();
 
 export default function MapSection() {
     const [hoverPlaceKey, setPlaceKeyHovered] = useState(0);
-    const [center, setCenter] = useState({lat: 50.0866954, lng: 14.4147005});
+    const [center, setCenter] = useState({ lat: 50.0866954, lng: 14.4147005 });
     const [zoom, setZoom] = useState(14.5);
 
     const onKeyHoverChange = (key) => {
         setPlaceKeyHovered(key);
     }
-    
+
     const onCenterChange = ([lat, lng]) => {
-        const center = {lat, lng};
+        const center = { lat, lng };
         setCenter(center);
     }
 
@@ -41,7 +42,9 @@ export default function MapSection() {
                                 onZoomChange={onZoomChange}
                             />
                             <MapPlacesList />
-                            <MapSearchBar />
+                            <Breakpoint large up>
+                                <MapSearchBar />
+                            </Breakpoint>
                         </div>
                     </MapPlacesContext.Provider>
                 </HoveredPlaceValueContext.Provider>

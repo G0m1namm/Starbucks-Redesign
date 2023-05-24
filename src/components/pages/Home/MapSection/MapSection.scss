@@ -1,11 +1,16 @@
-@import '../../../../styles/utils';
+@import "../../../../styles/utils";
 
-#mapSection{
+#mapSection {
     position: relative;
-    padding: 0 0 30px 30px;
     z-index: 3;
-    
-    & > .map-title{
+    padding-block: 30px;
+    padding-block-start: 50px;
+
+    @media #{$largeUp} {
+        padding: 0 0 30px 30px;
+    }
+
+    & > .map-title {
         display: block;
         margin: 0 auto;
         color: $black;
@@ -13,15 +18,26 @@
         @include fluid-type(font-size, 320px, 800px, 20px, 30px);
         margin-bottom: 30px;
 
-        & .green{
+        & .green {
             color: $green;
         }
     }
 
-    & > .map-wrapper{
+    & > .map-wrapper {
         display: grid;
-        grid-template-areas: "view list" "search list";
-        grid-template-columns: 1fr 300px;
-        grid-template-rows: 400px 100px;
+        grid-template-areas: "view" "list";
+        grid-template-columns: 100%;
+        grid-template-rows: 600px auto;
+        width: calc(100% + 40px);
+        margin-inline-start: -20px;
+        position: relative;
+
+        @media #{$largeUp} {
+            grid-template-columns: 1fr 300px;
+            grid-template-rows: 400px 100px;
+            grid-template-areas: "view list" "search list";
+            margin: 0;
+            width: unset;
+        }
     }
 }
